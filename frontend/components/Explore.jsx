@@ -1,8 +1,11 @@
 import React from 'react'
+import { Categories } from './Categories'
 
 const Explore = () => {
   return (
-    <div>Explore</div>
+    
+    <Categories />
+
   )
 }
 
