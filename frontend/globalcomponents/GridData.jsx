@@ -1,4 +1,5 @@
-import { useRouter } from 'next/router';
+
+import { useRouter } from 'next/navigation';
 import { BentoGrid, BentoGridItem } from '../components/ui/BentoGrid';
 
 const GridData = ({ data, showAll, heading, onClick }) => {
@@ -7,6 +8,7 @@ const GridData = ({ data, showAll, heading, onClick }) => {
 
   const handleCardClick = (id) => {
     router.push(`/nextPage/${id}`);
+    console.log(id);
   };
 
   return (

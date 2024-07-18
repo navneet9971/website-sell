@@ -1,7 +1,17 @@
+"use client"
+
+import { useRouter } from 'next/navigation';
 import { BentoGrid, BentoGridItem } from '../components/ui/BentoGrid';
 
 const PagesGrid = ({ data, heading }) => {
-  
+
+    const router = useRouter();
+
+
+    const handleGridCardClick = (id) => {
+        router.push(`mainPage/${id}`);
+        console.log(id)
+    }
 
   return (
     <div className='px-6'>
@@ -15,6 +25,7 @@ const PagesGrid = ({ data, heading }) => {
             header={item.header}
             className={item.className}
             icon={item.icon}
+            onClick={() => handleGridCardClick(item.id)}
           />
         ))}
       </BentoGrid>
