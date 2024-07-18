@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-// import { useRouter } from 'next/router';
+
 import { BentoGrid, BentoGridItem } from './ui/BentoGrid';
 import { CategoriesData } from '@/data/data';
+import { useRouter } from 'next/navigation';
 
 export const Categories = () => {
   const [showAll, setShowAll] = useState(false);
-//   const router = useRouter();
+  const router = useRouter();
 
   const handleShowMore = () => {
     // Redirect to another page to show all categories
-    // router.push('/');
-    console.log("show all data")
+    router.push('/categoryList');
   };
 
   // Determine the number of categories to display
-  const categoriesToDisplay = showAll ? CategoriesData : CategoriesData.slice(0, 5);
+  const categoriesToDisplay = showAll ? CategoriesData : CategoriesData.slice(0, 8);
 
   return (
     <div>
@@ -25,7 +25,7 @@ export const Categories = () => {
         )}
       </div>
 
-      <BentoGrid className="max-w-full mx-auto md:auto-rows-[20rem]">
+      <BentoGrid className="max-w-full mx-auto md:auto-rows-[11.5rem]">
         {categoriesToDisplay.map((item, i) => (
           <BentoGridItem
             key={i}

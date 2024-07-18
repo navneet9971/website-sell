@@ -22,7 +22,9 @@ export default function RootLayout({ children }) {
             disableTransitionOnChange
           >
          <Navbar />
+         <div className="mt-20">
         {children}
+        </div>
         </ThemeProvider>
         </body>
     </html>
