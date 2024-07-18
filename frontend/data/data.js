@@ -16,69 +16,70 @@ export const navigation = [
 
   export const CategoriesData = [
     {
+        id: "1",
         title: "Item 1",
         description: "This is the description for item 1.",
         header: "Header 1",
-       
         icon: "icon-1"
     },
     {
+        id: "2",
         title: "Item 2",
         description: "This is the description for item 2.",
         header: "Header 2",
-        
         icon: "icon-2"
     },
     {
+        id: "3",
         title: "Item 3",
         description: "This is the description for item 3.",
         header: "Header 3",
- 
         icon: "icon-3"
     },
     {
+        id: "4",
         title: "Item 4",
         description: "This is the description for item 4.",
         header: "Header 4",
-        
         icon: "icon-4"
     },
     {
+        id: "5",
         title: "Item 5",
         description: "This is the description for item 5.",
         header: "Header 5",
-  
         icon: "icon-5"
     },
     {
+        id: "6",
         title: "Item 6",
         description: "This is the description for item 6.",
         header: "Header 6",
-    
         icon: "icon-6"
     },
     {
+        id: "7",
         title: "Item 7",
         description: "This is the description for item 7.",
         header: "Header 7",
-
         icon: "icon-7"
     },
     {
+        id: "8",
         title: "Item 8",
         description: "This is the description for item 8.",
         header: "Header 8",
-     
         icon: "icon-8"
     },
     {
+        id: "9",
         title: "Item 9",
         description: "This is the description for item 9.",
         header: "Header 9",
-   
         icon: "icon-9"
     },
     {
+        id: "10",
         title: "Item 10",
         description: "This is the description for item 10.",
         header: "Header 10",
@@ -87,70 +88,71 @@ export const navigation = [
 ];
 
 export const TrendingData = [
-    {
+     {
+        id: "1",
         title: "Item 1",
         description: "This is the description for item 1.",
         header: "Header 1",
-       
         icon: "icon-1"
     },
     {
+        id: "2",
         title: "Item 2",
         description: "This is the description for item 2.",
         header: "Header 2",
-        
         icon: "icon-2"
     },
     {
+        id: "3",
         title: "Item 3",
         description: "This is the description for item 3.",
         header: "Header 3",
- 
         icon: "icon-3"
     },
     {
+        id: "4",
         title: "Item 4",
         description: "This is the description for item 4.",
         header: "Header 4",
-        
         icon: "icon-4"
     },
     {
+        id: "5",
         title: "Item 5",
         description: "This is the description for item 5.",
         header: "Header 5",
-  
         icon: "icon-5"
     },
     {
+        id: "6",
         title: "Item 6",
         description: "This is the description for item 6.",
         header: "Header 6",
-    
         icon: "icon-6"
     },
     {
+        id: "7",
         title: "Item 7",
         description: "This is the description for item 7.",
         header: "Header 7",
-
         icon: "icon-7"
     },
     {
+        id: "8",
         title: "Item 8",
         description: "This is the description for item 8.",
         header: "Header 8",
-     
         icon: "icon-8"
     },
     {
+        id: "9",
         title: "Item 9",
         description: "This is the description for item 9.",
         header: "Header 9",
-   
         icon: "icon-9"
     },
     {
+        id: "10",
         title: "Item 10",
         description: "This is the description for item 10.",
         header: "Header 10",
@@ -159,70 +161,71 @@ export const TrendingData = [
 ];
 
 export const CodeData = [
-    {
+     {
+        id: "1",
         title: "Item 1",
         description: "This is the description for item 1.",
         header: "Header 1",
-       
         icon: "icon-1"
     },
     {
+        id: "2",
         title: "Item 2",
         description: "This is the description for item 2.",
         header: "Header 2",
-        
         icon: "icon-2"
     },
     {
+        id: "3",
         title: "Item 3",
         description: "This is the description for item 3.",
         header: "Header 3",
- 
         icon: "icon-3"
     },
     {
+        id: "4",
         title: "Item 4",
         description: "This is the description for item 4.",
         header: "Header 4",
-        
         icon: "icon-4"
     },
     {
+        id: "5",
         title: "Item 5",
         description: "This is the description for item 5.",
         header: "Header 5",
-  
         icon: "icon-5"
     },
     {
+        id: "6",
         title: "Item 6",
         description: "This is the description for item 6.",
         header: "Header 6",
-    
         icon: "icon-6"
     },
     {
+        id: "7",
         title: "Item 7",
         description: "This is the description for item 7.",
         header: "Header 7",
-
         icon: "icon-7"
     },
     {
+        id: "8",
         title: "Item 8",
         description: "This is the description for item 8.",
         header: "Header 8",
-     
         icon: "icon-8"
     },
     {
+        id: "9",
         title: "Item 9",
         description: "This is the description for item 9.",
         header: "Header 9",
-   
         icon: "icon-9"
     },
     {
+        id: "10",
         title: "Item 10",
         description: "This is the description for item 10.",
         header: "Header 10",

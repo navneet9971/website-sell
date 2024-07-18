@@ -1,4 +1,3 @@
-import { BentoGrid, BentoGridItem } from '@/components/ui/BentoGrid'
 import { TrendingData } from '@/data/data'
 import PagesGrid from '@/globalcomponents/PagesGrid'
 import React from 'react'

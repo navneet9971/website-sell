@@ -17,10 +17,6 @@ export const Categories = () => {
     setShowAll(true);
   };
 
-
-
- 
-
   return (
     <div>
       <GridData
