@@ -7,7 +7,7 @@ const GridData = ({ data, showAll, heading, onClick }) => {
   const dataToDisplay = showAll ? data : data.slice(0, 8);
 
   const handleCardClick = (id) => {
-    router.push(`/nextPage/${id}`);
+    router.push(`/productInfo/${id}`);
     console.log(id);
   };
 

@@ -9,7 +9,7 @@ const PagesGrid = ({ data, heading }) => {
 
 
     const handleGridCardClick = (id) => {
-        router.push(`mainPage/${id}`);
+        router.push(`/productInfo/${id}`);
         console.log(id)
     }
 
