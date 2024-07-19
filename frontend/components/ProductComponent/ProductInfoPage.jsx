@@ -9,7 +9,7 @@ const ProductInfoPage = () => {
       <ImageSection />
     </div>
     
-    <div className="flex-1">
+    <div className="flex-1 shadow-lg shadow-black/40">
       <ImageInformation />
     </div>
   </div>
