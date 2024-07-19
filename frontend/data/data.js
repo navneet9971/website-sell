@@ -233,3 +233,17 @@ export const CodeData = [
     }
 ];
 
+export const languge = [
+    { label: 'Python', value: 'Python' },
+    { label: 'JavaScript', value: 'JavaScript' },
+    { label: 'Java', value: 'Java' },
+    { label: 'C#', value: 'C#' },
+    { label: 'Go', value: 'Go' },
+]
+
+export const use = [
+    { label: 'Mobile', value: 'Mobile' },
+    { label: 'Content', value: 'Content' },
+    { label: 'Media', value: 'Media' },
+    { label: 'Food', value: 'Food' },
+]
