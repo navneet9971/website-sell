@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import React from 'react'
-import { FaComputer, FaCheck  } from "react-icons/fa6";
+import { FaComputer, FaCheck, FaHandHoldingHeart, FaCartPlus  } from "react-icons/fa6";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 
 const languge = [
@@ -32,15 +32,19 @@ const handleButtonClick = () => {
 <h1 className='bg-blue-400 text-white font-bold text-2xl px-4'>Prdouct Information</h1>
 
 <div className='flex items-start justify-around py-3'>
-<h1 className='text-4xl font-bold'><span>&#8377;</span>100</h1>
+<h1 className='text-3xl font-bold'><span>&#8377;</span>100</h1>
  
 
 <div className='flex items-center justify-center gap-5'>
-<Button onClick={handleButtonClick} variant="outline">
+<Button onClick={handleButtonClick} variant="outline" className="flex items-center gap-2">
+<FaCartPlus />
 Add cart
 </Button>
-<Button variant="outline">
-Favorites
+
+
+<Button variant="outline" className="flex items-center gap-2">
+<FaHandHoldingHeart  size={20}/>
+Favorites 
 </Button>
 </div>
 </div>
@@ -73,6 +77,8 @@ Favorites
     </div>
 ))}
 </div>
+
+
 
 <div className='flex items-start gap-1 mt-6'>
 <FaCheck size={30} color='lightgreen'/>
