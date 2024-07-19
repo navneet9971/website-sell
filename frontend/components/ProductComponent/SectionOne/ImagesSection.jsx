@@ -22,10 +22,10 @@ const ImageSection = () => {
   ]
 
   return (
-    <div className='flex  flex-col items-center justify-center'>
+    <div className='flex flex-col items-center justify-center'>
   <Image
   src={Image3}
-  width={500}
+  width={600}
   height={100}
 />
 

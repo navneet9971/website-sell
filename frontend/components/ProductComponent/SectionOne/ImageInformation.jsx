@@ -73,15 +73,15 @@ const ImageInformation = () => {
                     </div>
 
                     <div className='flex  items-center gap-4'>
-                        <Button variant="default" className="flex items-center gap-2">
+                        <Button variant="default" className="px-6 py-2 bg-black text-white rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
                             <FaBookBookmark size={20} />
                             User Guide
                         </Button>
-                        <Button variant="default" className="flex items-center gap-2">
+                        <Button variant="default" className="px-6 py-2 bg-black text-white rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
                             <FaFileCode size={20} />
                             Code Insight
                         </Button>
-                        <Button variant="default" className="flex items-center gap-2">
+                        <Button variant="default" className="px-6 py-2 bg-black text-white rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
                             <RiScreenshot2Fill size={20} />
                             Screen Shots
                         </Button>
@@ -98,6 +98,15 @@ const ImageInformation = () => {
                     <FaCheck size={30} color='lightgreen' />
                     <h1 className='font-bold text-xl'>Product inspected by Coders</h1>
                 </div>
+
+<div className='flex justify-center items-center py-4'>
+<Button variant="destructive" className="flex items-center gap-2 w-2/3 hover:bg-green-600" >
+                            {/* <RiScreenshot2Fill size={20} /> */}
+                            <h1 className='font-bold text-2xl'> Purchase Code </h1 > 
+                        </Button>
+</div>
+
+
             </div>
         </div>
     )
