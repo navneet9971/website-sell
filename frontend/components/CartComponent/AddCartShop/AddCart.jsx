@@ -10,7 +10,7 @@ const AddCart = () => {
     const cartCount = useCartStore((state) => state.cartCount);
 
        const handleViewCart = () => {
-        router.push(`/cartInfo/${id}`); 
+        router.push(`/cartInfo`); 
     };
 
     return (
