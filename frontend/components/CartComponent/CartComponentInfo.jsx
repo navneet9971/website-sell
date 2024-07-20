@@ -1,10 +1,12 @@
 import React from 'react'
-import AddCart from './AddCartShop/AddCart'
+import CartPage from './CartPage/CartPage'
+
 
 const CartComponentInfo = () => {
   return (
- 
-   <AddCart />
+
+ <CartPage />
+
   )
 }
 
