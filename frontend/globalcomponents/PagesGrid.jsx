@@ -6,8 +6,7 @@ import { BentoGrid, BentoGridItem } from '../components/ui/BentoGrid';
 const PagesGrid = ({ data, heading }) => {
 
     const router = useRouter();
-
-
+    
     const handleGridCardClick = (id) => {
         router.push(`/productInfo/${id}`);
         console.log(id)

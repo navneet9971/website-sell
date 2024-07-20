@@ -1,5 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import ReletedProduct from './SectionThird/ReletedProduct';
 
 const ImageSection = dynamic(() => import('./SectionOne/ImagesSection'), { ssr: true });
 const ImageInformation = dynamic(() => import('./SectionOne/ImageInformation'), { ssr: true });
@@ -8,7 +9,7 @@ const ProductDes = dynamic(() => import('./SectionTwo/ProductDes'), { ssr: true 
 
 const ProductInfoPage = () => {
   return (
-    <div>
+    <div className='mb-6'>
       <div className="flex items-start justify-between px-8">
         <div className="flex-1">
           <ImageSection />
@@ -25,6 +26,12 @@ const ProductInfoPage = () => {
   <div className="w-2/3">
     <ProductDes />
   </div>
+</div>
+
+<div className='flex items-start justify-start mt-10 px-8'>
+<ReletedProduct />
+
+
 </div>
 
     </div>
