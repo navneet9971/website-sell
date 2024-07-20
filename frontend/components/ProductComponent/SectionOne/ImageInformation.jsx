@@ -17,7 +17,7 @@ const ImageInformation = () => {
     return (
         <div className='w-full h-full border-black bg-slate-200'>
 
-            <h1 className='bg-blue-400 text-white font-bold text-2xl px-4'>Prdouct Information</h1>
+            <h1 className='bg-blue-400 text-white font-bold text-2xl px-4'>Product Information</h1>
 
             <div className='flex items-start justify-around py-3'>
                 <h1 className='text-3xl font-bold'><span>&#8377;</span>100</h1>

@@ -19,13 +19,14 @@ const ProductInfoPage = () => {
       </div>
 
       <div className="flex items-start justify-between px-8 mt-10">
-        <div className="flex-1">
-          <ProductUser />
-        </div>
-        <div className="flex-1">
-          <ProductDes />
-        </div>
-      </div>
+  <div className="w-5/12"> 
+    <ProductUser />
+  </div>
+  <div className="w-2/3">
+    <ProductDes />
+  </div>
+</div>
+
     </div>
   );
 };
