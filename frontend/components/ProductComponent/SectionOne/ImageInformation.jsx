@@ -1,19 +1,32 @@
 "use client"
 
+import useCartStore from '@/components/CartComponent/AddCartShop/useCartStore';
 import { Button } from '@/components/ui/button'
 import { languge, use } from '@/data/data';
-import React from 'react'
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react'
+import { FaShoppingCart } from 'react-icons/fa';
 import { FaComputer, FaCheck, FaFileCode, FaHandHoldingHeart, FaCircleUser, FaCartPlus, FaBookBookmark } from "react-icons/fa6";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import { RiScreenshot2Fill } from "react-icons/ri";
 
 
-const ImageInformation = () => {
+const ImageInformation = ({id }) => {
+   
+    const [cartItems, setCartItems] = useState([]);
+    const increaseCartCount = useCartStore((state) => state.increaseCartCount);
+    const router  = useRouter();
 
     const handleButtonClick = () => {
-        alert('Added to cart!')
+        alert('Added to cart!',)
     }
 
+    const handleAddCart = () => {
+        setCartItems([...cartItems, id]);
+        increaseCartCount();
+    };
+
+ 
     return (
         <div className='w-full h-full border-black bg-slate-200'>
 
@@ -24,18 +37,19 @@ const ImageInformation = () => {
 
 
                 <div className='flex items-center justify-center gap-5'>
-                    <Button onClick={handleButtonClick} variant="outline" className="flex items-center gap-2 bg-blue-600 text-white">
-                        <FaCartPlus />
-                        Add cart
-                    </Button>
-
+                <Button onClick={handleAddCart} variant="outline" className="flex items-center gap-2 bg-blue-600 text-white">
+                <FaCartPlus />
+                Add cart
+            </Button>
 
                     <Button variant="destructive" className="flex items-center gap-2">
-                        <FaHandHoldingHeart size={20} />
+                        <FaHandHoldingHeart size={20} onClick={handleButtonClick}/>
                         Favorites
                     </Button>
                 </div>
             </div>
+
+           
 
 
             <div className='px-3 mt-3'>

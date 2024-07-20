@@ -7,15 +7,15 @@ const ImageInformation = dynamic(() => import('./SectionOne/ImageInformation'), 
 const ProductUser = dynamic(() => import('./SectionTwo/ProductUser'), { ssr: true });
 const ProductDes = dynamic(() => import('./SectionTwo/ProductDes'), { ssr: true });
 
-const ProductInfoPage = () => {
+const ProductInfoPage = ( {id} ) => {
   return (
     <div className='mb-6'>
       <div className="flex items-start justify-between px-8">
         <div className="flex-1">
-          <ImageSection />
+          <ImageSection id={id}/>
         </div>
         <div className="flex-1 shadow-lg shadow-black/40">
-          <ImageInformation />
+          <ImageInformation id={id}/>
         </div>
       </div>
 

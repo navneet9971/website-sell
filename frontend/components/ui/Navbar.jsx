@@ -6,6 +6,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ModeToggle } from './ModeToggle';
 import { Input } from "@/components/ui/input";
+import AddCart from '../CartComponent/AddCartShop/AddCart';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -16,8 +17,6 @@ export default function Navbar() {
   const [profilePic, setProfilePic] = useState("https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80");
 
 
-
-  
   return  (
     <Disclosure as="nav" className="bg-gray-800 fixed top-0 left-0 right-0 z-50">
       <div className="mx-auto max-w-full px-2 sm:px-6 lg:px-8 ">
@@ -44,7 +43,14 @@ export default function Navbar() {
               placeholder="Search.."
             />
           </div>
-          <ModeToggle />
+
+<div className='flex items-center justify-center gap-6 mt-2'>
+<AddCart/>
+<ModeToggle />
+
+</div>
+         
+      
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {isLoggedIn ? (
               <>
