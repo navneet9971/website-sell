@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import { miniNavbar } from '@/data/data';
 

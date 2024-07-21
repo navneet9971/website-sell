@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/Themeprovider";
 import Navbar from "@/components/ui/Navbar";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import SecondNavbar from "@/components/SecondNavbar";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,7 +25,8 @@ export default function RootLayout({ children }) {
             disableTransitionOnChange
           >
          <Navbar />
-         <div className="mt-20">
+         <SecondNavbar />
+         <div className="mt-28">
          <ToastContainer />
         {children}
         </div>
