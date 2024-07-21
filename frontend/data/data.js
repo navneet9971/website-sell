@@ -20,21 +20,21 @@ export const navigation = [
         title: "Item 1",
         description: "This is the description for item 1.",
         header: "Header 1",
-        icon: "icon-1"
+        img: "/anime.jpg"
     },
     {
         id: "2",
         title: "Item 2",
         description: "This is the description for item 2.",
         header: "Header 2",
-        icon: "icon-2"
+        img: "/dargon.jpg"
     },
     {
         id: "3",
         title: "Item 3",
         description: "This is the description for item 3.",
         header: "Header 3",
-        icon: "icon-3"
+        img: "/exampleAnime.jpg"
     },
     {
         id: "4",
