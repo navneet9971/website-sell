@@ -25,9 +25,12 @@ const GridData = ({ data, showAll, heading, onClick }) => {
             key={item.id}
             title={item.title}
             description={item.description}
-            header={item.header}
+            language={item.language}
+            industry={item.industry}
+            devices={item.devices}
             className={item.className}
             img={item.img}
+            price={item.price}
             onClick={() => handleCardClick(item.id)}
           />
         ))}

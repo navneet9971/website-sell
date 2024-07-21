@@ -9,6 +9,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { FaComputer, FaCheck, FaFileCode, FaHandHoldingHeart, FaCircleUser, FaCartPlus, FaBookBookmark } from "react-icons/fa6";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import { RiScreenshot2Fill } from "react-icons/ri";
+import { toast } from 'react-toastify'
 
 
 const ImageInformation = ({id }) => {
@@ -24,6 +25,7 @@ const ImageInformation = ({id }) => {
     const handleAddCart = () => {
         setCartItems([...cartItems, id]);
         increaseCartCount();
+        toast.success('Add Item on cart!')
     };
 
  

@@ -21,9 +21,12 @@ const PagesGrid = ({ data, heading }) => {
             key={i}
             title={item.title}
             description={item.description}
-            header={item.header}
+            language={item.language}
+            industry={item.industry}
+            devices={item.devices}
             className={item.className}
-            icon={item.icon}
+            img={item.img}
+            price={item.price}
             onClick={() => handleGridCardClick(item.id)}
           />
         ))}

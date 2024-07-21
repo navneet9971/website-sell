@@ -2,6 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/Themeprovider";
 import Navbar from "@/components/ui/Navbar";
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -23,6 +25,7 @@ export default function RootLayout({ children }) {
           >
          <Navbar />
          <div className="mt-20">
+         <ToastContainer />
         {children}
         </div>
         </ThemeProvider>

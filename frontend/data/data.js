@@ -17,73 +17,98 @@ export const navigation = [
   export const CategoriesData = [
     {
         id: "1",
-        title: "Item 1",
-        description: "This is the description for item 1.",
-        header: "Header 1",
-        img: "/anime.jpg"
+        title: "Itachi",
+        description: "This is the description for item 1. This is the description for item 1. This is the description for item 1. This is the description for item 1.",
+        language: "Japanese, English, French, German, Hindi, Tamil",
+        industry: "Anime, Manga, Gaming, Action, Sc-fi",
+        devices: "TV, Mobile, Tablet, Console",
+        img: "/anime.jpg",
+        price: "200"
     },
     {
         id: "2",
-        title: "Item 2",
+        title: "Goku",
         description: "This is the description for item 2.",
-        header: "Header 2",
-        img: "/dargon.jpg"
+        language: "Japanese, English, Spanish",
+        industry: "Anime, Manga, Entertainment",
+        devices:"TV, Mobile, Tablet",
+        img: "/dargon.jpg",
+        price:"2000"
     },
     {
         id: "3",
-        title: "Item 3",
+        title: "Bhai",
         description: "This is the description for item 3.",
-        header: "Header 3",
-        img: "/exampleAnime.jpg"
+        language: "Japanese, English, French, German",
+        industry: "Anime, Manga, Gaming",
+        devices: "TV, Mobile, Tablet, Console",
+        img: "/exampleAnime.jpg",
+        price: "1000"
     },
     {
         id: "4",
         title: "Item 4",
         description: "This is the description for item 4.",
-        header: "Header 4",
-        icon: "icon-4"
+        description: "This is the description for item 2.",
+        language: "Japanese, English, Spanish",
+        industry: "Anime, Manga, Entertainment",
+        devices:"TV, Mobile, Tablet",
+        img: "/anime.jpg",
+          price: "0"
     },
     {
         id: "5",
         title: "Item 5",
         description: "This is the description for item 5.",
-        header: "Header 5",
-        icon: "icon-5"
+        language: "Japanese, English, French, German",
+        industry: "Anime, Manga, Gaming",
+        devices: "TV, Mobile, Tablet, Console",
+       img: "/dargon.jpg"
     },
     {
         id: "6",
         title: "Item 6",
         description: "This is the description for item 6.",
-        header: "Header 6",
-        icon: "icon-6"
+        language: "Japanese, English, Spanish",
+        industry: "Anime, Manga, Entertainment",
+        devices:"TV, Mobile, Tablet",
+         img: "/exampleAnime.jpg"
     },
     {
         id: "7",
         title: "Item 7",
         description: "This is the description for item 7.",
-        header: "Header 7",
-        icon: "icon-7"
+        language: "Japanese, English, French, German",
+        industry: "Anime, Manga, Gaming",
+        devices: "TV, Mobile, Tablet, Console",
+          img: "/anime.jpg"
     },
     {
         id: "8",
         title: "Item 8",
         description: "This is the description for item 8.",
-        header: "Header 8",
-        icon: "icon-8"
+        language: "Japanese, English, Spanish",
+        industry: "Anime, Manga, Entertainment",
+        devices:"TV, Mobile, Tablet",
+         img: "/dargon.jpg"
     },
     {
         id: "9",
         title: "Item 9",
         description: "This is the description for item 9.",
-        header: "Header 9",
-        icon: "icon-9"
+        language: "Japanese, English, French, German, Hindi, Tamil",
+        industry: "Anime, Manga, Gaming",
+        devices: "TV, Mobile, Tablet, Console",
+          img: "/exampleAnime.jpg"
     },
     {
         id: "10",
         title: "Item 10",
         description: "This is the description for item 10.",
-        header: "Header 10",
-        icon: "icon-10"
+        language: "Japanese, English, Spanish",
+        industry: "Anime, Manga, Entertainment",
+        devices:"TV, Mobile, Tablet",
+        img: "/anime.jpg"
     }
 ];
 

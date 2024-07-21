@@ -1,5 +1,9 @@
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { LiaFileCodeSolid, LiaIndustrySolid } from "react-icons/lia";
+import { MdDevices } from "react-icons/md";
+
 
 export const BentoGrid = ({ className, children }) => {
   return (
@@ -18,39 +22,83 @@ export const BentoGridItem = ({
   className,
   title,
   description,
-  header,
+  language,
+  industry,
+  devices,
   img,
   onClick,
   buttonText,
   price,
 }) => {
+
+  const truncateNames = (names) => {
+    if (names.length <= 4) {
+      return names.join(', ');
+    }
+    return `${names.slice(0, 4).join(', ')}...`;
+  };
+
+  const languageNames = language ? language.split(',').map(name => name.trim()) : [];
+  const industryNames = industry ? industry.split(',').map(name => name.trim()) : [];
+  const deviceNames = devices ? devices.split(',').map(name => name.trim()) : [];
+
+  const priceNumber = parseFloat(price); // String to Number Convert use to parseFloat
+
+const handleBuyItem = () => {
+  alert("Working on it hold on plzzzz")
+}
+
   return (
     <div
       className={cn(
-        "w-72 h-96 overflow-hidden row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-gray-100 border border-transparent justify-between flex flex-col space-y-4",
+        "w-72 h-[26.5rem] overflow-hidden row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-gray-100 border border-transparent justify-between flex flex-col space-y-4",
         className
       )}
     >
       <div className="group-hover/bento:translate-x-2 transition duration-200">
         <Image
-        src={img}
-        width={300}
-        height={50}
+          src={img}
+          width={300}
+          height={50}
         />
-        <div className="font-sans font-bold text-neutral-600 dark:text-neutral-200 mb-2 mt-2 cursor-pointer" onClick={onClick}>
+        <div className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200 mb-3 mt-2 cursor-pointer hover:text-neutral-400" onClick={onClick}>
           {title}
         </div>
-        <div className="font-sans font-normal text-neutral-600 text-xs dark:text-neutral-300">
+        <div className="font-sans font-normal text-neutral-600 text-xs dark:text-neutral-300 mb-3 line-clamp-2 cursor-default">
           {description}
         </div>
-        <div className="flex justify-between items-center mt-auto">
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200" onClick={onClick}>
-            {buttonText}
-          </button>
-          <div className="text-neutral-600 dark:text-neutral-300">
-            {price}
+
+        <div className="flex flex-col items-start justify-center gap-2 mt-4 cursor-default">
+          <div className="flex items-start justify-start gap-1">
+            <LiaFileCodeSolid size={22} color="blue" />
+            <h1 className="text-xs font-bold text-end py-1">{truncateNames(languageNames)} </h1>
           </div>
+
+          <div className="flex items-start justify-start gap-1">
+            <LiaIndustrySolid size={22} color="blue" />
+            <h1 className="text-xs font-bold text-end py-1">{truncateNames(industryNames)}</h1>
+          </div>
+
+          <div className="flex items-start justify-start gap-1">
+            <MdDevices size={22} color="blue" />
+            <h1 className="text-xs font-bold text-end py-1">{truncateNames(deviceNames)}</h1>
+          </div>
+
         </div>
+
+        <div className="flex justify-between items-center mt-7">
+      <Button 
+        variant="outline" 
+        className="w-24 h-10 bg-blue-500 text-white font-bold text-xl px-2 py-1 rounded-md hover:bg-blue-600 transition duration-200" 
+        onClick={handleBuyItem}
+      >
+                {priceNumber === 0 ? 'Free' : 'Buy'}
+      </Button>
+      <div className="text-neutral-800 font-bold text-2xl dark:text-neutral-300 cursor-default">
+        &#8377; {price}
+      </div>
+    </div>
+
       </div>
     </div>
   );
