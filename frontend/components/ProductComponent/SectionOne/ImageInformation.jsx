@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { FaComputer, FaCheck, FaFileCode, FaHandHoldingHeart, FaCircleUser, FaCartPlus, FaBookBookmark, FaPlay } from "react-icons/fa6";
 import { HiBuildingOffice2 } from "react-icons/hi2";
+import { FaGrinHearts } from "react-icons/fa";
+import { BsFillCartCheckFill } from "react-icons/bs";
 import { toast } from 'react-toastify'
 
 
@@ -19,60 +21,32 @@ const ImageInformation = ({ id }) => {
     const router = useRouter();
 
     //Use This on later after implement the api 
-    // const handleButtonClick = () => {
-    //     if (liked) {
-
-    //         setLiked(false);
-    //         setLikedItems((prevLikedItems) => prevLikedItems.filter((item) => item !== id));
-    //         decreaseLikeCount();
-    //         toast.error('Item removed from likes!');
-    //     } else {
-
-    //         setLiked(true);
-    //         setLikedItems((prevLikedItems) => [...prevLikedItems, id]);
-    //         increaseLikeCount();
-    //         toast.success('Item liked!');
-    //     }
-    // }
-
-
     const handleButtonClick = () => {
         if (liked) {
             setLiked(false);
-            setLikedItems((prevLikedItems) => {
-                const updatedLikedItems = prevLikedItems.filter((item) => item !== id);
-                localStorage.setItem('likedItems', JSON.stringify(updatedLikedItems));
-                return updatedLikedItems;
-            });
+            setLikedItems((prevLikedItems) => prevLikedItems.filter((item) => item !== id));
             decreaseLikeCount();
             toast.error('Item removed from likes!');
         } else {
             setLiked(true);
-            setLikedItems((prevLikedItems) => {
-                const updatedLikedItems = [...prevLikedItems, id];
-                localStorage.setItem('likedItems', JSON.stringify(updatedLikedItems));
-                return updatedLikedItems;
-            });
+            setLikedItems((prevLikedItems) => [...prevLikedItems, id]);
             increaseLikeCount();
             toast.success('Item liked!');
         }
     };
-    
 
     const handleAddCart = () => {
         if (cartItems.includes(id)) {
-
             setCartItems(cartItems.filter(item => item !== id));
             decreaseCartCount();
             toast.error('Item removed from cart!');
         } else {
-
             setCartItems([...cartItems, id]);
             increaseCartCount();
             toast.success('Item added to cart!');
         }
     };
-
+    const isInCart = cartItems.includes(id);
 
     return (
         <div className='w-full h-full border-black bg-slate-200'>
@@ -84,14 +58,16 @@ const ImageInformation = ({ id }) => {
 
 
                 <div className='flex items-center justify-center gap-5'>
-                    <Button onClick={handleAddCart} variant="outline" className="flex items-center gap-2 bg-blue-600 text-white">
-                        <FaCartPlus />
-                        Add cart
+                    <Button onClick={handleAddCart} variant="outline" 
+                     className={`flex items-center gap-2 ${isInCart ? 'bg-green-600' : 'bg-blue-600'} text-white`}>
+                    {isInCart ? <BsFillCartCheckFill /> : <FaCartPlus />}
+                    {isInCart ? 'Added' : 'Add to cart'}
                     </Button>
 
-                    <Button onClick={handleButtonClick} variant="destructive" className="flex items-center gap-2">
-                        <FaHandHoldingHeart size={20} />
-                        Favorites
+                    <Button onClick={handleButtonClick} variant="destructive"
+                    className={`flex items-center gap-2 ${liked ? 'bg-pink-600' : 'bg-red-600'}`}>
+                        {liked ?  <FaGrinHearts /> : <FaHandHoldingHeart />}
+                        {liked ? "Loved" : "Favorites"}
                     </Button>
                 </div>
             </div>
