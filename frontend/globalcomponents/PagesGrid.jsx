@@ -18,7 +18,7 @@ const PagesGrid = ({ data, heading }) => {
       <BentoGrid className="max-w-full mx-auto md:auto-rows-[11.5rem]">
         {data.map((item, i) => (
           <BentoGridItem
-            key={i}
+            key={item.id}
             title={item.title}
             description={item.description}
             language={item.language}

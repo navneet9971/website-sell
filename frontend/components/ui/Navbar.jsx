@@ -7,6 +7,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ModeToggle } from './ModeToggle';
 import { Input } from "@/components/ui/input";
 import AddCart from '../NavbarComponent/CartComponent/AddCartShop/AddCart';
+import AddLike from '../NavbarComponent/LikeComponent/AddLikeButton/AddLike';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -45,6 +46,7 @@ export default function Navbar() {
           </div>
 
 <div className='flex items-center justify-center gap-6 mt-2'>
+ <AddLike /> 
 <AddCart/>
 <ModeToggle />
 

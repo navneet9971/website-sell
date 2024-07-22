@@ -1,34 +1,55 @@
 "use client"
 
-import useCartStore from '@/components/NavbarComponent/CartComponent/AddCartShop/useCartStore';
 import { Button } from '@/components/ui/button'
 import { languge, use } from '@/data/data';
+import useCountNum from '@/globalcomponents/useCountNum';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
-import { FaShoppingCart } from 'react-icons/fa';
 import { FaComputer, FaCheck, FaFileCode, FaHandHoldingHeart, FaCircleUser, FaCartPlus, FaBookBookmark } from "react-icons/fa6";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import { RiScreenshot2Fill } from "react-icons/ri";
 import { toast } from 'react-toastify'
 
 
-const ImageInformation = ({id }) => {
-   
+const ImageInformation = ({ id }) => {
+
+    const [liked, setLiked] = useState(false);
+    const [likedItems, setLikedItems] = useState([]);
     const [cartItems, setCartItems] = useState([]);
-    const increaseCartCount = useCartStore((state) => state.increaseCartCount);
-    const router  = useRouter();
+    const { increaseLikeCount, decreaseLikeCount, increaseCartCount, decreaseCartCount } = useCountNum();
+    const router = useRouter();
 
     const handleButtonClick = () => {
-        alert('Added to cart!',)
+        if (liked) {
+
+            setLiked(false);
+            setLikedItems((prevLikedItems) => prevLikedItems.filter((item) => item !== id));
+            decreaseLikeCount();
+            toast.error('Item removed from likes!');
+        } else {
+
+            setLiked(true);
+            setLikedItems((prevLikedItems) => [...prevLikedItems, id]);
+            increaseLikeCount();
+            toast.success('Item liked!');
+        }
     }
 
     const handleAddCart = () => {
-        setCartItems([...cartItems, id]);
-        increaseCartCount();
-        toast.success('Add Item on cart!')
+        if (cartItems.includes(id)) {
+
+            setCartItems(cartItems.filter(item => item !== id));
+            decreaseCartCount();
+            toast.error('Item removed from cart!');
+        } else {
+
+            setCartItems([...cartItems, id]);
+            increaseCartCount();
+            toast.success('Item added to cart!');
+        }
     };
 
- 
+
     return (
         <div className='w-full h-full border-black bg-slate-200'>
 
@@ -39,19 +60,19 @@ const ImageInformation = ({id }) => {
 
 
                 <div className='flex items-center justify-center gap-5'>
-                <Button onClick={handleAddCart} variant="outline" className="flex items-center gap-2 bg-blue-600 text-white">
-                <FaCartPlus />
-                Add cart
-            </Button>
+                    <Button onClick={handleAddCart} variant="outline" className="flex items-center gap-2 bg-blue-600 text-white">
+                        <FaCartPlus />
+                        Add cart
+                    </Button>
 
-                    <Button variant="destructive" className="flex items-center gap-2">
-                        <FaHandHoldingHeart size={20} onClick={handleButtonClick}/>
+                    <Button onClick={handleButtonClick} variant="destructive" className="flex items-center gap-2">
+                        <FaHandHoldingHeart size={20} />
                         Favorites
                     </Button>
                 </div>
             </div>
 
-           
+
 
 
             <div className='px-3 mt-3'>
@@ -115,12 +136,12 @@ const ImageInformation = ({id }) => {
                     <h1 className='font-bold text-xl'>Product inspected by Coders</h1>
                 </div>
 
-<div className='flex justify-center items-center py-4'>
-<Button variant="destructive" className="flex items-center gap-2 w-2/3 hover:bg-green-600" >
-                            {/* <RiScreenshot2Fill size={20} /> */}
-                            <h1 className='font-bold text-2xl'> Purchase Code </h1 > 
-                        </Button>
-</div>
+                <div className='flex justify-center items-center py-4'>
+                    <Button variant="destructive" className="flex items-center gap-2 w-2/3 hover:bg-green-600" >
+                        {/* <RiScreenshot2Fill size={20} /> */}
+                        <h1 className='font-bold text-2xl'> Purchase Code </h1 >
+                    </Button>
+                </div>
 
 
             </div>

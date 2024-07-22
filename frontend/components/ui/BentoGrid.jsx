@@ -6,6 +6,7 @@ import { MdDevices } from "react-icons/md";
 import { FaHeartBroken , FaHeart} from "react-icons/fa";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import useCountNum from "@/globalcomponents/useCountNum";
 
 export const BentoGrid = ({ className, children }) => {
   return (
@@ -21,6 +22,7 @@ export const BentoGrid = ({ className, children }) => {
 };
 
 export const BentoGridItem = ({
+  key, // Id of Product
   className,
   title,
   description,
@@ -33,6 +35,9 @@ export const BentoGridItem = ({
 }) => {
 
   const [liked, setLiked] = useState(false);
+  const [likedItems, setLikedItems] = useState([]);
+  const { increaseLikeCount, decreaseLikeCount } = useCountNum();
+
   const truncateNames = (names) => {
     if (names.length <= 4) {
       return names.join(', ');
@@ -51,8 +56,19 @@ export const BentoGridItem = ({
   };
 
   const handleLikeItem = () => {
-    setLiked(!liked);
-    toast.success('Item liked!')
+    if (liked) {
+      
+      setLiked(false);
+      setLikedItems((prevLikedItems) => prevLikedItems.filter((item) => item !== key)); 
+      decreaseLikeCount(); 
+      toast.error('Item removed from likes!');
+    } else {
+
+      setLiked(true);
+      setLikedItems((prevLikedItems) => [...prevLikedItems, key]); 
+      increaseLikeCount(); 
+      toast.success('Item liked!');
+    }
   };
 
   return (
