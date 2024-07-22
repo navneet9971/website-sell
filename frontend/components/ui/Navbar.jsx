@@ -1,26 +1,36 @@
-"use client"
-
+"use client";
 
 import { useState } from 'react';
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ModeToggle } from './ModeToggle';
 import { Input } from "@/components/ui/input";
 import AddCart from '../NavbarComponent/CartComponent/AddCartShop/AddCart';
 import AddLike from '../NavbarComponent/LikeComponent/AddLikeButton/AddLike';
+import { useRouter } from 'next/navigation';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to manage login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const [profilePic, setProfilePic] = useState("https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80");
+  const router = useRouter(); 
 
+  const handleLogin = () => {
+    // Redirect to login page
+    router.push('/auth/login');
+  };
 
-  return  (
+  const handleSignUp = () => {
+    // Redirect to sign-up page
+    router.push('/auth/signup');
+  };
+
+  return (
     <Disclosure as="nav" className="bg-gray-800 fixed top-0 left-0 right-0 z-50">
-      <div className="mx-auto max-w-full px-2 sm:px-6 lg:px-8 ">
+      <div className="mx-auto max-w-full px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-12 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button */}
@@ -45,14 +55,16 @@ export default function Navbar() {
             />
           </div>
 
-<div className='flex items-center justify-center gap-6 mt-2'>
- <AddLike /> 
-<AddCart/>
-<ModeToggle />
+          <div className='flex items-center justify-center gap-6 mt-2'>
+            {isLoggedIn && (
+              <>
+                <AddLike />
+                <AddCart />
+              </>
+            )}
+            <ModeToggle />
+          </div>
 
-</div>
-         
-      
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {isLoggedIn ? (
               <>
@@ -103,13 +115,13 @@ export default function Navbar() {
             ) : (
               <>
                 <button
-                  onClick={() => setIsLoggedIn(true)} 
+                  onClick={handleLogin}
                   className="relative rounded-md bg-gray-700 text-white px-3 py-2 text-sm hover:bg-gray-600"
                 >
                   Login
                 </button>
                 <button
-                  onClick={() => setIsLoggedIn(true)} 
+                  onClick={handleSignUp}
                   className="relative rounded-md bg-gray-700 text-white px-3 py-2 text-sm hover:bg-gray-600 ml-2"
                 >
                   Sign Up
