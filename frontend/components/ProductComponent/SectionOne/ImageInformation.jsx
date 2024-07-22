@@ -1,6 +1,6 @@
 "use client"
 
-import useCartStore from '@/components/CartComponent/AddCartShop/useCartStore';
+import useCartStore from '@/components/NavbarComponent/CartComponent/AddCartShop/useCartStore';
 import { Button } from '@/components/ui/button'
 import { languge, use } from '@/data/data';
 import { useRouter } from 'next/navigation';

@@ -6,7 +6,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ModeToggle } from './ModeToggle';
 import { Input } from "@/components/ui/input";
-import AddCart from '../CartComponent/AddCartShop/AddCart';
+import AddCart from '../NavbarComponent/CartComponent/AddCartShop/AddCart';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');

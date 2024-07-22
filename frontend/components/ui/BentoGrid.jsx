@@ -3,7 +3,9 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { LiaFileCodeSolid, LiaIndustrySolid } from "react-icons/lia";
 import { MdDevices } from "react-icons/md";
-
+import { FaHeartBroken , FaHeart} from "react-icons/fa";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 export const BentoGrid = ({ className, children }) => {
   return (
@@ -27,10 +29,10 @@ export const BentoGridItem = ({
   devices,
   img,
   onClick,
-  buttonText,
   price,
 }) => {
 
+  const [liked, setLiked] = useState(false);
   const truncateNames = (names) => {
     if (names.length <= 4) {
       return names.join(', ');
@@ -42,11 +44,16 @@ export const BentoGridItem = ({
   const industryNames = industry ? industry.split(',').map(name => name.trim()) : [];
   const deviceNames = devices ? devices.split(',').map(name => name.trim()) : [];
 
-  const priceNumber = parseFloat(price); // String to Number Convert use to parseFloat
+  const priceNumber = parseFloat(price); 
 
-const handleBuyItem = () => {
-  alert("Working on it hold on plzzzz")
-}
+  const handleBuyItem = () => {
+    alert("Working on it hold on plzzzz");
+  };
+
+  const handleLikeItem = () => {
+    setLiked(!liked);
+    toast.success('Item liked!')
+  };
 
   return (
     <div
@@ -55,50 +62,62 @@ const handleBuyItem = () => {
         className
       )}
     >
-      <div className="group-hover/bento:translate-x-2 transition duration-200">
+      <div className="relative">
         <Image
           src={img}
           width={300}
           height={50}
+          alt="Bento Item"
+          className="object-cover"
         />
-        <div className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200 mb-3 mt-2 cursor-pointer hover:text-neutral-400" onClick={onClick}>
-          {title}
-        </div>
-        <div className="font-sans font-normal text-neutral-600 text-xs dark:text-neutral-300 mb-3 line-clamp-2 cursor-default">
-          {description}
-        </div>
-
-        <div className="flex flex-col items-start justify-center gap-2 mt-4 cursor-default">
-          <div className="flex items-start justify-start gap-1">
-            <LiaFileCodeSolid size={22} color="blue" />
-            <h1 className="text-xs font-bold text-end py-1">{truncateNames(languageNames)} </h1>
+       <button 
+      className={`absolute top-1 right-1 bg-white rounded-full p-1.5 shadow-md transition duration-200 ${liked ? 'bg-green-100' : 'hover:bg-gray-200'}`} 
+      onClick={handleLikeItem}
+    >
+      {liked ? (
+        <FaHeart size={17} color="green" />
+      ) : (
+        <FaHeartBroken size={17} color="red" />
+      )}
+    </button>
+        <div className="group-hover/bento:translate-x-2 transition duration-200">
+          <div className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200 mb-3 mt-2 cursor-pointer hover:text-neutral-400" onClick={onClick}>
+            {title}
+          </div>
+          <div className="font-sans font-normal text-neutral-600 text-xs dark:text-neutral-300 mb-3 line-clamp-2 cursor-default">
+            {description}
           </div>
 
-          <div className="flex items-start justify-start gap-1">
-            <LiaIndustrySolid size={22} color="blue" />
-            <h1 className="text-xs font-bold text-end py-1">{truncateNames(industryNames)}</h1>
+          <div className="flex flex-col items-start justify-center gap-2 mt-4 cursor-default">
+            <div className="flex items-start justify-start gap-1">
+              <LiaFileCodeSolid size={22} color="blue" />
+              <h1 className="text-xs font-bold text-end py-1">{truncateNames(languageNames)}</h1>
+            </div>
+
+            <div className="flex items-start justify-start gap-1">
+              <LiaIndustrySolid size={22} color="blue" />
+              <h1 className="text-xs font-bold text-end py-1">{truncateNames(industryNames)}</h1>
+            </div>
+
+            <div className="flex items-start justify-start gap-1">
+              <MdDevices size={22} color="blue" />
+              <h1 className="text-xs font-bold text-end py-1">{truncateNames(deviceNames)}</h1>
+            </div>
           </div>
 
-          <div className="flex items-start justify-start gap-1">
-            <MdDevices size={22} color="blue" />
-            <h1 className="text-xs font-bold text-end py-1">{truncateNames(deviceNames)}</h1>
+          <div className="flex justify-between items-center mt-7">
+            <Button 
+              variant="outline" 
+              className="w-24 h-10 bg-blue-500 text-white font-bold text-xl px-2 py-1 rounded-md hover:bg-blue-600 transition duration-200" 
+              onClick={handleBuyItem}
+            >
+              {priceNumber === 0 ? 'Free' : 'Buy'}
+            </Button>
+            <div className="text-neutral-800 font-bold text-2xl dark:text-neutral-300 cursor-default">
+              &#8377; {price}
+            </div>
           </div>
-
         </div>
-
-        <div className="flex justify-between items-center mt-7">
-      <Button 
-        variant="outline" 
-        className="w-24 h-10 bg-blue-500 text-white font-bold text-xl px-2 py-1 rounded-md hover:bg-blue-600 transition duration-200" 
-        onClick={handleBuyItem}
-      >
-                {priceNumber === 0 ? 'Free' : 'Buy'}
-      </Button>
-      <div className="text-neutral-800 font-bold text-2xl dark:text-neutral-300 cursor-default">
-        &#8377; {price}
-      </div>
-    </div>
-
       </div>
     </div>
   );
