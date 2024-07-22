@@ -5,12 +5,10 @@ import React from 'react'
 const TrendingCodes = () => {
     const heading = "Trending Website"
     return (
-   
 <PagesGrid 
 data={TrendingData}
 heading={heading}
 />
-
     )
 }
 

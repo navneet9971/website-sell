@@ -1,8 +1,9 @@
+import SellCodePage from '@/pages/SellCodePage'
 import React from 'react'
 
 const SellCode = () => {
   return (
-    <div>SellCode</div>
+   <SellCodePage />
   )
 }
 

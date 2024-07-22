@@ -1,7 +1,7 @@
 import { CodeData } from '@/data/data';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
-import { BentoGrid, BentoGridItem } from './ui/BentoGrid';
+import { BentoGrid, BentoGridItem } from '../ui/BentoGrid';
 import GridData from '@/globalcomponents/GridData';
 
 const TrendingCodesPage = () => {

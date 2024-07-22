@@ -9,12 +9,12 @@ const CategoryList = () => {
 
 
   return (
- 
 
-      <PagesGrid 
+
+    <PagesGrid
       data={CategoriesData}
       heading={heading}
-      />
+    />
 
 
   )

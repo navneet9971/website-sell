@@ -6,14 +6,10 @@ const TrendingCodes = () => {
 const heading = "Trending Codes"
 
     return (
-      
-
             <PagesGrid  
             data = {CodeData}
             heading={heading}
             />
-
-
     )
 }
 

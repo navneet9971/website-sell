@@ -1,8 +1,9 @@
+import WorkSpacePage from '@/pages/WorkSpacePage'
 import React from 'react'
 
 const WorkSpace = () => {
   return (
-    <div>WorkSpace</div>
+   <WorkSpacePage />
   )
 }
 

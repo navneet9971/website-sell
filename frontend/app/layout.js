@@ -4,7 +4,8 @@ import { ThemeProvider } from "@/components/Themeprovider";
 import Navbar from "@/components/ui/Navbar";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import SecondNavbar from "@/components/SecondNavbar";
+import SecondNavbar from "@/components/ui/SecondNavbar";
+
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,7 +27,7 @@ export default function RootLayout({ children }) {
           >
          <Navbar />
          <SecondNavbar />
-         <div className="mt-28">
+         <div className="mt-24">
          <ToastContainer />
         {children}
         </div>

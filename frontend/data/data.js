@@ -6,12 +6,14 @@ export const navigation = [
   ]
 
   export const miniNavbar = [
-    { id: 1, name: "Explore", current: true},
-    { id: 2, name: "WorkSpace", current: false},
-    { id: 3, name : "Collections", current: false},
-    { id: 4, name : "Sell Code", current: false},
-    { id: 5, name : "Buy Code", current: false},
+    { id: 1, name: 'Explore', path: '/pages/explore' },
+    { id: 2, name: 'WorkSpace', path: '/pages/workspace' },
+    { id: 3, name: 'Collections', path: '/pages/collection' },
+    { id: 4, name: 'Sell Code', path: '/pages/sellcode' },
+    { id: 5, name: 'Buy Code', path: '/pages/buycode' }
   ]
+  
+  
   
 
   export const CategoriesData = [
