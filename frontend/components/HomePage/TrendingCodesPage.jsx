@@ -10,7 +10,7 @@ const TrendingCodesPage = () => {
   const heading = "Trending Codes";
 
   const handleShowCoding = () => {
-    router.push('/trendingcodes')
+    router.push('/homepagedata/trendingcodes')
     setShowAll(true);
   }
 

@@ -8,7 +8,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import useCountNum from "@/globalcomponents/useCountNum";
 
-export const BentoGrid = ({ className, children }) => {
+export const LikeGrid = ({ className, children }) => {
   return (
     <div
       className={cn(
@@ -21,7 +21,7 @@ export const BentoGrid = ({ className, children }) => {
   );
 };
 
-export const BentoGridItem = ({
+export const LikeGridItem = ({
   key, // Id of Product
   className,
   title,
@@ -56,21 +56,6 @@ export const BentoGridItem = ({
     alert("Working on it hold on plzzzz");
   };
 
-  const handleLikeItem = () => {
-    if (liked) {
-
-      setLiked(false);
-      setLikedItems((prevLikedItems) => prevLikedItems.filter((item) => item !== key));
-      decreaseLikeCount();
-      toast.error('Item removed from likes!');
-    } else {
-
-      setLiked(true);
-      setLikedItems((prevLikedItems) => [...prevLikedItems, key]);
-      increaseLikeCount();
-      toast.success('Item liked!');
-    }
-  };
 
   return (
     <div
@@ -87,17 +72,6 @@ export const BentoGridItem = ({
           alt="Bento Item"
           className="object-cover"
         />
-
-        <button
-          className={`absolute top-1 right-1 bg-white rounded-full p-1.5 shadow-md transition duration-200 ${liked ? 'bg-green-100' : 'hover:bg-gray-200'}`}
-          onClick={handleLikeItem}
-        >
-          {liked ? (
-            <FaHeart size={17} color="green" />
-          ) : (
-            <FaHeartBroken size={17} color="red" />
-          )}
-        </button>
 
 
         <div className="group-hover/bento:translate-x-2 transition duration-200">

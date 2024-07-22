@@ -10,7 +10,7 @@ const TrendingWebsite = () => {
   const heading = "Trending Website"
 
   const handleShowTrending = () => {
-    router.push('/trendingWebsiteList')
+    router.push('/homepagedata/trendingWebsiteList')
     setShowAll(true);
   }
 

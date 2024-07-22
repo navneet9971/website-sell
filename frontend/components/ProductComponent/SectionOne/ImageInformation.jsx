@@ -5,9 +5,8 @@ import { languge, use } from '@/data/data';
 import useCountNum from '@/globalcomponents/useCountNum';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
-import { FaComputer, FaCheck, FaFileCode, FaHandHoldingHeart, FaCircleUser, FaCartPlus, FaBookBookmark } from "react-icons/fa6";
+import { FaComputer, FaCheck, FaFileCode, FaHandHoldingHeart, FaCircleUser, FaCartPlus, FaBookBookmark, FaPlay } from "react-icons/fa6";
 import { HiBuildingOffice2 } from "react-icons/hi2";
-import { RiScreenshot2Fill } from "react-icons/ri";
 import { toast } from 'react-toastify'
 
 
@@ -19,21 +18,46 @@ const ImageInformation = ({ id }) => {
     const { increaseLikeCount, decreaseLikeCount, increaseCartCount, decreaseCartCount } = useCountNum();
     const router = useRouter();
 
+    //Use This on later after implement the api 
+    // const handleButtonClick = () => {
+    //     if (liked) {
+
+    //         setLiked(false);
+    //         setLikedItems((prevLikedItems) => prevLikedItems.filter((item) => item !== id));
+    //         decreaseLikeCount();
+    //         toast.error('Item removed from likes!');
+    //     } else {
+
+    //         setLiked(true);
+    //         setLikedItems((prevLikedItems) => [...prevLikedItems, id]);
+    //         increaseLikeCount();
+    //         toast.success('Item liked!');
+    //     }
+    // }
+
+
     const handleButtonClick = () => {
         if (liked) {
-
             setLiked(false);
-            setLikedItems((prevLikedItems) => prevLikedItems.filter((item) => item !== id));
+            setLikedItems((prevLikedItems) => {
+                const updatedLikedItems = prevLikedItems.filter((item) => item !== id);
+                localStorage.setItem('likedItems', JSON.stringify(updatedLikedItems));
+                return updatedLikedItems;
+            });
             decreaseLikeCount();
             toast.error('Item removed from likes!');
         } else {
-
             setLiked(true);
-            setLikedItems((prevLikedItems) => [...prevLikedItems, id]);
+            setLikedItems((prevLikedItems) => {
+                const updatedLikedItems = [...prevLikedItems, id];
+                localStorage.setItem('likedItems', JSON.stringify(updatedLikedItems));
+                return updatedLikedItems;
+            });
             increaseLikeCount();
             toast.success('Item liked!');
         }
-    }
+    };
+    
 
     const handleAddCart = () => {
         if (cartItems.includes(id)) {
@@ -119,8 +143,8 @@ const ImageInformation = ({ id }) => {
                             Code Insight
                         </Button>
                         <Button variant="default" className="px-6 py-2 bg-black text-white rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
-                            <RiScreenshot2Fill size={20} />
-                            Screen Shots
+                            <FaPlay size={20} />
+                            Live Perview
                         </Button>
 
                     </div>

@@ -13,7 +13,7 @@ export const Categories = () => {
   const CategoriesToDisplay = showAll ? CategoriesData : CategoriesData.slice(0, 4);
 
   const handleShowMore = () => {
-    router.push('/categoryList');
+    router.push('/homepagedata/categoryList');
     setShowAll(true);
   };
 

@@ -19,7 +19,7 @@ const GridData = ({ data, showAll, heading, onClick }) => {
           <h3 className='cursor-pointer' onClick={onClick}>Show more</h3>
         )}
       </div>
-      <BentoGrid className="max-w-full mx-auto md:auto-rows-[11.5rem]">
+      <BentoGrid className="max-w-full mx-auto md:auto-rows-[27.5rem]">
         {dataToDisplay.map((item) => (
           <BentoGridItem
             key={item.id}
