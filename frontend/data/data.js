@@ -275,26 +275,13 @@ export const use = [
     { label: 'Food', value: 'Food' },
 ]
 
-
-export const testData = {
-    name: "root",
-    children: [
-      {
-        name: "Folder 1",
-        children: [
-          { name: "File 1-1" },
-          { name: "File 1-2" }
-        ]
-      },
-      {
-        name: "Folder 2",
-        children: [
-          { name: "File 2-1" }
-        ]
-      }
-    ]
-  };
-
-
+export const testData = [
+    { id: 1, parent: 0, droppable: true, text: "Folder 1" },
+    { id: 2, parent: 1, droppable: false, text: "File 1-1" },
+    { id: 3, parent: 1, droppable: false, text: "File 1-2" },
+    { id: 4, parent: 0, droppable: true, text: "Folder 2" },
+    { id: 5, parent: 4, droppable: false, text: "File 2-1" },
+  ];
+  
 
   

@@ -1,20 +1,23 @@
 "use client"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { testData } from "@/data/data";
 import dynamic from 'next/dynamic';
-import React from 'react'
+import React, { useState } from 'react';
 import { FaUserSecret, FaHandshake } from "react-icons/fa";
+import { testData } from "@/data/data";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
-// Dynamic import of react-folder-tree with ssr: false
-const FolderTree = dynamic(() => import('react-folder-tree'), { ssr: false });
+// Dynamic import of @minoru/react-dnd-treeview with ssr: false
+const DynamicTree = dynamic(() => import('@minoru/react-dnd-treeview').then(mod => mod.Tree), { ssr: false });
 
 const ProductUser = () => {
+  const [treeData, setTreeData] = useState(testData);
 
   const handleHireDev = () => {
-    alert("Please Hire Me")
-  }
+    alert("Please Hire Me");
+  };
 
   return (
     <>
@@ -57,19 +60,29 @@ const ProductUser = () => {
         <h1 className='bg-blue-400 text-white font-bold text-2xl text-center'>File Tree</h1>
         
         <div className="flex items-center justify-start ml-5">
-        <FolderTree 
-        data={testData}
-        showCheckbox={false}     
-        showSearch={false}       
-        initOpenStatus="closed"      
-        readOnly ={true} 
-      />
-      </div>
-
-
+          <DndProvider backend={HTML5Backend}>
+            <DynamicTree
+              tree={treeData}
+              rootId={0}
+              render={(node, { depth, isOpen, onToggle }) => (
+                <div style={{ marginInlineStart: depth * 10 }}>
+                  {node.droppable && (
+                    <span onClick={onToggle}>
+                      {isOpen ? '[-]' : '[+]'}
+                    </span>
+                  )}
+                  {node.text}
+                </div>
+              )}
+              dragPreviewRender={(monitorProps) => <div>{monitorProps.item.text}</div>}
+              onDrop={(newTree) => setTreeData(newTree)}
+              readOnly
+            />
+          </DndProvider>
+        </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ProductUser
+export default ProductUser;
