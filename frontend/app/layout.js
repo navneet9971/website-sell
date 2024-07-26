@@ -5,8 +5,7 @@ import Navbar from "@/components/ui/Navbar";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import SecondNavbar from "@/components/ui/SecondNavbar";
-
-
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +16,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body className={inter.className}>
       <ThemeProvider
@@ -29,10 +29,13 @@ export default function RootLayout({ children }) {
          <SecondNavbar />
          <div className="mt-24">
          <ToastContainer />
+      
         {children}
+       
         </div>
         </ThemeProvider>
         </body>
     </html>
+    </ClerkProvider>
   );
 }

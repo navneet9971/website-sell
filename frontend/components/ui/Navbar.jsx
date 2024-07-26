@@ -18,14 +18,13 @@ export default function Navbar() {
   const [profilePic, setProfilePic] = useState("https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80");
   const router = useRouter(); 
 
+
   const handleLogin = () => {
-    // Redirect to login page
-    router.push('/auth/login');
+    router.push('/sign-in');
   };
 
   const handleSignUp = () => {
-    // Redirect to sign-up page
-    router.push('/auth/signup');
+    router.push('/sign-up');
   };
 
   return (
