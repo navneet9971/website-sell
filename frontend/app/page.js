@@ -1,6 +1,6 @@
 // import HomeScreen from "./home/HomeScreen";
 
-import Explore from "./pages/explore/page";
+import Explore from "./pages/explore/[[...rest]]/page";
 
 
 

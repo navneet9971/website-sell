@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ModeToggle } from './ModeToggle';
@@ -8,16 +8,18 @@ import { Input } from "@/components/ui/input";
 import AddCart from '../NavbarComponent/CartComponent/AddCartShop/AddCart';
 import AddLike from '../NavbarComponent/LikeComponent/AddLikeButton/AddLike';
 import { useRouter } from 'next/navigation';
+import { SignedIn, UserProfile } from '@clerk/nextjs';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
-  const [profilePic, setProfilePic] = useState("https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80");
+export default function Navbar({ userId }) {
   const router = useRouter(); 
 
+  useEffect(() => {
+    console.log(userId);
+  }, [userId]);
 
   const handleLogin = () => {
     router.push('/sign-in');
@@ -55,17 +57,32 @@ export default function Navbar() {
           </div>
 
           <div className='flex items-center justify-center gap-6 mt-2'>
-            {isLoggedIn && (
+          <ModeToggle />
+            {userId ? (
               <>
                 <AddLike />
                 <AddCart />
               </>
+            ) : (
+              <>
+                <button
+                  onClick={handleLogin}
+                  className="relative rounded-md bg-gray-700 text-white px-3 py-2 text-sm hover:bg-gray-600"
+                >
+                  Login
+                </button>
+                <button
+                  onClick={handleSignUp}
+                  className="relative rounded-md bg-gray-700 text-white px-3 py-2 text-sm hover:bg-gray-600 ml-2"
+                >
+                  Sign Up
+                </button>
+              </>
             )}
-            <ModeToggle />
           </div>
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            {isLoggedIn ? (
+            {userId && (
               <>
                 <button
                   type="button"
@@ -82,11 +99,9 @@ export default function Navbar() {
                     <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        alt=""
-                        src={profilePic}
-                        className="h-8 w-8 rounded-full"
-                      />
+                      <SignedIn>
+                        <UserProfile />
+                      </SignedIn>
                     </MenuButton>
                   </div>
                   <MenuItems
@@ -110,21 +125,6 @@ export default function Navbar() {
                     </MenuItem>
                   </MenuItems>
                 </Menu>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={handleLogin}
-                  className="relative rounded-md bg-gray-700 text-white px-3 py-2 text-sm hover:bg-gray-600"
-                >
-                  Login
-                </button>
-                <button
-                  onClick={handleSignUp}
-                  className="relative rounded-md bg-gray-700 text-white px-3 py-2 text-sm hover:bg-gray-600 ml-2"
-                >
-                  Sign Up
-                </button>
               </>
             )}
           </div>
