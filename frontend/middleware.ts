@@ -8,6 +8,9 @@ createRouteMatcher
    '/pages/workspace',
    '/pages/buycode',
    '/productinfo(.*)',
+   '/homepagedata/categoryList',
+   '/homepagedata/trendingWebsiteList',
+   '/homepagedata/trendingcodes',
   ]);
 
 
