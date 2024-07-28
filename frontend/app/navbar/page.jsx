@@ -5,10 +5,6 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 
 const NavbarPage = async () => {
  const { userId } = auth();
-//  console.log(userId)
-
-//  const user = await currentUser()
-
 
   return (
  <Navbar 

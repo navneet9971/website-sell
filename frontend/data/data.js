@@ -7,14 +7,10 @@ export const navigation = [
 
   export const miniNavbar = [
     { id: 1, name: 'Explore', path: '/pages/explore' },
-    { id: 2, name: 'WorkSpace', path: '/pages/workspace' },
-    { id: 3, name: 'Collections', path: '/pages/collection' },
-    { id: 4, name: 'Sell Code', path: '/pages/sellcode' },
-    { id: 5, name: 'Buy Code', path: '/pages/buycode' }
+    { id: 2, name: 'Collections', path: '/pages/collection' },
+    { id: 3, name: 'Sell Code', path: '/pages/sellcode' },
+    { id: 4, name: 'Buy Code', path: '/pages/buycode' }
   ]
-  
-  
-  
 
   export const CategoriesData = [
     {
@@ -284,4 +280,25 @@ export const testData = [
   ];
   
 
-  
+  export const industryOptions = [
+    { value: 'Technology', label: 'Technology' },
+    { value: 'Finance', label: 'Finance' },
+    { value: 'Healthcare', label: 'Healthcare' },
+    { value: 'Education', label: 'Education' },
+    { value: 'Other', label: 'Other' }
+  ];
+
+  export const deviceOptions = [
+    { value: 'Mobile', label: 'Mobile' },
+    { value: 'Tablet', label: 'Tablet' },
+    { value: 'Desktop', label: 'Desktop' },
+    { value: 'Other', label: 'Other' }
+  ];
+
+  export const languageOptions = [
+    { value: 'JavaScript', label: 'JavaScript' },
+    { value: 'Python', label: 'Python' },
+    { value: 'Java', label: 'Java' },
+    { value: 'C++', label: 'C++' },
+    { value: 'Other', label: 'Other' }
+  ];

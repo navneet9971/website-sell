@@ -5,8 +5,6 @@ createRouteMatcher
 (['/sign-in(.*)',
    '/sign-up(.*)',
    '/pages/explore',
-   '/pages/workspace',
-   '/pages/buycode',
    '/productinfo(.*)',
    '/homepagedata/categoryList',
    '/homepagedata/trendingWebsiteList',

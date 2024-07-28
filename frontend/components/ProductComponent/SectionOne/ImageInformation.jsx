@@ -55,6 +55,17 @@ const ImageInformation = ({ id, userId }) => {
         }
     };
 
+
+    const handlePurchaseCode = () => {
+        if (!userId) {
+            toast.error('Please login first!');
+            router.push('/login')
+            return;
+        } else {
+            router.push(`/purchase-code/${id}`);
+        }
+    }
+
     const isInCart = cartItems.includes(id);
 
     return (
@@ -65,15 +76,15 @@ const ImageInformation = ({ id, userId }) => {
                 <h1 className='text-3xl font-bold'><span>&#8377;</span>100</h1>
 
                 <div className='flex items-center justify-center gap-5'>
-                    <Button onClick={handleAddCart} variant="outline" 
-                     className={`flex items-center gap-2 ${isInCart ? 'bg-green-600' : 'bg-blue-600'} text-white`}>
+                    <Button onClick={handleAddCart} variant="outline"
+                        className={`flex items-center gap-2 ${isInCart ? 'bg-green-600' : 'bg-blue-600'} text-white`}>
                         {isInCart ? <BsFillCartCheckFill /> : <FaCartPlus />}
                         {isInCart ? 'Added' : 'Add to cart'}
                     </Button>
 
                     <Button onClick={handleButtonClick} variant="destructive"
-                     className={`flex items-center gap-2 ${liked ? 'bg-pink-600' : 'bg-red-600'}`}>
-                        {liked ?  <FaGrinHearts /> : <FaHandHoldingHeart />}
+                        className={`flex items-center gap-2 ${liked ? 'bg-pink-600' : 'bg-red-600'}`}>
+                        {liked ? <FaGrinHearts /> : <FaHandHoldingHeart />}
                         {liked ? "Loved" : "Favorites"}
                     </Button>
                 </div>
@@ -139,7 +150,10 @@ const ImageInformation = ({ id, userId }) => {
                 </div>
 
                 <div className='flex justify-center items-center py-4'>
-                    <Button variant="destructive" className="flex items-center gap-2 w-2/3 hover:bg-green-600" >
+                    <Button
+                        variant="destructive"
+                        onClick={handlePurchaseCode}
+                        className="flex items-center gap-2 w-2/3 hover:bg-green-600" >
                         <h1 className='font-bold text-2xl'> Purchase Code </h1>
                     </Button>
                 </div>

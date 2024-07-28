@@ -55,9 +55,9 @@ export const BentoGridItem = ({
 
   const handleBuyItem = () => {
     if (!userId) {
-      router.push('/login'); // Redirect to login page
+      router.push('/login'); 
     } else {
-      router.push('/buy'); // Redirect to buy page
+      router.push('/buy'); 
     }
   };
 
