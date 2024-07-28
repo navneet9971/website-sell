@@ -3,8 +3,9 @@
 // components/Categories.js
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import GridData from '../../globalcomponents/GridData';
+// import GridData from '../../globalcomponents/GridData';
 import { CategoriesData } from '@/data/data';
+import PagesGrid from '@/globalcomponents/PagesGrid';
 
 export const Categories = ( {userId} ) => {
   const [showAll, setShowAll] = useState(false);
@@ -19,12 +20,11 @@ export const Categories = ( {userId} ) => {
 
   return (
     <div>
-      <GridData
+      <PagesGrid
         data={CategoriesToDisplay}
-        showAll={showAll}
+        showAll={false}
         heading={heading}
         onClick={handleShowMore}
-        userId={userId}
       />
     </div>
   );

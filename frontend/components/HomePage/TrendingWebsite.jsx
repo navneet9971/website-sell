@@ -1,10 +1,13 @@
+"use client"
+
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { BentoGrid, BentoGridItem } from '../ui/BentoGrid';
 import { TrendingData } from '@/data/data';
-import GridData from '../../globalcomponents/GridData';
+// import GridData from '../../globalcomponents/GridData';
+import PagesGrid from '@/globalcomponents/PagesGrid';
 
-const TrendingWebsite = () => {
+const TrendingWebsite = ({ userId }) => {
   const [showAll, setShowAll] = useState(false);
   const router = useRouter();
   const heading = "Trending Website"
@@ -16,10 +19,11 @@ const TrendingWebsite = () => {
 
   return (
     <div>
-       <GridData data={TrendingData} 
-       showAll={showAll} 
+       <PagesGrid data={TrendingData} 
+       showAll={false}
        heading={heading}
        onClick={handleShowTrending}
+       userId={userId}
        />
     </div>
   )
