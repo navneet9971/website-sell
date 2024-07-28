@@ -7,6 +7,7 @@ import { FaHeartBroken, FaHeart } from "react-icons/fa";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import useCountNum from "@/globalcomponents/useCountNum";
+import { useRouter } from "next/navigation";
 
 export const BentoGrid = ({ className, children }) => {
   return (
@@ -32,11 +33,12 @@ export const BentoGridItem = ({
   img,
   onClick,
   price,
+  userId,
 }) => {
-
   const [liked, setLiked] = useState(false);
   const [likedItems, setLikedItems] = useState([]);
   const { increaseLikeCount, decreaseLikeCount } = useCountNum();
+  const router = useRouter(); // Initialize router
 
   const priceNumber = parseFloat(price);
 
@@ -51,20 +53,26 @@ export const BentoGridItem = ({
   const industryNames = industry ? industry.split(',').map(name => name.trim()) : [];
   const deviceNames = devices ? devices.split(',').map(name => name.trim()) : [];
 
-
   const handleBuyItem = () => {
-    alert("Working on it hold on plzzzz");
+    if (!userId) {
+      router.push('/login'); // Redirect to login page
+    } else {
+      router.push('/buy'); // Redirect to buy page
+    }
   };
 
   const handleLikeItem = () => {
-    if (liked) {
+    if (!userId) {
+      toast.error('Please login and try again!');
+      return;
+    }
 
+    if (liked) {
       setLiked(false);
       setLikedItems((prevLikedItems) => prevLikedItems.filter((item) => item !== key));
       decreaseLikeCount();
       toast.error('Item removed from likes!');
     } else {
-
       setLiked(true);
       setLikedItems((prevLikedItems) => [...prevLikedItems, key]);
       increaseLikeCount();
@@ -99,7 +107,6 @@ export const BentoGridItem = ({
             <FaHeartBroken size={17} color="red" />
           )}
         </button>
-
 
         <div className="group-hover/bento:translate-x-2 transition duration-200">
           <div className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200 mb-3 mt-2 cursor-pointer hover:text-neutral-400" onClick={onClick}>

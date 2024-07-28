@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import GridData from '../../globalcomponents/GridData';
 import { CategoriesData } from '@/data/data';
 
-export const Categories = () => {
+export const Categories = ( {userId} ) => {
   const [showAll, setShowAll] = useState(false);
   const router = useRouter();
   const heading = "Hot Categories"
@@ -24,6 +24,7 @@ export const Categories = () => {
         showAll={showAll}
         heading={heading}
         onClick={handleShowMore}
+        userId={userId}
       />
     </div>
   );

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { BentoGrid, BentoGridItem } from '../components/ui/BentoGrid';
 
-const PagesGrid = ({ data, heading }) => {
+const PagesGrid = ({ data, heading, userId }) => {
 
     const router = useRouter();
     
@@ -11,6 +11,8 @@ const PagesGrid = ({ data, heading }) => {
         router.push(`/productInfo/${id}`);
         console.log(id)
     }
+
+    
 
   return (
     <div className='px-6'>
@@ -27,6 +29,7 @@ const PagesGrid = ({ data, heading }) => {
             className={item.className}
             img={item.img}
             price={item.price}
+            userId={userId}
             onClick={() => handleGridCardClick(item.id)}
           />
         ))}
