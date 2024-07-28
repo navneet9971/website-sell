@@ -1,21 +1,36 @@
+"use client"
+
 import React from 'react';
 import dynamic from 'next/dynamic';
 import ReletedProduct from './SectionThird/ReletedProduct';
+import { useParams } from 'next/navigation';
+
 
 const ImageSection = dynamic(() => import('./SectionOne/ImagesSection'), { ssr: true });
 const ImageInformation = dynamic(() => import('./SectionOne/ImageInformation'), { ssr: true });
 const ProductUser = dynamic(() => import('./SectionTwo/ProductUser'), { ssr: true });
 const ProductDes = dynamic(() => import('./SectionTwo/ProductDes'), { ssr: true });
 
-const ProductInfoPage = ( {id} ) => {
+const ProductInfoPage = ( { userId } ) => {
+  const params = useParams();
+  const { id } = params;
+
+console.log(userId)
+
   return (
     <div className='mb-6'>
       <div className="flex items-start justify-between px-8">
         <div className="flex-1">
-          <ImageSection id={id}/>
+          <ImageSection 
+          id={id}
+          />
         </div>
+
         <div className="flex-1 shadow-lg shadow-black/40">
-          <ImageInformation id={id}/>
+          <ImageInformation 
+          id={id}
+          userId ={userId}
+          />
         </div>
       </div>
 

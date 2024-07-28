@@ -1,17 +1,19 @@
-"use client";
+
 
 import ProductInfoPage from '@/components/ProductComponent/ProductInfoPage'
-import { useParams } from 'next/navigation';
+import { auth } from "@clerk/nextjs/server";
+
+
 import React from 'react'
 
 const ProductInfo = () => {
-  const params = useParams();
-  const { id } = params;
+const { userId } = auth()
 
-  console.log(id);
 
   return (
-    <ProductInfoPage  id={id}/>
+    <ProductInfoPage  
+    userId={userId} 
+    />
   );
 }
 

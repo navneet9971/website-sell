@@ -1,18 +1,17 @@
 "use client"
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 import { languge, use } from '@/data/data';
 import useCountNum from '@/globalcomponents/useCountNum';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { FaComputer, FaCheck, FaFileCode, FaHandHoldingHeart, FaCircleUser, FaCartPlus, FaBookBookmark, FaPlay } from "react-icons/fa6";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import { FaGrinHearts } from "react-icons/fa";
 import { BsFillCartCheckFill } from "react-icons/bs";
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 
-
-const ImageInformation = ({ id }) => {
+const ImageInformation = ({ id, userId }) => {
 
     const [liked, setLiked] = useState(false);
     const [likedItems, setLikedItems] = useState([]);
@@ -20,8 +19,12 @@ const ImageInformation = ({ id }) => {
     const { increaseLikeCount, decreaseLikeCount, increaseCartCount, decreaseCartCount } = useCountNum();
     const router = useRouter();
 
-    //Use This on later after implement the api 
     const handleButtonClick = () => {
+        if (!userId) {
+            toast.error('Please login first!');
+            return;
+        }
+
         if (liked) {
             setLiked(false);
             setLikedItems((prevLikedItems) => prevLikedItems.filter((item) => item !== id));
@@ -36,6 +39,11 @@ const ImageInformation = ({ id }) => {
     };
 
     const handleAddCart = () => {
+        if (!userId) {
+            toast.error('Please login first!');
+            return;
+        }
+
         if (cartItems.includes(id)) {
             setCartItems(cartItems.filter(item => item !== id));
             decreaseCartCount();
@@ -46,34 +54,30 @@ const ImageInformation = ({ id }) => {
             toast.success('Item added to cart!');
         }
     };
+
     const isInCart = cartItems.includes(id);
 
     return (
         <div className='w-full h-full border-black bg-slate-200'>
-
             <h1 className='bg-blue-400 text-white font-bold text-2xl px-4'>Product Information</h1>
 
             <div className='flex items-start justify-around py-3'>
                 <h1 className='text-3xl font-bold'><span>&#8377;</span>100</h1>
 
-
                 <div className='flex items-center justify-center gap-5'>
                     <Button onClick={handleAddCart} variant="outline" 
                      className={`flex items-center gap-2 ${isInCart ? 'bg-green-600' : 'bg-blue-600'} text-white`}>
-                    {isInCart ? <BsFillCartCheckFill /> : <FaCartPlus />}
-                    {isInCart ? 'Added' : 'Add to cart'}
+                        {isInCart ? <BsFillCartCheckFill /> : <FaCartPlus />}
+                        {isInCart ? 'Added' : 'Add to cart'}
                     </Button>
 
                     <Button onClick={handleButtonClick} variant="destructive"
-                    className={`flex items-center gap-2 ${liked ? 'bg-pink-600' : 'bg-red-600'}`}>
+                     className={`flex items-center gap-2 ${liked ? 'bg-pink-600' : 'bg-red-600'}`}>
                         {liked ?  <FaGrinHearts /> : <FaHandHoldingHeart />}
                         {liked ? "Loved" : "Favorites"}
                     </Button>
                 </div>
             </div>
-
-
-
 
             <div className='px-3 mt-3'>
                 <div className='flex items-center justify-start gap-2'>
@@ -88,7 +92,6 @@ const ImageInformation = ({ id }) => {
                         </div>
                     ))}
                 </div>
-
 
                 <div className='flex items-center justify-start gap-2 mt-6'>
                     <HiBuildingOffice2 size={20} />
@@ -122,7 +125,6 @@ const ImageInformation = ({ id }) => {
                             <FaPlay size={20} />
                             Live Perview
                         </Button>
-
                     </div>
                 </div>
 
@@ -138,15 +140,12 @@ const ImageInformation = ({ id }) => {
 
                 <div className='flex justify-center items-center py-4'>
                     <Button variant="destructive" className="flex items-center gap-2 w-2/3 hover:bg-green-600" >
-                        {/* <RiScreenshot2Fill size={20} /> */}
-                        <h1 className='font-bold text-2xl'> Purchase Code </h1 >
+                        <h1 className='font-bold text-2xl'> Purchase Code </h1>
                     </Button>
                 </div>
-
-
             </div>
         </div>
     )
 }
 
-export default ImageInformation
+export default ImageInformation;
