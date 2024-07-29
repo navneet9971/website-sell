@@ -18,6 +18,8 @@ export const Categories = ( {userId} ) => {
     setShowAll(true);
   };
 
+  console.log(userId);
+
   return (
     <div>
       <PagesGrid
@@ -25,6 +27,7 @@ export const Categories = ( {userId} ) => {
         showAll={false}
         heading={heading}
         onClick={handleShowMore}
+        userId={userId}
       />
     </div>
   );
