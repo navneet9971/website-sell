@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const router = express.Router();
-const secretKey = process.env.SECRET_KEY;
+const SellData = require('../../models/sellcodeModel/sellGetModel');
 
 // Multer storage configuration
 const storage = multer.diskStorage({
@@ -35,9 +35,9 @@ router.post('/sell', upload.fields([
         const { productTitle, codeDescription, tags, programmingLanguage, features, installationInstructions, adaptationInstructions, industry, devices, livePreview, videoUrl, price } = req.body;
 
         // Handling file uploads
-        const projectImages = req.files['projectImages'] || [];
-        const installationGuide = req.files['installationGuide'] ? req.files['installationGuide'][0] : null;
-        const projectCode = req.files['projectCode'] ? req.files['projectCode'][0] : null;
+        const projectImages = req.files['projectImages'] ? req.files['projectImages'].map(file => file.path) : [];
+        const installationGuide = req.files['installationGuide'] ? req.files['installationGuide'][0].path : null;
+        const projectCode = req.files['projectCode'] ? req.files['projectCode'][0].path : null;
 
         if (projectImages.length < 3) {
             return res.status(400).json({ error: 'At least 3 images are required for projectImages' });
@@ -51,13 +51,31 @@ router.post('/sell', upload.fields([
             return res.status(400).json({ error: 'Project code ZIP file is required' });
         }
 
-        // Handle the rest of the form submission logic
-        // For example, save the details to your database
+        // Create a new SellData document
+        const newSellData = new SellData({
+            productTitle,
+            codeDescription,
+            tags: tags.split(','), // Convert tags to an array
+            programmingLanguage,
+            features: features.split(','), // Convert features to an array
+            installationInstructions,
+            adaptationInstructions,
+            industry,
+            devices: devices.split(','), // Convert devices to an array
+            livePreview,
+            videoUrl,
+            projectImages,
+            installationGuide,
+            projectCode,
+            price
+        });
 
-        return res.status(200).json({ message: 'Project submitted successfully' });
+        await newSellData.save();
+
+        return res.status(200).json({ message: 'Project submitted successfully', data: newSellData });
 
     } catch (error) {
-        return res.status(500).json({ error: 'Server is down' });
+        return res.status(500).json({ error: 'Server is down', details: error.message });
     }
 });
 

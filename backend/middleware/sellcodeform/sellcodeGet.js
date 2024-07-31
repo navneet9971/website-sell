@@ -1,27 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const SellData = require('../../models/sellcodeModel/sellGetModel');
 
-// Mock data for demonstration
-const sellData = {
-    productTitle: 'Sample Product',
-    codeDescription: 'This is a sample code description.',
-    tags: ['tag1', 'tag2'],
-    programmingLanguage: 'JavaScript',
-    features: ['feature1', 'feature2'],
-    installationInstructions: 'Sample installation instructions.',
-    adaptationInstructions: 'Sample adaptation instructions.',
-    industry: 'Tech',
-    devices: ['device1', 'device2'],
-    livePreview: 'http://example.com/preview',
-    videoUrl: 'http://example.com/video',
-    projectImages: ['image1.jpg', 'image2.jpg', 'image3.jpg'],
-    installationGuide: 'guide.pdf',
-    projectCode: 'code.zip',
-    price: 100
-};
-
-router.get('/sell', (req, res) => {
-    res.status(200).json(sellData);
+// GET API to retrieve data from MongoDB
+router.get('/sell', async (req, res) => {
+    try {
+        const sellData = await SellData.find();
+        res.status(200).json(sellData);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 module.exports = router;
