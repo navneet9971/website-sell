@@ -1,7 +1,7 @@
 "use client"
 
-import { Button } from '@/components/ui/button'
-import { CategoriesData } from '@/data/data'
+import { Button } from '/components/ui/button'
+import { CategoriesData } from '/data/data'
 import Image from 'next/image'
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'

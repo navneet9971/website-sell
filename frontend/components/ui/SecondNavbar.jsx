@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { miniNavbar } from '@/data/data';
+import { miniNavbar } from '/data/data';
 
 const SecondNavbar = ({ currentScreen }) => {
   const router = useRouter();

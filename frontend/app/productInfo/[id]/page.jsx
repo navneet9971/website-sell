@@ -1,6 +1,6 @@
 
 
-import ProductInfoPage from '@/components/ProductComponent/ProductInfoPage'
+import ProductInfoPage from '/components/ProductComponent/ProductInfoPage'
 import { auth } from "@clerk/nextjs/server";
 
 

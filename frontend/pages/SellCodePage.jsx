@@ -1,6 +1,6 @@
 "use client"
 
-import { deviceOptions, industryOptions, languageOptions } from '@/data/data';
+import { deviceOptions, industryOptions, languageOptions } from '/data/data';
 import React, { useState } from 'react';
 import Select from 'react-select';
 import TagsInput from 'react-tagsinput';

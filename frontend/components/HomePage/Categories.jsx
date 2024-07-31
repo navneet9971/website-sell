@@ -4,8 +4,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 // import GridData from '../../globalcomponents/GridData';
-import { CategoriesData } from '@/data/data';
-import PagesGrid from '@/globalcomponents/PagesGrid';
+import { CategoriesData } from '/data/data';
+import PagesGrid from '/globalcomponents/PagesGrid';
 
 export const Categories = ( {userId} ) => {
   const [showAll, setShowAll] = useState(false);

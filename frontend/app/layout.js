@@ -1,10 +1,10 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/Themeprovider";
+import { ThemeProvider } from "/components/Themeprovider";
 
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import SecondNavbar from "@/components/ui/SecondNavbar";
+import SecondNavbar from "/components/ui/SecondNavbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import NavbarPage from "./navbar/page";
 

@@ -3,9 +3,9 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { BentoGrid, BentoGridItem } from '../ui/BentoGrid';
-import { TrendingData } from '@/data/data';
+import { TrendingData } from '/data/data';
 // import GridData from '../../globalcomponents/GridData';
-import PagesGrid from '@/globalcomponents/PagesGrid';
+import PagesGrid from '/globalcomponents/PagesGrid';
 
 const TrendingWebsite = ({ userId }) => {
   const [showAll, setShowAll] = useState(false);

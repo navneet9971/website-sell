@@ -1,7 +1,7 @@
 "use client"
 
-import { TrendingData } from '@/data/data'
-import PagesGrid from '@/globalcomponents/PagesGrid'
+import { TrendingData } from '/data/data'
+import PagesGrid from '/globalcomponents/PagesGrid'
 import React, { useState } from 'react'
 
 const ReletedProduct = () => {

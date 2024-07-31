@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ModeToggle } from './ModeToggle';
-import { Input } from "@/components/ui/input";
+import { Input } from "/components/ui/input";
 import AddCart from '../NavbarComponent/CartComponent/AddCartShop/AddCart';
 import AddLike from '../NavbarComponent/LikeComponent/AddLikeButton/AddLike';
 import { useRouter } from 'next/navigation';

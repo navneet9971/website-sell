@@ -1,4 +1,4 @@
-import ProductLikePage from '@/components/NavbarComponent/LikeComponent/LikedPage/ProductLikedPage'
+import ProductLikePage from '/components/NavbarComponent/LikeComponent/LikedPage/ProductLikedPage'
 import React from 'react'
 
 const LikePage = () => {

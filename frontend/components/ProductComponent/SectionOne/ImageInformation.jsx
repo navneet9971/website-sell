@@ -1,8 +1,8 @@
 "use client"
 
-import { Button } from '@/components/ui/button';
-import { languge, use } from '@/data/data';
-import useCountNum from '@/globalcomponents/useCountNum';
+import { Button } from '/components/ui/button';
+import { languge, use } from '/data/data';
+import useCountNum from '/globalcomponents/useCountNum';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { FaComputer, FaCheck, FaFileCode, FaHandHoldingHeart, FaCircleUser, FaCartPlus, FaBookBookmark, FaPlay } from "react-icons/fa6";

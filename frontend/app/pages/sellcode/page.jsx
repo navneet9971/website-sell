@@ -1,6 +1,6 @@
 "use client"
 
-import SellCodePage from '@/pages/SellCodePage'
+import SellCodePage from '/pages/SellCodePage'
 import React, { useState } from 'react'
 
 const SellCode = () => {

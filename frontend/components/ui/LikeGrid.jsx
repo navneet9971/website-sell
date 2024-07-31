@@ -1,12 +1,12 @@
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { cn } from "/lib/utils";
+import { Button } from "/components/ui/button";
 import Image from "next/image";
 import { LiaFileCodeSolid, LiaIndustrySolid } from "react-icons/lia";
 import { MdDevices } from "react-icons/md";
 import { FaHeartBroken, FaHeart } from "react-icons/fa";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import useCountNum from "@/globalcomponents/useCountNum";
+import useCountNum from "/globalcomponents/useCountNum";
 
 export const LikeGrid = ({ className, children }) => {
   return (

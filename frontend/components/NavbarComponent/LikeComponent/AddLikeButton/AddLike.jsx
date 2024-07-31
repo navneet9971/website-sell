@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { FiHeart } from 'react-icons/fi';
-import useCountNum from '@/globalcomponents/useCountNum';
+import useCountNum from '/globalcomponents/useCountNum';
 
 const AddLike = () => {
     const router = useRouter();

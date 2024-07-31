@@ -1,9 +1,9 @@
 import React from 'react'
 
 
-import Image1 from "@/public/anime.jpg";
-import Image2 from "@/public/dargon.jpg";
-import Image3 from "@/public/exampleAnime.jpg";
+import Image1 from "/public/anime.jpg";
+import Image2 from "/public/dargon.jpg";
+import Image3 from "/public/exampleAnime.jpg";
 import Image from 'next/image';
 
 const ImageSection = () => {

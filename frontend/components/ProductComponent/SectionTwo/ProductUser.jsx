@@ -1,11 +1,11 @@
 "use client"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "/components/ui/avatar";
+import { Button } from "/components/ui/button";
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import { FaUserSecret, FaHandshake } from "react-icons/fa";
-import { testData } from "@/data/data";
+import { testData } from "/data/data";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
