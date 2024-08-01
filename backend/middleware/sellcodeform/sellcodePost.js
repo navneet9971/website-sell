@@ -1,19 +1,37 @@
 const express = require('express');
 const multer = require('multer');
+const { v2: cloudinary } = require('cloudinary');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const router = express.Router();
 const SellData = require('../../models/sellcodeModel/sellGetModel');
 
-// Configure multer for file uploads
-const upload = multer({ dest: 'uploads/' });
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+// Configure multer to use Cloudinary storage
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'uploads', // Folder name in Cloudinary
+    allowedFormats: ['jpg', 'jpeg', 'png', 'pdf', 'zip'],
+    resource_type: 'auto', // This will allow different file types
+  },
+});
+
+const upload = multer({ storage });
 
 // Middleware to parse JSON bodies
 router.use(express.json());
 
 // Route to handle sell code submission
 router.post('/sell', upload.fields([
-//   { name: 'images', maxCount: 1 },
-//   { name: 'installationGuide', maxCount: 1 },
-//   { name: 'projectCode', maxCount: 1 }
+  { name: 'images', maxCount: 1 },
+  { name: 'installationGuide', maxCount: 1 },
+  { name: 'projectCode', maxCount: 1 },
 ]), async (req, res) => {
   try {
     const {

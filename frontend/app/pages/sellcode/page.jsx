@@ -17,7 +17,7 @@ const SellCode = () => {
     videoUrl: '',
     industry: [],
     devices: [],
-    // images: null,
+    projectImages: null,
     // installationGuide: null,
     // projectCode: null,
     price: '',
