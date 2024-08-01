@@ -1,7 +1,7 @@
 "use client"
 
 import { deviceOptions, industryOptions, languageOptions } from '/data/data';
-import React, { useState } from 'react';
+import React from 'react';
 import Select from 'react-select';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
@@ -14,7 +14,8 @@ const SellCodePage = ({
   handleFileChange,
   handleMultiSelectChange,
   handleTagsChange,
-  handleFeaturesChange
+  handleFeaturesChange,
+  handleChange
 }) => {
 
 
@@ -34,8 +35,8 @@ const SellCodePage = ({
                 <label className='block text-sm font-medium'>Source Code Product Title</label>
                 <input
                   type='text'
-                  name='title'
-                  value={formData.title}
+                  name='productTitle'
+                  value={formData.productTitle}
                   onChange={handleInputChange}
                   className='mt-1 block w-full p-2 border rounded-md'
                 />
@@ -43,8 +44,8 @@ const SellCodePage = ({
               <div>
                 <label className='block text-sm font-medium'>Source Code Description</label>
                 <textarea
-                  name='description'
-                  value={formData.description}
+                  name='codeDescription'
+                  value={formData.codeDescription}
                   onChange={handleInputChange}
                   className='mt-1 block w-full p-2 border rounded-md'
                   rows='3'
@@ -58,13 +59,31 @@ const SellCodePage = ({
                 <label className='block text-sm font-medium'>Programming Language</label>
                 <Select
                   isMulti
-                  name='languages'
+                  name='programmingLanguage'
                   options={languageOptions}
                   className='mt-1 block w-full p-2 border rounded-md'
-                  value={languageOptions.filter(option => formData.languages.includes(option.value))}
-                  onChange={(selectedOptions) => handleMultiSelectChange('languages', selectedOptions)}
+                  value={languageOptions.filter(option => formData.programmingLanguage.includes(option.value))}
+                  onChange={(selectedOptions) => handleMultiSelectChange('programmingLanguage', selectedOptions)}
                 />
               </div>
+
+              <div>
+            <label  className='block text-sm font-medium'>
+        Select Upload Type:
+      </label>
+      <select
+  id="chooseUpload"
+  name="chooseUpload"
+  value={formData.chooseUpload}
+  onChange={handleChange}
+  className='mt-1 block w-full p-2 border rounded-md'
+>
+  <option value="">Select the option</option>
+  <option value="fullwebsite">Upload Full Website</option>
+  <option value="piececode">Piece of Code</option>
+</select>
+            </div>
+
             </div>
           </div>
 
@@ -76,8 +95,8 @@ const SellCodePage = ({
             <div>
               <label className='block text-sm font-medium'>Installation Instructions</label>
               <textarea
-                name='installation'
-                value={formData.installation}
+                name='installationInstructions'
+                value={formData.installationInstructions}
                 onChange={handleInputChange}
                 className='mt-1 block w-full p-2 border rounded-md'
                 rows='3'
@@ -86,8 +105,8 @@ const SellCodePage = ({
             <div>
               <label className='block text-sm font-medium'>Change and Adaptation Instructions</label>
               <textarea
-                name='adaptation'
-                value={formData.adaptation}
+                name='adaptationInstructions'
+                value={formData.adaptationInstructions}
                 onChange={handleInputChange}
                 className='mt-1 block w-full p-2 border rounded-md'
                 rows='3'
@@ -115,6 +134,8 @@ const SellCodePage = ({
                 onChange={(selectedOptions) => handleMultiSelectChange('devices', selectedOptions)}
               />
             </div>
+
+            
           </div>
 
         </div>
@@ -202,23 +223,23 @@ const SellCodePage = ({
                 />
               </div>
               <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='offers'
-                  checked={formData.offers}
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='block text-sm font-medium'>
-                  Add Product on Weekly Free Source Code
-                </label>
+  <input
+    type='checkbox'
+    name='weeklyFreeCode'
+    value='Add Product on Weekly Free Source Code'
+    onChange={handleCheckboxChange}
+    className='mt-1'
+  />
+  <label className='block text-sm font-medium'>
+    Add Product on Weekly Free Source Code
+  </label>
+</div>
 
-              </div>
               <div className='flex items-center space-x-4'>
                 <input
                   type='checkbox'
-                  name='apply'
-                  checked={formData.apply}
+                  name='offerOptionBook'
+                  value='Offer option to Book a Demo for this product'
                   onChange={handleCheckboxChange}
                   className='mt-1'
                 />
@@ -228,19 +249,6 @@ const SellCodePage = ({
 
               </div>
 
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='project'
-                  checked={formData.project}
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='block text-sm font-medium'>
-                  Provide this project free of charge
-                </label>
-
-              </div>
             </div>
           </div>
 
@@ -251,8 +259,8 @@ const SellCodePage = ({
               <div className='flex items-center space-x-4'>
                 <input
                   type='checkbox'
-                  name='bookDemo'
-                  checked={formData.bookDemo}
+                  name='holdcopyRight'
+                 value='I hold the Copyright or I am using permissive license'
                   onChange={handleCheckboxChange}
                   className='mt-1'
                 />
@@ -264,8 +272,8 @@ const SellCodePage = ({
               <div className='flex items-center space-x-4'>
                 <input
                   type='checkbox'
-                  name='weeklyFree'
-                  checked={formData.weeklyFree}
+                  name='productQulityGuideLine'
+                  value ="I have read the Product Quality User Guideline"
                   onChange={handleCheckboxChange}
                   className='mt-1'
                 />
@@ -277,8 +285,8 @@ const SellCodePage = ({
               <div className='flex items-center space-x-4'>
                 <input
                   type='checkbox'
-                  name='copyright'
-                  checked={formData.copyright}
+                  name='copyrightTransfer'
+                  value="Copyright Transfer"
                   onChange={handleCheckboxChange}
                   className='mt-1'
                 />
@@ -288,38 +296,17 @@ const SellCodePage = ({
               <div className='flex items-center space-x-4'>
                 <input
                   type='checkbox'
-                  name='qualityGuideline'
-                  checked={formData.qualityGuideline}
+                  name='externalSource'
+                 value=" Does your product include External Sources? By clicking publish you agree with our terms, and that you verified our External Data Source Conditions."
                   onChange={handleCheckboxChange}
                   className='mt-1'
                 />
                 <label className='block text-sm font-medium'>
                   Does your product include External Sources? By clicking publish you agree with our terms, and that you verified our  External Data Source Conditions.
                 </label>
-
               </div>
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='paymentInfo'
-                  checked={formData.paymentInfo}
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='block text-sm font-medium'>Payment Info</label>
-
-              </div>
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='externalSources'
-                  checked={formData.externalSources}
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='block text-sm font-medium'>Use of External Sources</label>
-
-              </div>
+    
+         
             </div>
           </div>
 

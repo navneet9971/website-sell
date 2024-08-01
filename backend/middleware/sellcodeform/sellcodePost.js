@@ -3,80 +3,66 @@ const multer = require('multer');
 const router = express.Router();
 const SellData = require('../../models/sellcodeModel/sellGetModel');
 
-// Multer storage configuration
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-});
+// Configure multer for file uploads
+const upload = multer({ dest: 'uploads/' });
 
-// Multer file filter
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'application/pdf' || file.mimetype === 'application/zip' || file.mimetype.startsWith('image/')) {
-        cb(null, true);
-    } else {
-        cb(new Error('Invalid file type'), false);
-    }
-};
-
-// Multer upload configuration
-const upload = multer({ storage: storage, fileFilter: fileFilter });
+// Middleware to parse JSON bodies
+router.use(express.json());
 
 // Route to handle sell code submission
 router.post('/sell', upload.fields([
-    { name: 'projectImages', maxCount: 3 },
-    { name: 'installationGuide', maxCount: 1 },
-    { name: 'projectCode', maxCount: 1 }
+//   { name: 'images', maxCount: 1 },
+//   { name: 'installationGuide', maxCount: 1 },
+//   { name: 'projectCode', maxCount: 1 }
 ]), async (req, res) => {
-    try {
-        const { productTitle, codeDescription, tags, programmingLanguage, features, installationInstructions, adaptationInstructions, industry, devices, livePreview, videoUrl, price } = req.body;
+  try {
+    const {
+      productTitle, codeDescription, tags, programmingLanguage, features, 
+      installationInstructions, adaptationInstructions, industry, devices, 
+      livePreview, videoUrl, price
+    } = req.body;
 
-        // Handling file uploads
-        const projectImages = req.files['projectImages'] ? req.files['projectImages'].map(file => file.path) : [];
-        const installationGuide = req.files['installationGuide'] ? req.files['installationGuide'][0].path : null;
-        const projectCode = req.files['projectCode'] ? req.files['projectCode'][0].path : null;
+    console.log('Request body:', req.body);
+    console.log('Files:', req.files);
 
-        if (projectImages.length < 3) {
-            return res.status(400).json({ error: 'At least 3 images are required for projectImages' });
-        }
-
-        if (!installationGuide) {
-            return res.status(400).json({ error: 'Installation guide PDF is required' });
-        }
-
-        if (!projectCode) {
-            return res.status(400).json({ error: 'Project code ZIP file is required' });
-        }
-
-        // Create a new SellData document
-        const newSellData = new SellData({
-            productTitle,
-            codeDescription,
-            tags: tags.split(','), // Convert tags to an array
-            programmingLanguage,
-            features: features.split(','), // Convert features to an array
-            installationInstructions,
-            adaptationInstructions,
-            industry,
-            devices: devices.split(','), // Convert devices to an array
-            livePreview,
-            videoUrl,
-            projectImages,
-            installationGuide,
-            projectCode,
-            price
-        });
-
-        await newSellData.save();
-
-        return res.status(200).json({ message: 'Project submitted successfully', data: newSellData });
-
-    } catch (error) {
-        return res.status(500).json({ error: 'Server is down', details: error.message });
+    // Validate required fields
+    if (!productTitle || !codeDescription || !programmingLanguage) {
+      return res.status(400).json({ error: 'Missing required fields' });
     }
+
+    const { images, installationGuide, projectCode } = req.files;
+
+    const parsedTags = typeof tags === 'string' ? tags.split(',') : tags;
+    const parsedFeatures = typeof features === 'string' ? features.split(',') : features;
+    const parsedDevices = typeof devices === 'string' ? devices.split(',') : devices;
+    const parsedIndustry = typeof industry === 'string' ? industry.split(',') : industry;
+
+    const newSellData = new SellData({
+      productTitle,
+      codeDescription,
+      tags: parsedTags,
+      programmingLanguage,
+      features: parsedFeatures,
+      installationInstructions,
+      adaptationInstructions,
+      industry: parsedIndustry,
+      devices: parsedDevices,
+      livePreview,
+      videoUrl,
+      projectImages: images ? images[0].path : null,
+      price,
+      projectCode: projectCode ? projectCode[0].path : null,
+      installationGuide: installationGuide ? installationGuide[0].path : null
+    });
+
+    await newSellData.save();
+
+    return res.status(200).json({ message: 'Project submitted successfully', data: newSellData });
+
+  } catch (error) {
+    console.error('Error saving sell data:', error);
+    return res.status(500).json({ error: 'Server is down', details: error.message });
+  }
 });
 
 module.exports = router;

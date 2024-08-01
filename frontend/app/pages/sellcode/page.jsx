@@ -5,30 +5,38 @@ import React, { useState } from 'react'
 
 const SellCode = () => {
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
+    productTitle: '',
+    codeDescription: '',
     tags: [],
-    languages: [],
+    programmingLanguage: [],
     features: [],
-    installation: '',
-    adaptation: '',
+    chooseUpload:'',
+    installationInstructions: '',
+    adaptationInstructions: '',
     livePreview: '',
     videoUrl: '',
-    images: null,
-    installationGuide: null,
-    projectCode: null,
-    price: '',
-    bookDemo: false,
-    weeklyFree: false,
-    copyright: false,
-    qualityGuideline: false,
-    paymentInfo: false,
-    externalSources: false,
     industry: [],
     devices: [],
-    offers: false,
-    apply: false,
+    // images: null,
+    // installationGuide: null,
+    // projectCode: null,
+    price: '',
+
+
+    weeklyFreeCode: '',
+    offerOptionBook: '',
+    holdcopyRight: '',
+    productQulityGuideLine: '',
+    copyrightTransfer: '',
+    externalSource: '',
   });
+
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;  // Fixed typo here
+    setFormData({ ...formData, [name]: value });
+  };
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,9 +44,15 @@ const SellCode = () => {
   };
 
   const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target;
-    setFormData({ ...formData, [name]: checked });
+    const { name, value, checked } = e.target;
+    if (checked) {
+      setFormData({ ...formData, [name]: value });
+    } else {
+      // Handle the unchecked case if needed, e.g., by removing the entry
+      setFormData({ ...formData, [name]: '' });
+    }
   };
+  
 
   const handleFileChange = (e) => {
     const { name, files } = e.target;
@@ -57,16 +71,25 @@ const SellCode = () => {
     setFormData({ ...formData, features });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('/api/sell-code', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
+    const formDataToSubmit = new FormData();
+    Object.keys(formData).forEach(key => {
+      if (Array.isArray(formData[key])) {
+        formData[key].forEach((value, index) => {
+          formDataToSubmit.append(`${key}[${index}]`, value);
+        });
+      } else {
+        formDataToSubmit.append(key, formData[key]);
+      }
     });
+
+    const response = await fetch('http://localhost:4000/api/sell', {
+      method: 'POST',
+      body: formDataToSubmit
+    });
+    console.log(formData);
+
     if (response.ok) {
       alert('Form submitted successfully');
     } else {
@@ -84,6 +107,7 @@ const SellCode = () => {
       handleMultiSelectChange={handleMultiSelectChange}
       handleTagsChange={handleTagsChange}
       handleFeaturesChange={handleFeaturesChange}
+      handleChange={handleChange}
     />
   )
 }
