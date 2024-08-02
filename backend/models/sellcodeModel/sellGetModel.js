@@ -14,7 +14,6 @@ const sellDataSchema = new mongoose.Schema({
   videoUrl: { type: String },
   projectImages: { type: String },
   price: { type: Number, required: true },
-  projectCode: { type: String },
   installationGuide: { type: String },
   chooseUpload: {type: String, require:true},
 
