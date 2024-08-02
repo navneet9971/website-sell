@@ -10,7 +10,7 @@ const SellCode = () => {
     tags: [],
     programmingLanguage: [],
     features: [],
-    chooseUpload:'',
+    chooseUpload: '',
     installationInstructions: '',
     adaptationInstructions: '',
     livePreview: '',
@@ -36,7 +36,7 @@ const SellCode = () => {
     const { name, value } = e.target;  // Fixed typo here
     setFormData({ ...formData, [name]: value });
   };
-  
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,7 +52,7 @@ const SellCode = () => {
       setFormData({ ...formData, [name]: '' });
     }
   };
-  
+
 
   const handleFileChange = (e) => {
     const { name, files } = e.target;
