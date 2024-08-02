@@ -22,7 +22,7 @@ const sellDataSchema = new mongoose.Schema({
   productQulityGuideLine: {type: String, require: true},
   holdcopyRight: { type: String, require: true},
   offerOptionBook: { type: String},
-  weeklyFreeCode: { type: String}
+  weeklyFreeCode: { type: String},
 });
 
 module.exports = mongoose.model('SellData', sellDataSchema);

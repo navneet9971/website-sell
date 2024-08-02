@@ -1,11 +1,12 @@
+// index.js
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const mongoose = require('mongoose');
 
 
-const getSellData = require('./middleware/sellcodeform/sellcodeGet'); 
-const sellRoute = require('./middleware/sellcodeform/sellcodePost'); 
+const getSellData = require('./middleware/sellcodeform/sellcodeGet');
+const sellRoute = require('./middleware/sellcodeform/sellcodePost');
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -26,11 +27,8 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-
-
+// Use the sell data routes
 app.use('/api', getSellData);
-
-// Use the existing sell route
 app.use('/api', sellRoute);
 
 // Start the server
