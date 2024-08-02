@@ -43,7 +43,6 @@ router.post('/sell', upload.fields([
     console.log('Request body:', req.body);
     console.log('Files:', req.files);
 
-    // Validate required fields
     if (!productTitle || !codeDescription || !programmingLanguage) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
