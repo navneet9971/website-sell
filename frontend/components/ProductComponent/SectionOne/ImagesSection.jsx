@@ -27,6 +27,7 @@ const ImageSection = () => {
   src={Image3}
   width={600}
   height={100}
+  alt="image"
 />
 
 <div className='flex items-center justify-around gap-8 mt-4'>
@@ -34,7 +35,7 @@ const ImageSection = () => {
     <div key={image.id}>
       <Image
         src={image.image}
-        alt={image.alt}
+        alt={image.name}
         width={230}
         height={100}
       />

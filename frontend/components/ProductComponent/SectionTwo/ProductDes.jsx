@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { FaFacebook, FaGithub  } from "react-icons/fa";
+import { FaFacebook, FaGithub } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 
 const ProductDes = () => {
@@ -31,65 +31,57 @@ Ability to save favorite recipes`
     }
   ];
   
-
-
-const handleMedia = () => {
-  alert("Chal raha hu bhai chill kar")
-}
+  const handleMedia = () => {
+    alert("Chal raha hu bhai chill kar")
+  }
 
   return (
     <div className='w-full h-full border-black bg-slate-200 mb-5'>
+      <div className='flex items-center justify-between bg-blue-400'>
+        <h1 className=' text-white font-bold text-2xl text-start ml-2'>Product Details</h1>
 
-<div className='flex items-center justify-between bg-blue-400'>
-       <h1 className=' text-white font-bold text-2xl text-start ml-2'>Product Details</h1>
+        <div className='flex items-end justify-end gap-3 mr-2'>
+          <FaFacebook size={30} color="blue" className='cursor-pointer' onClick={handleMedia} />
+          <FaSquareXTwitter size={30} className='cursor-pointer' onClick={handleMedia} />
+          <FaGithub size={30} className='cursor-pointer' onClick={handleMedia} />
+        </div>
+      </div>
 
-<div className='flex items-end justify-end gap-3 mr-2'>
-       <FaFacebook  size={30} colors="blue" className='cursor-pointer' onClick={handleMedia}/>
-       <FaSquareXTwitter size={30}  className='cursor-pointer' onClick={handleMedia}/>
-       <FaGithub  size={30}  className='cursor-pointer' onClick={handleMedia}/>
-       </div> 
-       </div>
+      <div>
+        {des.map((item, index) => (
+          <div key={index} className='p-2 text-md text-gray-700'>
+            <div>{item.descr}</div>
 
-<div>
-{des.map((item) => (
-  <div className='p-2 text-md text-gray-700'>
-  <div>
-    {item.descr}
-    </div>
+            <div className='flex flex-col items-start justify-start mt-3 gap-2'>
+              <h1 className='text-xl font-bold'>{item.appwork}</h1>
+              <ul className='text-md'>
+                {item.applist.trim().split('\n').filter(line => line.trim().length > 0).map((feature, idx) => (
+                  <li key={idx}>{feature.trim()}</li>
+                ))}
+              </ul>
+            </div>
 
-    <div className='flex flex-col items-start justify-start mt-3 gap-2'>
- <h1 className='text-xl font-bold '>   {item.appwork}  </h1>
- <ul className='text-md'>
-            {item.applist.trim().split('\n').filter(line => line.trim().length > 0).map((feature, idx) => (
-              <li key={idx}>{feature.trim()}</li>
-            ))}
-          </ul>
-    </div>
+            <div className='flex flex-col items-start justify-start mt-3 gap-2'>
+              <h1 className='text-xl font-bold'>{item.appstart}</h1>
+              <h1 className='text-md'>{item.startdes}</h1>
+            </div>
 
-    <div className='flex flex-col items-start justify-start mt-3 gap-2'>
-    <h1 className='text-xl font-bold'>   {item.appstart} </h1>
-    <h1 className='text-md'>{item.startdes} </h1>
-    </div>
+            <div className='flex flex-col items-start justify-start mt-3 gap-2'>
+              <h1 className='text-xl font-bold'>{item.appfeature}</h1>
+              <ul>
+                {item.featurework.trim().split('\n').filter(line => line.trim().length > 0).map((feature, idx) => (
+                  <li key={idx}>-{feature.trim()}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
 
-    <div className='flex flex-col items-start justify-start mt-3 gap-2'>
-    <h1 className='text-xl font-bold'> {item.appfeature}</h1>
-   <ul>
-      {item.featurework.trim().split('\n').filter(line => line.trim().length > 0).map((feature, idx) => (
-        <li key={idx}>-{feature.trim()}</li>
-      ))}
-
-   </ul>
-    </div>
-  </div>
-))}
-</div>
-
-<div className='flex flex-col items-start px-2 gap-2'>
-<h1 className='font-bold text-sm'>Have questions, please contact my Info:</h1>
-<h1 className='font-bold text-md'>Username</h1>
-</div>
-
-
+      <div className='flex flex-col items-start px-2 gap-2'>
+        <h1 className='font-bold text-sm'>Have questions, please contact my Info:</h1>
+        <h1 className='font-bold text-md'>Username</h1>
+      </div>
     </div>
   )
 }
