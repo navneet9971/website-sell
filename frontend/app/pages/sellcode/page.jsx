@@ -1,104 +1,87 @@
-"use client"
+"use client";
 
-import SellCodePage from '/pages/SellCodePage'
-import React, { useState } from 'react'
+import React, { useState } from "react";
+import SellCodePage from "../../../pages/SellCodePage";
 
 const SellCode = () => {
   const [formData, setFormData] = useState({
-    productTitle: '',
-    codeDescription: '',
+    productTitle: "",
+    codeDescription: "",
     tags: [],
     programmingLanguage: [],
     features: [],
-    chooseUpload: '',
-    installationInstructions: '',
-    adaptationInstructions: '',
-    livePreview: '',
-    videoUrl: '',
+    installationInstructions: "",
+    adaptationInstructions: "",
     industry: [],
     devices: [],
-    projectImages: null,
-    // installationGuide: null,
-    // projectCode: null,
-    price: '',
-
-
-    weeklyFreeCode: '',
-    offerOptionBook: '',
-    holdcopyRight: '',
-    productQulityGuideLine: '',
-    copyrightTransfer: '',
-    externalSource: '',
+    livePreview: "",
+    videoUrl: "",
+    images: [],
+    installationGuide: null,
+    projectCode: null,
+    price: "",
+    weeklyFreeCode: false,
+    monthlyFreeCode: false,
+    termsOfService: "",
+    chooseUpload: "",
   });
 
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;  // Fixed typo here
-    setFormData({ ...formData, [name]: value });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(formData);
   };
 
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
     }));
   };
 
-  const handleCheckboxChange = (e) => {
-    const { name, value, checked } = e.target;
-    if (checked) {
-      setFormData({ ...formData, [name]: value });
-    } else {
-      // Handle the unchecked case if needed, e.g., by removing the entry
-      setFormData({ ...formData, [name]: '' });
-    }
+  const handleCheckboxChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: !prevFormData[name],
+    }));
   };
 
-
-  const handleFileChange = (e) => {
-    const { name, files } = e.target;
-    setFormData({ ...formData, [name]: files[0] });
+  const handleFileChange = (event) => {
+    const { name, files } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: files,
+    }));
   };
 
   const handleMultiSelectChange = (name, selectedOptions) => {
-    setFormData({ ...formData, [name]: selectedOptions.map(option => option.value) });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: selectedOptions.map((option) => option.value),
+    }));
   };
 
   const handleTagsChange = (tags) => {
-    setFormData({ ...formData, tags });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      tags,
+    }));
   };
 
   const handleFeaturesChange = (features) => {
-    setFormData({ ...formData, features });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      features,
+    }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formDataToSubmit = new FormData();
-    Object.keys(formData).forEach(key => {
-      if (Array.isArray(formData[key])) {
-        formData[key].forEach((value, index) => {
-          formDataToSubmit.append(`${key}[${index}]`, value);
-        });
-      } else {
-        formDataToSubmit.append(key, formData[key]);
-      }
-    });
-
-    const response = await fetch('http://localhost:4000/api/sell', {
-      method: 'POST',
-      
-      body: formDataToSubmit
-    });
-    console.log(formData);
-
-    if (response.ok) {
-      alert('Form submitted successfully');
-    } else {
-      alert('Form submission failed');
-    }
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
   return (
@@ -113,7 +96,7 @@ const SellCode = () => {
       handleFeaturesChange={handleFeaturesChange}
       handleChange={handleChange}
     />
-  )
-}
+  );
+};
 
-export default SellCode
+export default SellCode;

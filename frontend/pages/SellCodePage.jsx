@@ -18,14 +18,10 @@ const SellCodePage = ({
   handleChange
 }) => {
 
-
   return (
     <div>
-
       <h1 className='text-center text-4xl font-bold mb-10'>Sell Your Code Form</h1>
-
       <form onSubmit={handleSubmit} className='p-6 space-y-10'>
-
         {/* Source Code Details Section */}
         <div className='flex items-start justify-around'>
           <div className='w-2/5 h-auto bg-gray-100 shadow-lg p-6'>
@@ -66,27 +62,24 @@ const SellCodePage = ({
                   onChange={(selectedOptions) => handleMultiSelectChange('programmingLanguage', selectedOptions)}
                 />
               </div>
-
               <div>
-            <label  className='block text-sm font-medium'>
-        Select Upload Type:
-      </label>
-      <select
-  id="chooseUpload"
-  name="chooseUpload"
-  value={formData.chooseUpload}
-  onChange={handleChange}
-  className='mt-1 block w-full p-2 border rounded-md'
->
-  <option value="">Select the option</option>
-  <option value="fullwebsite">Upload Full Website</option>
-  <option value="piececode">Piece of Code</option>
-</select>
-            </div>
-
+                <label className='block text-sm font-medium'>
+                  Select Upload Type:
+                </label>
+                <select
+                  id="chooseUpload"
+                  name="chooseUpload"
+                  value={formData.chooseUpload}
+                  onChange={handleChange}
+                  className='mt-1 block w-full p-2 border rounded-md'
+                >
+                  <option value="">Select the option</option>
+                  <option value="fullwebsite">Upload Full Website</option>
+                  <option value="piececode">Piece of Code</option>
+                </select>
+              </div>
             </div>
           </div>
-
           <div className='w-2/5 h-auto bg-gray-100 shadow-lg p-6'>
             <div>
               <label className='block text-sm font-medium'>Features</label>
@@ -134,10 +127,7 @@ const SellCodePage = ({
                 onChange={(selectedOptions) => handleMultiSelectChange('devices', selectedOptions)}
               />
             </div>
-
-            
           </div>
-
         </div>
 
         {/* Visuals Section */}
@@ -206,7 +196,6 @@ const SellCodePage = ({
           </div>
         </div>
 
-
         <div className='flex items-start justify-around'>
           {/* Pricing Section */}
           <div className='w-2/5 h-auto bg-red-100 shadow-lg p-6'>
@@ -223,104 +212,54 @@ const SellCodePage = ({
                 />
               </div>
               <div className='flex items-center space-x-4'>
-  <input
-    type='checkbox'
-    name='weeklyFreeCode'
-    value='Add Product on Weekly Free Source Code'
-    onChange={handleCheckboxChange}
-    className='mt-1'
-  />
-  <label className='block text-sm font-medium'>
-    Add Product on Weekly Free Source Code
-  </label>
-</div>
-
-              <div className='flex items-center space-x-4'>
                 <input
                   type='checkbox'
-                  name='offerOptionBook'
-                  value='Offer option to Book a Demo for this product'
+                  name='weeklyFreeCode'
+                  value='Add Product on Weekly Free Source Code'
                   onChange={handleCheckboxChange}
                   className='mt-1'
                 />
-                <label className='block text-sm font-medium'>
-                  Offer option to Book a Demo for this product
-                </label>
-
+                <label className='text-sm font-medium'>Add Product on Weekly Free Source Code</label>
               </div>
-
+              <div className='flex items-center space-x-4'>
+                <input
+                  type='checkbox'
+                  name='monthlyFreeCode'
+                  value='Add Product on Monthly Free Source Code'
+                  onChange={handleCheckboxChange}
+                  className='mt-1'
+                />
+                <label className='text-sm font-medium'>Add Product on Monthly Free Source Code</label>
+              </div>
             </div>
           </div>
 
           {/* Terms of Service Section */}
-          <div className='w-2/5 h-auto bg-yellow-100 shadow-lg p-6'>
+          <div className='w-2/5 h-auto bg-purple-100 shadow-lg p-6'>
             <h2 className='text-xl font-semibold mb-4'>Terms of Service</h2>
             <div className='space-y-4'>
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='holdcopyRight'
-                 value='I hold the Copyright or I am using permissive license'
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
+              <div>
+                <label className='block text-sm font-medium'>Terms of Service</label>
+                <textarea
+                  name='termsOfService'
+                  value={formData.termsOfService}
+                  onChange={handleInputChange}
+                  className='mt-1 block w-full p-2 border rounded-md'
+                  rows='3'
                 />
-                <label className='block text-sm font-medium'>
-                  I hold the Copyright or I am using permissive license
-                </label>
-
               </div>
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='productQulityGuideLine'
-                  value ="I have read the Product Quality User Guideline"
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='block text-sm font-medium'>
-                  I have read the Product Quality User Guideline
-                </label>
-
-              </div>
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='copyrightTransfer'
-                  value="Copyright Transfer"
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='block text-sm font-medium'>Copyright Transfer</label>
-
-              </div>
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='externalSource'
-                 value=" Does your product include External Sources? By clicking publish you agree with our terms, and that you verified our External Data Source Conditions."
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='block text-sm font-medium'>
-                  Does your product include External Sources? By clicking publish you agree with our terms, and that you verified our  External Data Source Conditions.
-                </label>
-              </div>
-    
-         
             </div>
           </div>
-
         </div>
 
-        {/* Submit Button */}
-        <div className='flex items-center justify-center '>
-          <button type='submit' className='bg-blue-500 text-xl font-bold text-white px-20 py-2 rounded-md hover:bg-blue-400 hover:text-black'>
+        <div className='flex justify-center mt-10'>
+          <button
+            type='submit'
+            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
             Submit
           </button>
         </div>
-
       </form>
-
     </div>
   );
 };
