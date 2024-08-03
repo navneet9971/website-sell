@@ -1,15 +1,12 @@
-"use server"
+"use client"
 
 import React from 'react';
-import dynamic from 'next/dynamic';
 import ReletedProduct from './SectionThird/ReletedProduct';
+import ImageSection from './SectionOne/ImagesSection';
+import ImageInformation from './SectionOne/ImageInformation';
+import ProductUser from './SectionTwo/ProductUser';
+import ProductDes from './SectionTwo/ProductDes';
 import { useParams } from 'next/navigation';
-
-// Dynamic imports with server-side rendering enabled
-const ImageSection = dynamic(() => import('./SectionOne/ImagesSection'), { ssr: true });
-const ImageInformation = dynamic(() => import('./SectionOne/ImageInformation'), { ssr: true });
-const ProductUser = dynamic(() => import('./SectionTwo/ProductUser'), { ssr: true });
-const ProductDes = dynamic(() => import('./SectionTwo/ProductDes'), { ssr: true });
 
 const ProductInfoPage = ({ userId }) => {
   const params = useParams();

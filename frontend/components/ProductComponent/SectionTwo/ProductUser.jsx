@@ -1,16 +1,13 @@
-"use server"
+"use client"
 
 import { Avatar, AvatarFallback, AvatarImage } from "/components/ui/avatar";
 import { Button } from "/components/ui/button";
-import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import { FaUserSecret, FaHandshake } from "react-icons/fa";
 import { testData } from "/data/data";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-
-// Dynamic import of @minoru/react-dnd-treeview with ssr: false
-const DynamicTree = dynamic(() => import('@minoru/react-dnd-treeview').then(mod => mod.Tree), { ssr: false });
+import { Tree } from '@minoru/react-dnd-treeview'; // Static import
 
 const ProductUser = () => {
   const [treeData, setTreeData] = useState(testData);
@@ -61,7 +58,7 @@ const ProductUser = () => {
         
         <div className="flex items-center justify-start ml-5">
           <DndProvider backend={HTML5Backend}>
-            <DynamicTree
+            <Tree
               tree={treeData}
               rootId={0}
               render={(node, { depth, isOpen, onToggle }) => (
