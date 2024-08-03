@@ -1,5 +1,3 @@
-"use client"
-
 import { deviceOptions, industryOptions, languageOptions } from '/data/data';
 import React from 'react';
 import Select from 'react-select';
@@ -14,18 +12,12 @@ const SellCodePage = ({
   handleFileChange,
   handleMultiSelectChange,
   handleTagsChange,
-  handleFeaturesChange,
-  handleChange
+  handleFeaturesChange
 }) => {
-
-
   return (
     <div>
-
       <h1 className='text-center text-4xl font-bold mb-10'>Sell Your Code Form</h1>
-
       <form onSubmit={handleSubmit} className='p-6 space-y-10'>
-
         {/* Source Code Details Section */}
         <div className='flex items-start justify-around'>
           <div className='w-2/5 h-auto bg-gray-100 shadow-lg p-6'>
@@ -66,27 +58,22 @@ const SellCodePage = ({
                   onChange={(selectedOptions) => handleMultiSelectChange('programmingLanguage', selectedOptions)}
                 />
               </div>
-
               <div>
-            <label  className='block text-sm font-medium'>
-        Select Upload Type:
-      </label>
-      <select
-  id="chooseUpload"
-  name="chooseUpload"
-  value={formData.chooseUpload}
-  onChange={handleChange}
-  className='mt-1 block w-full p-2 border rounded-md'
->
-  <option value="">Select the option</option>
-  <option value="fullwebsite">Upload Full Website</option>
-  <option value="piececode">Piece of Code</option>
-</select>
-            </div>
-
+                <label className='block text-sm font-medium'>Select Upload Type:</label>
+                <select
+                  id='chooseUpload'
+                  name='chooseUpload'
+                  value={formData.chooseUpload}
+                  onChange={handleInputChange}
+                  className='mt-1 block w-full p-2 border rounded-md'
+                >
+                  <option value=''>Select the option</option>
+                  <option value='fullwebsite'>Upload Full Website</option>
+                  <option value='piececode'>Piece of Code</option>
+                </select>
+              </div>
             </div>
           </div>
-
           <div className='w-2/5 h-auto bg-gray-100 shadow-lg p-6'>
             <div>
               <label className='block text-sm font-medium'>Features</label>
@@ -134,12 +121,8 @@ const SellCodePage = ({
                 onChange={(selectedOptions) => handleMultiSelectChange('devices', selectedOptions)}
               />
             </div>
-
-            
           </div>
-
         </div>
-
         {/* Visuals Section */}
         <div className='w-full flex items-start justify-around'>
           <div className='w-2/5 h-auto bg-blue-100 shadow-lg p-6'>
@@ -166,161 +149,54 @@ const SellCodePage = ({
                 />
               </div>
               <div>
-                <label className='block text-sm font-medium'>Upload Images of Project</label>
+                <label className='block text-sm font-medium'>Project Images</label>
                 <input
                   type='file'
-                  name='images'
-                  multiple
+                  name='projectImages'
                   onChange={handleFileChange}
                   className='mt-1 block w-full p-2 border rounded-md'
+                  accept='image/*'
                 />
               </div>
             </div>
           </div>
-
-          {/* Document and Code Section */}
-          <div className='w-2/5 h-auto bg-green-100 shadow-lg p-6'>
-            <h2 className='text-xl font-semibold mb-4'>Document and Code</h2>
-            <div className='space-y-4'>
-              <div>
-                <label className='block text-sm font-medium'>Upload Installation Guide (PDF)</label>
-                <input
-                  type='file'
-                  name='installationGuide'
-                  accept='application/pdf'
-                  onChange={handleFileChange}
-                  className='mt-1 block w-full p-2 border rounded-md'
-                />
-              </div>
-              <div>
-                <label className='block text-sm font-medium'>Upload Project Code (ZIP)</label>
-                <input
-                  type='file'
-                  name='projectCode'
-                  accept='.zip'
-                  onChange={handleFileChange}
-                  className='mt-1 block w-full p-2 border rounded-md'
-                />
-              </div>
+          <div className='w-2/5 h-auto bg-blue-100 shadow-lg p-6'>
+            <div>
+              <label className='block text-sm font-medium'>Price</label>
+              <input
+                type='number'
+                name='price'
+                value={formData.price}
+                onChange={handleInputChange}
+                className='mt-1 block w-full p-2 border rounded-md'
+              />
+            </div>
+            <div>
+              <label className='block text-sm font-medium'>Weekly Free Code</label>
+              <input
+                type='text'
+                name='weeklyFreeCode'
+                value={formData.weeklyFreeCode}
+                onChange={handleInputChange}
+                className='mt-1 block w-full p-2 border rounded-md'
+              />
+            </div>
+            <div>
+              <label className='block text-sm font-medium'>Offer Option Book</label>
+              <input
+                type='text'
+                name='offerOptionBook'
+                value={formData.offerOptionBook}
+                onChange={handleInputChange}
+                className='mt-1 block w-full p-2 border rounded-md'
+              />
             </div>
           </div>
         </div>
-
-
-        <div className='flex items-start justify-around'>
-          {/* Pricing Section */}
-          <div className='w-2/5 h-auto bg-red-100 shadow-lg p-6'>
-            <h2 className='text-xl font-semibold mb-4'>Pricing</h2>
-            <div className='space-y-4'>
-              <div>
-                <label className='block text-sm font-medium'>Price</label>
-                <input
-                  type='text'
-                  name='price'
-                  value={formData.price}
-                  onChange={handleInputChange}
-                  className='mt-1 block w-full p-2 border rounded-md'
-                />
-              </div>
-              <div className='flex items-center space-x-4'>
-  <input
-    type='checkbox'
-    name='weeklyFreeCode'
-    value='Add Product on Weekly Free Source Code'
-    onChange={handleCheckboxChange}
-    className='mt-1'
-  />
-  <label className='block text-sm font-medium'>
-    Add Product on Weekly Free Source Code
-  </label>
-</div>
-
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='offerOptionBook'
-                  value='Offer option to Book a Demo for this product'
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='block text-sm font-medium'>
-                  Offer option to Book a Demo for this product
-                </label>
-
-              </div>
-
-            </div>
-          </div>
-
-          {/* Terms of Service Section */}
-          <div className='w-2/5 h-auto bg-yellow-100 shadow-lg p-6'>
-            <h2 className='text-xl font-semibold mb-4'>Terms of Service</h2>
-            <div className='space-y-4'>
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='holdcopyRight'
-                 value='I hold the Copyright or I am using permissive license'
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='block text-sm font-medium'>
-                  I hold the Copyright or I am using permissive license
-                </label>
-
-              </div>
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='productQulityGuideLine'
-                  value ="I have read the Product Quality User Guideline"
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='block text-sm font-medium'>
-                  I have read the Product Quality User Guideline
-                </label>
-
-              </div>
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='copyrightTransfer'
-                  value="Copyright Transfer"
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='block text-sm font-medium'>Copyright Transfer</label>
-
-              </div>
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='externalSource'
-                 value=" Does your product include External Sources? By clicking publish you agree with our terms, and that you verified our External Data Source Conditions."
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='block text-sm font-medium'>
-                  Does your product include External Sources? By clicking publish you agree with our terms, and that you verified our  External Data Source Conditions.
-                </label>
-              </div>
-    
-         
-            </div>
-          </div>
-
-        </div>
-
-        {/* Submit Button */}
-        <div className='flex items-center justify-center '>
-          <button type='submit' className='bg-blue-500 text-xl font-bold text-white px-20 py-2 rounded-md hover:bg-blue-400 hover:text-black'>
-            Submit
-          </button>
-        </div>
-
+        <button type='submit' className='w-full py-2 px-4 bg-green-500 text-white font-bold rounded-md'>
+          Submit
+        </button>
       </form>
-
     </div>
   );
 };
