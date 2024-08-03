@@ -1,3 +1,5 @@
+"use-server"
+
 import ExplorePage from '/pages/ExplorePage'
 import React from 'react'
 import { auth } from "@clerk/nextjs/server";

@@ -1,3 +1,5 @@
+"use-server"
+
 import { TrendingData } from '/data/data'
 import PagesGrid from '/globalcomponents/PagesGrid'
 import React from 'react'
