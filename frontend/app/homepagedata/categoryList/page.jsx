@@ -1,5 +1,5 @@
-import { CategoriesData } from '@/data/data'
-import PagesGrid from '@/globalcomponents/PagesGrid'
+import { CategoriesData } from '/data/data'
+import PagesGrid from '/globalcomponents/PagesGrid'
 import { auth } from "@clerk/nextjs/server";
 import React from 'react'
 

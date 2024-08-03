@@ -1,5 +1,5 @@
-import { CodeData } from '@/data/data'
-import PagesGrid from '@/globalcomponents/PagesGrid'
+import { CodeData } from '/data/data'
+import PagesGrid from '/globalcomponents/PagesGrid'
 import React from 'react'
 import { auth } from "@clerk/nextjs/server";
 
