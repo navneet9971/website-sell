@@ -1,4 +1,4 @@
-"use-server"
+"use server"
 
 import ExplorePage from '/pages/ExplorePage'
 import React from 'react'

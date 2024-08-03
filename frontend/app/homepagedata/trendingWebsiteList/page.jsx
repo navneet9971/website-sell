@@ -1,4 +1,4 @@
-"use-server"
+"use server"
 
 import { TrendingData } from '/data/data'
 import PagesGrid from '/globalcomponents/PagesGrid'

@@ -1,4 +1,4 @@
-"use-server"
+"use server"
 
 import { CategoriesData } from '/data/data'
 import PagesGrid from '/globalcomponents/PagesGrid'

@@ -1,3 +1,5 @@
+"use server"
+
 import Navbar from '/components/ui/Navbar'
 import React from 'react'
 
