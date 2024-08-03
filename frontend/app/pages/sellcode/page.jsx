@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 
 const SellCode = () => {
   const [formData, setFormData] = useState({
-    // productTitle: '',
+    productTitle: '',
     codeDescription: '',
     tags: [],
     programmingLanguage: [],

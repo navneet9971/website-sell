@@ -1,3 +1,5 @@
+
+
 import { deviceOptions, industryOptions, languageOptions } from '/data/data';
 import React from 'react';
 import Select from 'react-select';
@@ -29,7 +31,7 @@ const SellCodePage = ({
           <div className='w-2/5 h-auto bg-gray-100 shadow-lg p-6'>
             <h2 className='text-xl font-semibold mb-4'>Source Code Details</h2>
             <div className='space-y-4'>
-              {/* <div>
+              <div>
                 <label className='block text-sm font-medium'>Source Code Product Title</label>
                 <input
                   type='text'
@@ -38,7 +40,7 @@ const SellCodePage = ({
                   onChange={handleInputChange}
                   className='mt-1 block w-full p-2 border rounded-md'
                 />
-              </div> */}
+              </div>
               <div>
                 <label className='block text-sm font-medium'>Source Code Description</label>
                 <textarea
