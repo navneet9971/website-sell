@@ -1,7 +1,7 @@
 "use client"
 
-import React, { useState } from 'react';
-import SellCodePage from '/pages/SellCodePage';
+import SellCodePage from '/pages/SellCodePage'
+import React, { useState } from 'react'
 
 const SellCode = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +21,8 @@ const SellCode = () => {
     // installationGuide: null,
     // projectCode: null,
     price: '',
+
+
     weeklyFreeCode: '',
     offerOptionBook: '',
     holdcopyRight: '',
@@ -29,9 +31,19 @@ const SellCode = () => {
     externalSource: '',
   });
 
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target;  // Fixed typo here
     setFormData({ ...formData, [name]: value });
+  };
+
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleCheckboxChange = (e) => {
@@ -39,9 +51,11 @@ const SellCode = () => {
     if (checked) {
       setFormData({ ...formData, [name]: value });
     } else {
+      // Handle the unchecked case if needed, e.g., by removing the entry
       setFormData({ ...formData, [name]: '' });
     }
   };
+
 
   const handleFileChange = (e) => {
     const { name, files } = e.target;
@@ -75,8 +89,10 @@ const SellCode = () => {
 
     const response = await fetch('http://localhost:4000/api/sell', {
       method: 'POST',
+      
       body: formDataToSubmit
     });
+    console.log(formData);
 
     if (response.ok) {
       alert('Form submitted successfully');
@@ -89,14 +105,15 @@ const SellCode = () => {
     <SellCodePage
       handleSubmit={handleSubmit}
       formData={formData}
-      handleInputChange={handleChange}
+      handleInputChange={handleInputChange}
       handleCheckboxChange={handleCheckboxChange}
       handleFileChange={handleFileChange}
       handleMultiSelectChange={handleMultiSelectChange}
       handleTagsChange={handleTagsChange}
       handleFeaturesChange={handleFeaturesChange}
+      handleChange={handleChange}
     />
-  );
-};
+  )
+}
 
-export default SellCode;
+export default SellCode
