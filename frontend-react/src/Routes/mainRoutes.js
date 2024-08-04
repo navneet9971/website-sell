@@ -1,16 +1,29 @@
 // mainRoutes.js
 import React from 'react';
 import {  Route, Routes } from 'react-router-dom';
-import AddCart from "../component/Navbar/NavbarComponent/CartComponent/AddCartShop/AddCart";
-import AddLike from "../component/Navbar/NavbarComponent/LikeComponent/AddLikeButton/AddLike";
+import CartPage from '../component/Navbar/NavbarComponent/CartComponent/CartPage/CartPage';
+import ProductLikePage from '../component/Navbar/NavbarComponent/LikeComponent/LikedPage/ProductLikedPage';
+import ExplorePage from '../component/pages/ExplorePage';
+import CategoriesListPage from '../component/HomePage/SeparatePages/CategoriesListPage';
+import TrendingCodeListPage from '../component/HomePage/SeparatePages/TrendingCodeListPage';
+import TrendingWebsitePage from '../component/HomePage/SeparatePages/TrendingWebsitePage';
 
 
 const MainRoutes = () => {
   return (
+    <div className='mt-16'>
       <Routes>
-        <Route path="/navbar/cartInfo" element={<AddCart />} />
-        <Route path="/navbar/likeInfo" element={<AddLike />} />
+        <Route path='/' element={<ExplorePage />} />
+        <Route path="/navbar/cartInfo" element={<CartPage />} />
+        <Route path="/navbar/likeInfo" element={<ProductLikePage />} />
+
+
+        {/* SeparatePages */}
+        <Route path="/homepagedata/categoryList" element={<CategoriesListPage  />} />
+        <Route path="/homepagedata/trendingcodes" element={<TrendingCodeListPage />} />
+        <Route path="/homepagedata/trendingWebsiteList"  element={<TrendingWebsitePage />} />
       </Routes>
+      </div>
   );
 };
 

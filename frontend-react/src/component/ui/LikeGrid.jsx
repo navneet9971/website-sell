@@ -1,16 +1,13 @@
 import { cn } from "../../lib/utils";
 import { Button } from "./button";
-// import Image from "next/image";
 import { LiaFileCodeSolid, LiaIndustrySolid } from "react-icons/lia";
 import { MdDevices } from "react-icons/md";
 import { FaHeartBroken, FaHeart } from "react-icons/fa";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import useCountNum from "../../globalComponent/countNumber/useCountNum";
-import { useNavigate } from "react-router-dom";
 
-
-export const BentoGrid = ({ className, children }) => {
+export const LikeGrid = ({ className, children }) => {
   return (
     <div
       className={cn(
@@ -23,7 +20,7 @@ export const BentoGrid = ({ className, children }) => {
   );
 };
 
-export const BentoGridItem = ({
+export const LikeGridItem = ({
   key, // Id of Product
   className,
   title,
@@ -34,12 +31,11 @@ export const BentoGridItem = ({
   img,
   onClick,
   price,
-  userId,
 }) => {
+
   const [liked, setLiked] = useState(false);
   const [likedItems, setLikedItems] = useState([]);
   const { increaseLikeCount, decreaseLikeCount } = useCountNum();
-  const navigate = useNavigate()
 
   const priceNumber = parseFloat(price);
 
@@ -54,32 +50,11 @@ export const BentoGridItem = ({
   const industryNames = industry ? industry.split(',').map(name => name.trim()) : [];
   const deviceNames = devices ? devices.split(',').map(name => name.trim()) : [];
 
+
   const handleBuyItem = () => {
-    if (!userId) {
-      navigate('/login'); 
-    } else {
-      navigate('/buy'); 
-    }
+    alert("Working on it hold on plzzzz");
   };
 
-  const handleLikeItem = () => {
-    if (!userId) {
-      toast.error('Please login and try again!');
-      return;
-    }
-
-    if (liked) {
-      setLiked(false);
-      setLikedItems((prevLikedItems) => prevLikedItems.filter((item) => item !== key));
-      decreaseLikeCount();
-      toast.error('Item removed from likes!');
-    } else {
-      setLiked(true);
-      setLikedItems((prevLikedItems) => [...prevLikedItems, key]);
-      increaseLikeCount();
-      toast.success('Item liked!');
-    }
-  };
 
   return (
     <div
@@ -87,7 +62,6 @@ export const BentoGridItem = ({
         "w-72 h-[26.5rem] overflow-hidden row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-gray-100 border border-transparent justify-between flex flex-col space-y-4",
         className
       )}
-      key={key}
     >
       <div className="relative">
         <img
@@ -98,16 +72,6 @@ export const BentoGridItem = ({
           className="object-cover"
         />
 
-        <button
-          className={`absolute top-1 right-1 bg-white rounded-full p-1.5 shadow-md transition duration-200 ${liked ? 'bg-green-100' : 'hover:bg-gray-200'}`}
-          onClick={handleLikeItem}
-        >
-          {liked ? (
-            <FaHeart size={17} color="green" />
-          ) : (
-            <FaHeartBroken size={17} color="red" />
-          )}
-        </button>
 
         <div className="group-hover/bento:translate-x-2 transition duration-200">
           <div className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200 mb-3 mt-2 cursor-pointer hover:text-neutral-400" onClick={onClick}>

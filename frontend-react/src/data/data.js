@@ -1,3 +1,8 @@
+import anime from "../assets/anime.jpg";
+import dargon from "../assets/dargon.jpg";
+import example from "../assets/exampleAnime.jpg";
+
+
 export const navigation = [
     { name: 'Dashboard', href: '#', current: true },
     { name: 'Team', href: '#', current: false },
@@ -20,7 +25,7 @@ export const navigation = [
         language: "Japanese, English, French, German, Hindi, Tamil",
         industry: "Anime, Manga, Gaming, Action, Sc-fi",
         devices: "TV, Mobile, Tablet, Console",
-        img: "/anime.jpg",
+        img: anime,
         price: "200"
     },
     {
@@ -30,7 +35,7 @@ export const navigation = [
         language: "Japanese, English, Spanish",
         industry: "Anime, Manga, Entertainment",
         devices:"TV, Mobile, Tablet",
-        img: "/dargon.jpg",
+        img: dargon,
         price:"2000"
     },
     {
@@ -40,7 +45,7 @@ export const navigation = [
         language: "Japanese, English, French, German",
         industry: "Anime, Manga, Gaming",
         devices: "TV, Mobile, Tablet, Console",
-        img: "/exampleAnime.jpg",
+        img: example,
         price: "1000"
     },
     {
@@ -51,7 +56,7 @@ export const navigation = [
         language: "Japanese, English, Spanish",
         industry: "Anime, Manga, Entertainment",
         devices:"TV, Mobile, Tablet",
-        img: "/anime.jpg",
+        img: anime,
           price: "0"
     },
     {
@@ -61,7 +66,7 @@ export const navigation = [
         language: "Japanese, English, French, German",
         industry: "Anime, Manga, Gaming",
         devices: "TV, Mobile, Tablet, Console",
-       img: "/dargon.jpg"
+       img: dargon
     },
     {
         id: "6",
@@ -70,7 +75,7 @@ export const navigation = [
         language: "Japanese, English, Spanish",
         industry: "Anime, Manga, Entertainment",
         devices:"TV, Mobile, Tablet",
-         img: "/exampleAnime.jpg"
+         img: example
     },
     {
         id: "7",
@@ -79,7 +84,7 @@ export const navigation = [
         language: "Japanese, English, French, German",
         industry: "Anime, Manga, Gaming",
         devices: "TV, Mobile, Tablet, Console",
-          img: "/anime.jpg"
+          img: anime
     },
     {
         id: "8",
@@ -88,7 +93,7 @@ export const navigation = [
         language: "Japanese, English, Spanish",
         industry: "Anime, Manga, Entertainment",
         devices:"TV, Mobile, Tablet",
-         img: "/dargon.jpg"
+         img: example
     },
     {
         id: "9",
@@ -97,7 +102,7 @@ export const navigation = [
         language: "Japanese, English, French, German, Hindi, Tamil",
         industry: "Anime, Manga, Gaming",
         devices: "TV, Mobile, Tablet, Console",
-          img: "/exampleAnime.jpg"
+          img: dargon
     },
     {
         id: "10",
@@ -106,7 +111,7 @@ export const navigation = [
         language: "Japanese, English, Spanish",
         industry: "Anime, Manga, Entertainment",
         devices:"TV, Mobile, Tablet",
-        img: "/anime.jpg"
+        img:anime
     }
 ];
 

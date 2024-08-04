@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { LikeGrid, LikeGridItem } from '/components/ui/LikeGrid';
-import { CategoriesData } from '/data/data';
+import { LikeGrid, LikeGridItem } from '../../../../../component/ui/LikeGrid';
+import { CategoriesData } from '../../../../../data/data';
 import React, { useEffect, useState } from 'react';
 
 const ProductLikePage = () => {
