@@ -235,7 +235,7 @@ const SellCodePage = ({
           </div>
 
           {/* Terms of Service Section */}
-          <div className='w-2/5 h-auto bg-purple-100 shadow-lg p-6'>
+          {/* <div className='w-2/5 h-auto bg-purple-100 shadow-lg p-6'>
             <h2 className='text-xl font-semibold mb-4'>Terms of Service</h2>
             <div className='space-y-4'>
               <div>
@@ -249,7 +249,7 @@ const SellCodePage = ({
                 />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className='flex justify-center mt-10'>
