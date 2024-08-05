@@ -3,6 +3,7 @@ import dargon from "../assets/dargon.jpg";
 import example from "../assets/exampleAnime.jpg";
 
 
+
 export const navigation = [
     { name: 'Dashboard', href: '#', current: true },
     { name: 'Team', href: '#', current: false },
@@ -11,10 +12,10 @@ export const navigation = [
   ]
 
   export const miniNavbar = [
-    { id: 1, name: 'Explore', path: '/pages/explore' },
-    { id: 2, name: 'Collections', path: '/pages/collection' },
-    { id: 3, name: 'Sell Code', path: '/pages/sellcode' },
-    { id: 4, name: 'Buy Code', path: '/pages/buycode' }
+    { id: 1, name: 'Explore', path: '/' },
+    { id: 2, name: 'Collections', path: '/collection' },
+    { id: 3, name: 'Sell Code', path: '/sellcode' },
+    { id: 4, name: 'Buy Code', path: '/buycode' }
   ]
 
   export const CategoriesData = [
@@ -52,7 +53,6 @@ export const navigation = [
         id: "4",
         title: "Item 4",
         description: "This is the description for item 4.",
-        description: "This is the description for item 2.",
         language: "Japanese, English, Spanish",
         industry: "Anime, Manga, Entertainment",
         devices:"TV, Mobile, Tablet",

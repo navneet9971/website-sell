@@ -4,9 +4,11 @@ import React from 'react'
 import { Categories } from '../HomePage/Categories'
 import TrendingWebsite from '../HomePage/TrendingWebsite'
 import TrendingCodesPage from '../HomePage/TrendingCodesPage'
+import { useAuth } from '@clerk/clerk-react'
 
 
-const ExplorePage = ({ userId }) => {
+const ExplorePage = () => {
+  const { userId } =  useAuth();
   return (
     <div className='flex flex-col items-center justify-center gap-7' >
       <Categories

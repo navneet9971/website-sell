@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const flowbite = require("flowbite-react/tailwind");
 
 const colors = require("tailwindcss/colors");
 const {
@@ -13,6 +14,7 @@ module.exports = {
     './app/**/*.{js,jsx}',
     './src/**/*.{js,jsx,ts,tsx}',
     './src/*.js',
+    flowbite.content(),
   ],
   darkMode: "class",
   prefix: "",
@@ -38,6 +40,7 @@ module.exports = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
+        primary: {"50":"#f5f3ff","100":"#ede9fe","200":"#ddd6fe","300":"#c4b5fd","400":"#a78bfa","500":"#8b5cf6","600":"#7c3aed","700":"#6d28d9","800":"#5b21b6","900":"#4c1d95","950":"#2e1065"},
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -86,7 +89,8 @@ module.exports = {
   },
   plugins: [
     addVariablesForColors,
-    require("tailwindcss-animate")
+    require("tailwindcss-animate"),
+    flowbite.plugin(),
   ],
 }
 
