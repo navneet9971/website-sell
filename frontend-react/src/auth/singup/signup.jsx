@@ -1,23 +1,10 @@
-import React from 'react';
-import SignUpForm from './signupForm';
+import { SignUp } from "@clerk/clerk-react"
 
-const SignUp = () => {
-  const handleSignUp = async (formData) => {
-    // Replace this with your API call
-    alert('Submitting:', JSON.stringify(formData));
-    // Example API call:
-    // const response = await fetch('/api/signup', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(formData),
-    // });
-    // const data = await response.json();
-    // Handle response data
-  };
-
+export default function SignUpPage() {
   return (
-    <SignUpForm onSubmit={handleSignUp} />
-  );
+  <div className="flex items-center justify-center"> 
+  <SignUp path="/sign-up" />
+  </div>
+ 
+)
 }
-
-export default SignUp;

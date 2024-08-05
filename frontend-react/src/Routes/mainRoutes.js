@@ -1,5 +1,7 @@
 import React from 'react';
-import {  Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+
 import CartPage from '../component/Navbar/NavbarComponent/CartComponent/CartPage/CartPage';
 import ProductLikePage from '../component/Navbar/NavbarComponent/LikeComponent/LikedPage/ProductLikedPage';
 import ExplorePage from '../component/pages/ExplorePage';
@@ -9,40 +11,36 @@ import TrendingWebsitePage from '../component/HomePage/SeparatePages/TrendingWeb
 import ProductInfo from '../component/productInfo/productInfo';
 import CollectionPage from '../component/pages/CollectionPage';
 import SellCode from '../component/pages/SellcodeMain/SellCode';
-// import SignIn from '../auth/signin/signin';
-// import SignUp from '../auth/singup/signup';
-
-
+import BuyCodePage from '../component/pages/BuyCodePage';
+import ProtectedRoute from './ProtectedRoute';
+import Signup from '../auth/singup/signup';
+import Signin from '../auth/signin/signin';
 
 const MainRoutes = () => {
+
+
   return (
-    
-    <div className='mt-24'>
+    <div className="mt-24">
       <Routes>
-        {/* <Route path= "/sign-in" element={<SignIn />} />
-        <Route path= "/sign-up"  element={<SignUp />} /> */}
+        <Route path= "/sign-up" element={<Signup />} />
+        <Route path= "/sign-in"  element={<Signin />} />
 
-
-        <Route path='/' element={<ExplorePage />} />
-        <Route path="/navbar/cartInfo" element={<CartPage />} />
-        <Route path="/navbar/likeInfo" element={<ProductLikePage />} />
-
+        <Route path="/" element={<ExplorePage />} />
+        <Route path="/navbar/cartInfo" element= {<ProtectedRoute element={<CartPage />} />}/>
+        <Route path="/navbar/likeInfo" element={ <ProtectedRoute element={<ProductLikePage />} />} />
 
         {/* SeparatePages */}
-        <Route path="/homepagedata/categoryList" element={<CategoriesListPage  />} />
+        <Route path="/homepagedata/categoryList" element={<CategoriesListPage />} />
         <Route path="/homepagedata/trendingcodes" element={<TrendingCodeListPage />} />
-        <Route path="/homepagedata/trendingWebsiteList"  element={<TrendingWebsitePage />} />
-        <Route path={`/productInfo/:id`} element={<ProductInfo />} />
+        <Route path="/homepagedata/trendingWebsiteList" element={<TrendingWebsitePage />} />
+        <Route path="/productInfo/:id" element={<ProductInfo />} />
 
-
-{/* second Routes Pages */}
-<Route path= "/collection" element={<CollectionPage />} />
-<Route path= "/buycode" element={<ExplorePage />} />
-<Route path = "/sellcode" element={<SellCode />} />
-
-
+        {/* Protected Routes */}
+        <Route path="/collection" element={<ProtectedRoute element={<CollectionPage />} />} />
+        <Route path="/buycode" element={<ProtectedRoute element={<BuyCodePage />} />} />
+        <Route path="/sellcode" element={<ProtectedRoute element={<SellCode />} />} />
       </Routes>
-      </div>
+    </div>
   );
 };
 

@@ -58,7 +58,7 @@ const ImageInformation = ({ id, userId }) => {
     const handlePurchaseCode = () => {
         if (!userId) {
             toast.error('Please login first!');
-            navigation('/login')
+            navigation('/sign-up')
             return;
         } else {
             navigation(`/purchase-code/${id}`);
@@ -152,7 +152,7 @@ const ImageInformation = ({ id, userId }) => {
                     <Button
                         variant="destructive"
                         onClick={handlePurchaseCode}
-                        className="flex items-center gap-2 w-2/3 hover:bg-green-600" >
+                        className="flex items-center gap-2 w-2/3 text-white bg-blue-600 hover:bg-blue-400 hover:text-black" >
                         <h1 className='font-bold text-2xl'> Purchase Code </h1>
                     </Button>
                 </div>

@@ -56,7 +56,7 @@ export const BentoGridItem = ({
 
   const handleBuyItem = () => {
     if (!userId) {
-      navigate('/login'); 
+      navigate('/sign-up'); 
     } else {
       navigate('/buy'); 
     }

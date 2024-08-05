@@ -6,7 +6,7 @@ import { Input } from "../ui/input";
 import AddCart from '../Navbar/NavbarComponent/CartComponent/AddCartShop/AddCart';
 import AddLike from '../Navbar/NavbarComponent/LikeComponent/AddLikeButton/AddLike';
 import { useNavigate } from 'react-router-dom';
-import { UserButton, SignInButton, SignUpButton, useAuth } from "@clerk/clerk-react";
+import { UserButton,  useAuth } from "@clerk/clerk-react";
 
 
 export default function Navbar() {
@@ -14,13 +14,13 @@ const navigate = useNavigate();
 const { userId } =  useAuth();
 
 
-//   const handleLogin = () => {
-//     navigate('/sign-in');
-//   };
+  const handleLogin = () => {
+    navigate('/sign-in');
+  };
 
-//   const handleSignUp = () => {
-//     navigate('/sign-up');
-//   };
+  const handleSignUp = () => {
+    navigate('/sign-up');
+  };
 
   return (
     <Disclosure as="nav" className="bg-gray-800 fixed top-0 left-0 right-0 z-50">
@@ -71,23 +71,23 @@ const { userId } =  useAuth();
               </>
             ) : (
               <>
-                <SignInButton>
+              
                 <button
-                //   onClick={handleLogin}
+                  onClick={handleLogin}
                   className="relative rounded-md bg-gray-700 text-white px-3 py-2 text-sm hover:bg-gray-600"
                 >
                   Login
                 </button>
-                </SignInButton>
+                
               
-                <SignUpButton>
+            
                 <button
-                //   onClick={handleSignUp}
+                  onClick={handleSignUp}
                   className="relative rounded-md bg-gray-700 text-white px-3 py-2 text-sm hover:bg-gray-600 ml-2"
                 >
               Sign in
                 </button>
-             </SignUpButton>
+         
               </>
             )}
           </div>
