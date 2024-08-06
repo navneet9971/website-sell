@@ -17,22 +17,28 @@
     "autoprefixer": "^10.4.20",
     "browserify-zlib": "^0.2.0",
     "class-variance-authority": "^0.7.0",
-    "flowbite-react": "^0.10.1",
     "framer-motion": "^11.3.21",
+    "hoist-non-react-statics": "^3.3.2",
+    "html-webpack-plugin": "^5.6.0",
     "lucide-react": "^0.424.0",
     "next-themes": "^0.3.0",
-    "postcss": "^8.4.40",
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
+    "react-is": "^18.3.1",
     "react-router-dom": "^6.26.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-select": "^5.8.0",
     "react-tagsinput": "^3.20.3",
     "react-toastify": "^10.0.5",
     "stream-browserify": "^3.0.0",
     "tailwind-merge": "^2.4.0",
+    "use-sync-external-store": "^1.2.2",
     "web-vitals": "^2.1.4",
+    "webpack": "^5.93.0",
     "zustand": "^4.5.4"
   },
   "scripts": {
@@ -61,10 +67,12 @@
   },
   "devDependencies": {
     "css-loader": "^7.1.2",
+    "postcss": "^8.4.40",
     "postcss-loader": "^8.1.1",
     "source-map-loader": "^5.0.0",
     "style-loader": "^4.0.0",
     "tailwindcss": "^3.4.7",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "webpack-cli": "^5.1.4"
   }
 }
