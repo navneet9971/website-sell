@@ -3,23 +3,18 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const mongoose = require('mongoose');
-
-const clerk = require('./middleware/clerkMiddleware/clerkMiddleware');
-const { ClerkExpressWithAuth } = require('@clerk/clerk-sdk-node');
+const bodyParser = require('body-parser');
+const { Webhook } = require('svix');
 
 const getSellData = require('./middleware/sellcodeform/sellcodeGet');
 const sellRoute = require('./middleware/sellcodeform/sellcodePost');
-const userRoutes = require('./routes/userRoutes/userRoutes');
-
-
+// const webhookHandler = require('./routes/clerkWebhookHandler/clerkWebhookHandler');
 
 const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(cors());
-app.use(clerk);
-app.use(ClerkExpressWithAuth()); // Ensure Clerk middleware is used
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -34,17 +29,42 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-
-
-app.use('/api', userRoutes);
-
-
 // Use the sell data routes
 app.use('/api', getSellData);
 app.use('/api', sellRoute);
+// app.use('/api', webhookHandler);
 
+// Webhook endpoint
+app.post(
+  '/webhooks',
+  bodyParser.raw({ type: 'application/json' }),
+  async (req, res) => {
+    try {
+      const payloadString = req.body.toString();
+      const svixHeader = req.headers;
+      const wh = new Webhook(process.env.CREATE_WEBHOOK_SECRET_KEY);
+      const evt = wh.verify(payloadString, svixHeader);
 
+      const { id, ...attributes } = evt.data;
+      const eventType = evt.type;
 
+      if (eventType === 'user.created') {
+        console.log(`User ${id} is ${eventType}`);
+        console.log(attributes);
+      }
+
+      res.status(200).json({
+        success: true,
+        message: 'Webhook received'
+      });
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        message: err.message
+      });
+    }
+  }
+);
 
 // Start the server
 app.listen(port, () => {

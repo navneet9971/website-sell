@@ -15,6 +15,9 @@ import BuyCodePage from '../component/pages/BuyCodePage';
 import ProtectedRoute from './ProtectedRoute';
 import Signup from '../auth/singup/signup';
 import Signin from '../auth/signin/signin';
+import { AuthenticateWithRedirectCallback } from '@clerk/clerk-react';
+import VerifyEmail from '../auth/verifyEmail/VerifyEmail';
+import CompleteSignUpPage from '../auth/CompleteSignUp/CompleteSignUpPage';
 
 const MainRoutes = () => {
 
@@ -22,8 +25,19 @@ const MainRoutes = () => {
   return (
     <div className="mt-24">
       <Routes>
-        <Route path= "/sign-up" element={<Signup />} />
-        <Route path= "/sign-in"  element={<Signin />} />
+        <Route path= "/sign-up/*" element={<Signup />} />
+        <Route path= "/sign-in/*"  element={<Signin />} />
+        <Route path="/email-verification" element={<VerifyEmail />} />
+        <Route
+          path="/sso-callback"
+          element={<AuthenticateWithRedirectCallback />}
+        />
+          <Route path="/complete-sign-up" element={<CompleteSignUpPage />} />
+
+
+
+
+
 
         <Route path="/" element={<ExplorePage />} />
         <Route path="/navbar/cartInfo" element= {<ProtectedRoute element={<CartPage />} />}/>
