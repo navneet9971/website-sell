@@ -1,4 +1,3 @@
-// index.js
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
@@ -8,13 +7,18 @@ const { Webhook } = require('svix');
 
 const getSellData = require('./middleware/sellcodeform/sellcodeGet');
 const sellRoute = require('./middleware/sellcodeform/sellcodePost');
-// const webhookHandler = require('./routes/clerkWebhookHandler/clerkWebhookHandler');
+const User = require('./models/userModel/user');  // Ensure this matches the case of your filename
 
 const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(cors());
+
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.url}`);
+  next();
+});
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -32,35 +36,53 @@ app.get('/', (req, res) => {
 // Use the sell data routes
 app.use('/api', getSellData);
 app.use('/api', sellRoute);
-// app.use('/api', webhookHandler);
 
-// Webhook endpoint
 app.post(
-  '/webhooks',
+  '/api/webhooks',
   bodyParser.raw({ type: 'application/json' }),
   async (req, res) => {
+    console.log('Webhook received');
+    console.log('Headers:', req.headers);
+    console.log('Body:', req.body.toString());
+
     try {
       const payloadString = req.body.toString();
-      const svixHeader = req.headers;
-      const wh = new Webhook(process.env.CREATE_WEBHOOK_SECRET_KEY);
-      const evt = wh.verify(payloadString, svixHeader);
+      const svixHeaders = {
+        'svix-id': req.headers['svix-id'],
+        'svix-signature': req.headers['svix-signature'],
+        'svix-timestamp': req.headers['svix-timestamp'],
+      };
+      const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET_KEY);
+      const evt = wh.verify(payloadString, svixHeaders);
 
       const { id, ...attributes } = evt.data;
       const eventType = evt.type;
 
       if (eventType === 'user.created') {
-        console.log(`User ${id} is ${eventType}`);
-        console.log(attributes);
+        const firstName = attributes.first_name;
+        const lastName = attributes.last_name;
+
+        console.log(`User Created: ${firstName} ${lastName}`);
+
+        const user = new User({
+          clerkId: id,
+          firstName: firstName,
+          lastName: lastName,
+        });
+
+        await user.save();
+        console.log('User was created');
       }
 
       res.status(200).json({
         success: true,
-        message: 'Webhook received'
+        message: 'Webhook received',
       });
     } catch (err) {
+      console.error('Webhook verification error:', err.message);
       res.status(400).json({
         success: false,
-        message: err.message
+        message: err.message,
       });
     }
   }
