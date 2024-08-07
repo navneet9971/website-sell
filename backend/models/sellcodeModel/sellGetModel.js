@@ -7,7 +7,7 @@ const sellDataSchema = new mongoose.Schema({
   programmingLanguage: { type: [String], required: true },
   features: { type: [String], required: true },
   installationInstructions: { type: String },
-  adaptationInstructions: { type: String},
+  adaptationInstructions: { type: String },
   industry: { type: [String], required: true },
   devices: { type: [String], required: true },
   livePreview: { type: String },
@@ -15,14 +15,14 @@ const sellDataSchema = new mongoose.Schema({
   projectImages: { type: String },
   price: { type: Number, required: true },
   installationGuide: { type: String },
-  chooseUpload: {type: String, require:true},
-
-  externalSource : {type: String, require: true},
-  copyrightTransfer: {type: String, require:true},
-  productQulityGuideLine: {type: String, require: true},
-  holdcopyRight: { type: String, require: true},
+  chooseUpload: {type: String, required: true},
+  externalSource: {type: String, required: true},
+  copyrightTransfer: {type: String, required: true},
+  productQualityGuideLine: {type: String, required: true},
+  holdCopyright: { type: String, required: true},
   offerOptionBook: { type: String},
   weeklyFreeCode: { type: String},
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, 
 });
 
 module.exports = mongoose.model('SellData', sellDataSchema);

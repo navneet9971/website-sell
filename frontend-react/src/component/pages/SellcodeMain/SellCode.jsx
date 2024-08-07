@@ -1,9 +1,14 @@
-"use client";
 
 import React, { useState } from "react";
 import SellCodePage from "../SellCodePage";
+import useAxiosInstance from "../../../interceptor/axiosInstance";
+import { useAuth } from '@clerk/clerk-react';
+import axios from "axios";
 
 const SellCode = () => {
+  const { sessionId } = useAuth();
+  const axiosInstance = useAxiosInstance();
+  const { userId } =  useAuth();
   const [formData, setFormData] = useState({
     productTitle: "",
     codeDescription: "",
@@ -24,14 +29,31 @@ const SellCode = () => {
     monthlyFreeCode: false,
     termsOfService: "",
     chooseUpload: "",
+    user: userId,
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
-    alert("WOrking.....")
-  };
 
+    try {
+      const response = await axios.post(
+        'http://localhost:4000/api/sell',
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${sessionId}`,
+          },
+        }
+      );
+      console.log('Response:', response.data);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
+  
+
+  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({

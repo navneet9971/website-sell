@@ -1,5 +1,3 @@
-"use client"
-
 import { deviceOptions, industryOptions, languageOptions } from '../../data/data';
 import React from 'react';
 import Select from 'react-select';
