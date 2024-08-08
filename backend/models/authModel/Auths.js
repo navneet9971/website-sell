@@ -4,10 +4,11 @@ const bcrypt = require('bcryptjs');
 
 
 const AuthSchema = new Schema({
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    fullName: { type: String, required: true },
+    userName: { type: String, required: true },
     email: { type: String, required: true, unique: true, match: [/.+@.+\..+/, 'Please fill a valid email address']  },
     password: { type: String, required: true },
+    remember: {type: Boolean, require: true},
     image: { 
         data: Buffer, 
         contentType: String 

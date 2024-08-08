@@ -1,14 +1,11 @@
 
 import React, { useState } from "react";
 import SellCodePage from "../SellCodePage";
-import useAxiosInstance from "../../../interceptor/axiosInstance";
-import { useAuth } from '@clerk/clerk-react';
-import axios from "axios";
+import Cookies from "js-cookie";
+import axiosInstance from "../../../interceptor/axiosInstance";
 
 const SellCode = () => {
-  const { sessionId } = useAuth();
-  const axiosInstance = useAxiosInstance();
-  const { userId } =  useAuth();
+  const userId  = Cookies.get("userId")
   const [formData, setFormData] = useState({
     productTitle: "",
     codeDescription: "",
@@ -25,24 +22,23 @@ const SellCode = () => {
     installationGuide: null,
     projectCode: null,
     price: "",
-    weeklyFreeCode: false,
+    // weeklyFreeCode: false,
     monthlyFreeCode: false,
-    termsOfService: "",
+    // termsOfService: "",
     chooseUpload: "",
     user: userId,
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
-      const response = await axios.post(
-        'http://localhost:4000/api/sell',
+      const response = await axiosInstance.post(
+        '/api/sell',
         formData,
         {
           headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${sessionId}`,
+            'Content-Type': 'application/json', // or the appropriate content type for your form data
           },
         }
       );
@@ -51,6 +47,7 @@ const SellCode = () => {
       console.error('Error submitting form:', error);
     }
   };
+  
   
 
   

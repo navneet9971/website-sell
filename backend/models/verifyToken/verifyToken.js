@@ -3,7 +3,7 @@ const secretKey = process.env.SECRET_KEY;
 
 const verifyToken = (req, res, next) => {
     const bearerHeader = req.headers['authorization'];
-    if (typeof bearerHeader !== 'undefined') {
+    if (bearerHeader) {
         const bearer = bearerHeader.split(' ');
         const bearerToken = bearer[1];
         req.token = bearerToken;

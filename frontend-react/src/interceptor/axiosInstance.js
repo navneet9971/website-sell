@@ -1,30 +1,29 @@
-import axios from 'axios';
-import { useAuth } from '@clerk/clerk-react';
+import axios from "axios";
+import Cookies from "js-cookie";
 
-const useAxiosInstance = () => {
-  const { sessionId } = useAuth();
-  console.log('Frontend Session ID:', sessionId);
+const baseURL = 'http://localhost:4000/'
 
-  const axiosInstance = axios.create({
-    baseURL: 'http://localhost:4000/',
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+const axiosInstance = axios.create({
+  baseURL: baseURL,
+  headers: {
+    "Content-Type": "application/json",
+  }
+});
 
-  axiosInstance.interceptors.request.use(
+
+// Add an interceptor for setting the Authorization header with the access token
+axiosInstance.interceptors.request.use(
     (config) => {
-      if (sessionId) {
-        config.headers["Authorization"] = `Bearer ${sessionId}`;
+      const token = Cookies.get("access");
+      if (token) {
+        config.headers["Authorization"] = `Bearer ${token}`;
       }
       return config;
     },
     (error) => {
       return Promise.reject(error);
     }
-  );
+)
 
-  return axiosInstance;
-};
 
-export default useAxiosInstance;
+export default axiosInstance;

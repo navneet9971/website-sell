@@ -2,11 +2,10 @@ const express = require('express');
 const multer = require('multer');
 const { v2: cloudinary } = require('cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const SellData = require('../../models/sellcodeModel/sellGetModel');
-const User = require('../../models/userModel/user');
-// const clerkMiddleware = require('../authenticateJWT/clerkConfig');
-
 const router = express.Router();
+const SellData = require('../../models/sellcodeModel/sellGetModel');
+const verifyToken = require('../../models/verifyToken/verifyToken');
+const Auth = require('../../models/authModel/Auths'); // Import Auth model
 
 // Configure Cloudinary
 cloudinary.config({
@@ -19,9 +18,9 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: 'uploads',
+    folder: 'uploads', // Folder name in Cloudinary
     allowedFormats: ['jpg', 'jpeg', 'png', 'pdf', 'zip'],
-    resource_type: 'auto',
+    resource_type: 'auto', // This will allow different file types
   },
 });
 
@@ -31,7 +30,7 @@ const upload = multer({ storage });
 router.use(express.json());
 
 // Route to handle sell code submission
-router.post('/sell', upload.fields([
+router.post('/sell', verifyToken, upload.fields([
   { name: 'images', maxCount: 1 },
   { name: 'installationGuide', maxCount: 1 },
   { name: 'projectCode', maxCount: 1 },
@@ -40,17 +39,23 @@ router.post('/sell', upload.fields([
     const {
       productTitle, codeDescription, tags, programmingLanguage, features, 
       installationInstructions, adaptationInstructions, industry, devices, 
-      livePreview, videoUrl, price
+      livePreview, videoUrl, price, chooseUpload
     } = req.body;
 
-    const userId = req.auth.userId; // Ensure `userId` is set by clerkMiddleware
-    const user = await User.findById(userId);
+    // Debugging information
+    console.log('Request body:', req.body);
+    console.log('Request files:', req.files);
+
+    const { id } = req.authData;
+    const user = await Auth.findById(id);
 
     if (!user) {
+      console.error('User not found:', id);
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    const { images, installationGuide, projectCode } = req.files;
+    // Handle missing files gracefully
+    const { images, installationGuide, projectCode } = req.files || {};
 
     const parsedTags = typeof tags === 'string' ? tags.split(',') : tags;
     const parsedFeatures = typeof features === 'string' ? features.split(',') : features;
@@ -74,6 +79,7 @@ router.post('/sell', upload.fields([
       projectCode: projectCode ? projectCode[0].path : null,
       installationGuide: installationGuide ? installationGuide[0].path : null,
       user: user._id,
+      chooseUpload
     });
 
     await newSellData.save();
@@ -85,5 +91,6 @@ router.post('/sell', upload.fields([
     return res.status(500).json({ error: 'Server is down', details: error.message });
   }
 });
+
 
 module.exports = router;

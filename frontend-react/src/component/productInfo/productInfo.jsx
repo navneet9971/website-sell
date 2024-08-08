@@ -5,12 +5,11 @@ import ImageSection from './productInfoComponents/SectionOne/ImagesSection';
 import ImageInformation from './productInfoComponents/SectionOne/ImageInformation';
 import ProductUser from './productInfoComponents/SectionTwo/ProductUser';
 import ProductDes from './productInfoComponents/SectionTwo/ProductDes';
-import { useAuth } from '@clerk/clerk-react';
+import Cookies from 'js-cookie';
 
 const ProductInfoPage = () => {
   const { id } = useParams(); // Destructure the id from the params
-  const { userId } =  useAuth();
-  console.log(userId); 
+  const userId  = Cookies.get("userId")
 
   return (
     <div className='mb-6'>

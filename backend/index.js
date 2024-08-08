@@ -2,27 +2,17 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const mongoose = require('mongoose');
-// const clerkMiddleware = require('./middleware/authenticateJWT/clerkConfig');
-// const webhookHandler = require('./routes/clerkWebhookHandler/clerkWebhookHandler');
 const getSellData = require('./middleware/sellcodeform/sellcodeGet');
 const sellRoute = require('./middleware/sellcodeform/sellcodePost');
-
-
 const login = require('./middleware/auth/login');
 const signup = require('./middleware/auth/signup');
 const profile = require('./middleware/auth/profile');
-
 
 const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(cors());
-
-// // Apply Clerk middleware globally or on specific routes
-// app.use(clerkMiddleware);
-
-
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -37,18 +27,20 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-
-
-// Route for authentication
+// Authentication routes
 app.use('/api', login);
 app.use('/api', signup);
-app.use('/api', profile)
+app.use('/api', profile);
 
-
-// Route handlers
+// Application routes
 app.use('/api', getSellData);
 app.use('/api', sellRoute);
-// app.use('/api', webhookHandler);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
+});
 
 // Start server
 app.listen(port, () => {

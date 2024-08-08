@@ -6,12 +6,12 @@ import { Input } from "../ui/input";
 import AddCart from '../Navbar/NavbarComponent/CartComponent/AddCartShop/AddCart';
 import AddLike from '../Navbar/NavbarComponent/LikeComponent/AddLikeButton/AddLike';
 import { useNavigate } from 'react-router-dom';
-import { UserButton,  useAuth } from "@clerk/clerk-react";
-
+import UserAvater from "./NavbarComponent/UserAvater/UserAvater"
+import Cookies from 'js-cookie';
 
 export default function Navbar() {
 const navigate = useNavigate();
-const { userId } =  useAuth();
+ const userId  = Cookies.get("userId")
 
 
   const handleLogin = () => {
@@ -66,7 +66,7 @@ const { userId } =  useAuth();
                 </button>
 
                 <div>
-                <UserButton />
+                <UserAvater />
                 </div>
               </>
             ) : (
@@ -78,9 +78,7 @@ const { userId } =  useAuth();
                 >
                   Login
                 </button>
-                
-              
-            
+
                 <button
                   onClick={handleSignUp}
                   className="relative rounded-md bg-gray-700 text-white px-3 py-2 text-sm hover:bg-gray-600 ml-2"

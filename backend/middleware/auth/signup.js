@@ -5,9 +5,9 @@ const bcrypt = require('bcryptjs');
 
 router.post('/signup', async (req, res) => {
     try {
-        const { firstName, lastName, email, password } = req.body;
+        const { fullName, userName, email, password, remember } = req.body;
 
-        if (!firstName || !lastName || !email || !password) {
+        if (!fullName || !userName || !email || !password) {
             return res.status(400).json({ error: 'All fields are required' });
         }
 
@@ -21,14 +21,15 @@ router.post('/signup', async (req, res) => {
         // const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create a new user with hashed password
-        const user = await Auth.create({ firstName, lastName, email, password });
+        const user = await Auth.create({ fullName, userName, email, password, remember });
 
         // Send the created user details (excluding the password)
         res.status(201).json({
             id: user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email
+            fullName: user.fullName,
+            userName: user.userName,
+            email: user.email,
+            remember: user.remember
         });
     } catch (error) {
         console.error('Error creating user:', error.message);
