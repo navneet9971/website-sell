@@ -1,5 +1,5 @@
 // components/Categories.js
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // import GridData from '../../globalcomponents/GridData';
 import { CategoriesData } from '../../data/data';
 import PagesGrid from '../../globalComponent/PagesGrid';
@@ -18,6 +18,12 @@ export const Categories = ( {userId} ) => {
 
   console.log(userId);
 
+
+  useEffect(() => {
+
+  }, [])
+
+  
   return (
     <div>
       <PagesGrid

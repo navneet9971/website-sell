@@ -156,12 +156,13 @@ const SellCodePage = ({
               <div>
                 <label className='block text-sm font-medium'>Upload Images of Project</label>
                 <input
-                  type='file'
-                  name='images'
-                  multiple
-                  onChange={handleFileChange}
-                  className='mt-1 block w-full p-2 border rounded-md'
-                />
+  type='file'
+  name='projectImages'
+  multiple
+  onChange={handleFileChange}
+  className='mt-1 block w-full p-2 border rounded-md'
+/>
+
               </div>
             </div>
           </div>

@@ -18,7 +18,7 @@ const SellCode = () => {
     devices: [],
     livePreview: "",
     videoUrl: "",
-    images: [],
+    projectImages: [],
     installationGuide: null,
     projectCode: null,
     price: "",
@@ -38,7 +38,7 @@ const SellCode = () => {
         formData,
         {
           headers: {
-            'Content-Type': 'application/json', // or the appropriate content type for your form data
+            'Content-Type': 'application/json', 
           },
         }
       );
