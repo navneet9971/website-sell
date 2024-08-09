@@ -1,33 +1,33 @@
-
-import { CodeData } from '../../data/data';
-import React, { useState } from 'react'
-
+import React, { useState } from 'react';
 import PagesGrid from '../../globalComponent/PagesGrid';
 import { useNavigate } from 'react-router-dom';
 
-const TrendingCodesPage = ({userId}) => {
+const TrendingCodesPage = ({ userId, codesproductData = [] }) => {
   const [showAll, setShowAll] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const heading = "Trending Codes";
 
-  const handleShowCoding = () => {
-    navigate('/homepagedata/trendingcodes')
-    setShowAll(true);
-  }
 
+  const codefilteredData = codesproductData?.filter(item => item.chooseUpload === "piececode") || [];
+
+  const handleShowCoding = () => {
+    setShowAll(true);
+    navigate('/homepagedata/trendingcodes', { 
+           state: { codesproductData: codefilteredData, userId } 
+    });
+  };
 
   return (
     <div>
       <PagesGrid
-        data={CodeData}
-        showAll={false}
+        data={codefilteredData}
+        showAll={showAll} 
         heading={heading}
         onClick={handleShowCoding}
         userId={userId}
       />
-
     </div>
-  )
-}
+  );
+};
 
-export default TrendingCodesPage
+export default TrendingCodesPage;

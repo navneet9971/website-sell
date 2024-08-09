@@ -1,15 +1,17 @@
-import { useAuth } from '@clerk/clerk-react'
-import { CodeData } from '../../../data/data'
+import { useLocation } from 'react-router-dom'
+// import { CodeData } from '../../../data/data'
 import PagesGrid from '../../../globalComponent/PagesGrid'
 import React from 'react'
 // import { auth } from "@clerk/nextjs/server";
 
 const TrendingCodeListPage = () => {
 const heading = "Trending Codes"
-const { userId } =  useAuth();
+const location = useLocation();
+  const { codesproductData, userId } = location.state || {}; // Destructure the data from state
+
     return (
             <PagesGrid  
-            data = {CodeData}
+            data = {codesproductData}
             heading={heading}
             userId = {userId}
             />

@@ -5,9 +5,9 @@ const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
   const navigate = useNavigate();
   const dataToDisplay = showAll ? data : data.slice(0, 8);
 
-  const handleCardClick = (id) => {
-    navigate(`/productInfo/${id}`);
-    console.log(id);
+  const handleCardClick = (item) => {
+    navigate(`/productInfo/${item._id}`);
+    console.log(item._id); 
   };
 
   return (
@@ -31,7 +31,7 @@ const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
             img={item.projectImages?.[0] || item.img}  
             price={item.price}
             userId={userId}
-            onClick={() => handleCardClick(item.id)}
+            onClick={() => handleCardClick(item)} // Pass the entire item
           />
         ))}
       </BentoGrid>

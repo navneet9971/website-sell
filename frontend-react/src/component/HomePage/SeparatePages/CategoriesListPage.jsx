@@ -1,31 +1,22 @@
 
+import { useLocation } from 'react-router-dom'
 import { CategoriesData } from '../../../data/data'
 import PagesGrid from '../../../globalComponent/PagesGrid'
 import React, { useEffect, useState } from 'react'
-import Cookies from 'js-cookie';
-import axiosInstance from "../../../interceptor/axiosInstance"
+// import Cookies from 'js-cookie';
+// import axiosInstance from "../../../interceptor/axiosInstance"
 
 
 const CategoriesListPage = () => {
 
   const heading = "Hot Categories"
-  const userId  = Cookies.get("userId")
-  const [categoryData, setCategoryData] = useState([]);
+  const location = useLocation();
+  const { codesproductData, userId } = location.state || {}; // Destructure the data from state
 
-  useEffect(() => {
-    axiosInstance.get(`/api/sell`)
-        .then((response) => {
-            console.log("Response:", response.data);
-            setCategoryData(response.data); // Store the data in state
-        })
-        .catch((error) => {
-            console.error("Error fetching category data:", error);
-        });
-}, []);
 
   return (
     <PagesGrid
-      data={categoryData}
+      data={codesproductData}
       heading={heading}
       userId = {userId}
     />
