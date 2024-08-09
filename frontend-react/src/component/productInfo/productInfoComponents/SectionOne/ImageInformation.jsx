@@ -70,17 +70,6 @@ const ImageInformation = ({ id, userId, productInfo }) => {
         }
     }
 
-
-    const handleUseguide = () => {
-        if (productInfo.useGuide) {
-            alert('working')
-        } else {
-            toast.error('No use guide available');
-        }
-    };
-
-
-
     const isInCart = cartItems.includes(id);
     //languages colud be seprite her because backend they will not send with differnt index
     const languagesArray = (productInfo.programmingLanguage[0] || '').split(',').map(lang => lang.trim());
