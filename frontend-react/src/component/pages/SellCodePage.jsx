@@ -13,7 +13,8 @@ const SellCodePage = ({
   handleMultiSelectChange,
   handleTagsChange,
   handleFeaturesChange,
-  handleChange
+  handleChange,
+  handleAppUse
 }) => {
 
   return (
@@ -76,13 +77,28 @@ const SellCodePage = ({
                   <option value="piececode">Piece of Code</option>
                 </select>
               </div>
+
+              <div>
+              <label className='block text-sm font-medium'>How Does App work </label>
+              <TagsInput
+  value={formData.appUse}
+  onChange={handleAppUse}
+  inputProps={{ placeholder: '', className: 'w-60 border-none bg-inherit p-1 mb-8'  }} 
+/>
+
+            </div>
+
+
             </div>
           </div>
-          <div className='w-2/5 h-auto bg-gray-100 shadow-lg p-6'>
+          
+          <div className='flex flex-col gap-4  w-2/5 h-auto bg-gray-100 shadow-lg p-6'>
             <div>
               <label className='block text-sm font-medium'>Features</label>
-              <TagsInput value={formData.features} onChange={handleFeaturesChange} inputProps={{ placeholder: 'Add a feature' }} />
+              <TagsInput value={formData.features} onChange={handleFeaturesChange} 
+              inputProps={{ placeholder: 'Add a features', className: 'w-60 border-none bg-inherit p-1 mb-8' }} />
             </div>
+           
             <div>
               <label className='block text-sm font-medium'>Installation Instructions</label>
               <textarea

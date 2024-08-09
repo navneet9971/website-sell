@@ -39,7 +39,7 @@ router.post('/sell', verifyToken, upload.fields([
     const {
       productTitle, codeDescription, tags, programmingLanguage, features, 
       installationInstructions, adaptationInstructions, industry, devices, 
-      livePreview, videoUrl, price, chooseUpload
+      appUse, livePreview, videoUrl, price, chooseUpload
     } = req.body;
 
     // Debugging information
@@ -61,6 +61,8 @@ router.post('/sell', verifyToken, upload.fields([
     const parsedFeatures = typeof features === 'string' ? features.split(',') : features;
     const parsedDevices = typeof devices === 'string' ? devices.split(',') : devices;
     const parsedIndustry = typeof industry === 'string' ? industry.split(',') : industry;
+    const parsedAppuse = typeof appUse === 'string' ? appUse.split(',') : appUse;
+
 
     const newSellData = new SellData({
       productTitle,
@@ -72,6 +74,7 @@ router.post('/sell', verifyToken, upload.fields([
       adaptationInstructions,
       industry: parsedIndustry,
       devices: parsedDevices,
+      appUse: parsedAppuse,
       livePreview,
       videoUrl,
       projectImages: images ? images.map(file => file.path) : [],

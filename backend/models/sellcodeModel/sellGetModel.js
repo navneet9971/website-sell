@@ -10,6 +10,7 @@ const sellDataSchema = new mongoose.Schema({
   adaptationInstructions: { type: String },
   industry: { type: [String],  },
   devices: { type: [String],  },
+  appUse: { type: [String],  },
   livePreview: { type: String },
   videoUrl: { type: String },
   projectImages: { type: [String], default: [] },

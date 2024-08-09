@@ -16,6 +16,7 @@ const SellCode = () => {
     adaptationInstructions: "",
     industry: [],
     devices: [],
+    appUse:[],
     livePreview: "",
     videoUrl: "",
     images: "",
@@ -111,6 +112,13 @@ const SellCode = () => {
     }));
   };
 
+  const handleAppUse = (appUse) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      appUse,
+    }));
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
@@ -130,6 +138,7 @@ const SellCode = () => {
       handleTagsChange={handleTagsChange}
       handleFeaturesChange={handleFeaturesChange}
       handleChange={handleChange}
+      handleAppUse={handleAppUse}
     />
   );
 };

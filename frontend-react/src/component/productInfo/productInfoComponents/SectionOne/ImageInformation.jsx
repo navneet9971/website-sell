@@ -9,8 +9,13 @@ import { FaGrinHearts } from "react-icons/fa";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { FcMultipleDevices } from "react-icons/fc";
+import ButtonUserGuid from './ButtonsSection/ButtonUserGuid';
+import ButtonCodeInsight from './ButtonsSection/ButtonCodeInsight';
+import ButtonLivePerview from './ButtonsSection/ButtonLivePerview';
 
-const ImageInformation = ({ id, userId }) => {
+
+const ImageInformation = ({ id, userId, productInfo }) => {
 
     const [liked, setLiked] = useState(false);
     const [likedItems, setLikedItems] = useState([]);
@@ -65,14 +70,28 @@ const ImageInformation = ({ id, userId }) => {
         }
     }
 
+
+    const handleUseguide = () => {
+        if (productInfo.useGuide) {
+           alert('working')
+        } else {
+            toast.error('No use guide available');
+        }
+    };
+    
+
+
     const isInCart = cartItems.includes(id);
+//languages colud be seprite her because backend they will not send with differnt index
+    const languagesArray = (productInfo.programmingLanguage[0] || '').split(',').map(lang => lang.trim());
+    
 
     return (
         <div className='w-full h-full border-black bg-slate-200'>
             <h1 className='bg-blue-400 text-white font-bold text-2xl px-4'>Product Information</h1>
 
             <div className='flex items-start justify-around py-3'>
-                <h1 className='text-3xl font-bold'><span>&#8377;</span>100</h1>
+                <h1 className='text-3xl font-bold'><span>&#8377;</span>{productInfo.price}</h1>
 
                 <div className='flex items-center justify-center gap-5'>
                     <Button onClick={handleAddCart} variant="outline"
@@ -96,12 +115,16 @@ const ImageInformation = ({ id, userId }) => {
                 </div>
 
                 <div className='flex items-center gap-2 mt-2'>
-                    {languge.map((lang) => (
-                        <div key={lang.value} className='box-border font-semibold bg-white text-xs shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
-                            <h1 className=''>{lang.label}</h1>
-                        </div>
-                    ))}
-                </div>
+    {languagesArray.length > 0 ? (
+        languagesArray.map((lang, index) => (
+            <div key={index} className='box-border font-semibold bg-white text-xs shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
+                <h1 className=''>{lang}</h1>
+            </div>
+        ))
+    ) : (
+        <p>No programming languages specified</p>
+    )}
+</div>
 
                 <div className='flex items-center justify-start gap-2 mt-6'>
                     <HiBuildingOffice2 size={20} />
@@ -109,12 +132,26 @@ const ImageInformation = ({ id, userId }) => {
                 </div>
 
                 <div className='flex items-center gap-2 mt-2'>
-                    {use.map((ablity) => (
-                        <div key={ablity.value} className='box-border font-semibold text-xs bg-white shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
-                            <h1 className=''>{ablity.label}</h1>
-                        </div>
-                    ))}
+    {productInfo.industry.map((indu, index) => (
+        <div key={index} className='box-border font-semibold text-xs bg-white shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
+            <h1 className=''>{indu}</h1>
+        </div>
+    ))}
+</div>
+
+<div className='flex items-center justify-start gap-2 mt-6'>
+                    <FcMultipleDevices  size={20} />
+                    <h1 className='font-bold text-sm'>Devices</h1>
                 </div>
+
+                <div className='flex items-center gap-2 mt-2'>
+    {productInfo.devices.map((device, index) => (
+        <div key={index} className='box-border font-semibold text-xs bg-white shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
+            <h1 className=''>{device}</h1>
+        </div>
+    ))}
+</div>
+
 
                 <div className='flex flex-col items-start gap-2 mt-8 '>
                     <div className='flex items-center gap-2'>
@@ -123,18 +160,12 @@ const ImageInformation = ({ id, userId }) => {
                     </div>
 
                     <div className='flex  items-center gap-4'>
-                        <Button variant="default" className="px-6 py-2 bg-black text-white rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
-                            <FaBookBookmark size={20} />
-                            User Guide
-                        </Button>
-                        <Button variant="default" className="px-6 py-2 bg-black text-white rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
-                            <FaFileCode size={20} />
-                            Code Insight
-                        </Button>
-                        <Button variant="default" className="px-6 py-2 bg-black text-white rounded-lg font-bold transform hover:-translate-y-1 transition duration-400">
-                            <FaPlay size={20} />
-                            Live Perview
-                        </Button>
+                        <ButtonUserGuid />
+                        <ButtonCodeInsight />
+                        
+                        <ButtonLivePerview 
+                        productInfo={productInfo}
+                        />
                     </div>
                 </div>
 
