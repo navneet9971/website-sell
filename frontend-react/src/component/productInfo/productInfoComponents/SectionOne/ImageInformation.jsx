@@ -162,7 +162,7 @@ const ImageInformation = ({ id, userId, productInfo }) => {
                     <div className='flex  items-center gap-4'>
                         <ButtonUserGuid />
                         <ButtonCodeInsight />
-                        
+
                         <ButtonLivePerview 
                         productInfo={productInfo}
                         />
@@ -171,7 +171,7 @@ const ImageInformation = ({ id, userId, productInfo }) => {
 
                 <div className='flex items-start gap-1 mt-6'>
                     <FaCircleUser size={20} />
-                    <h1 className='font-bold text-md'>Publish By Username</h1>
+                    <h1 className='font-bold text-md'>Publish By Username : {productInfo.userData.userName}</h1>
                 </div>
 
                 <div className='flex items-start gap-1 mt-2 py-3'>

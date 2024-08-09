@@ -7,7 +7,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Tree } from '@minoru/react-dnd-treeview'; // Static import
 
-const ProductUser = () => {
+const ProductUser = ({productInfo}) => {
   const [treeData, setTreeData] = useState(testData);
 
   const handleHireDev = () => {
@@ -24,7 +24,7 @@ const ProductUser = () => {
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>Username</AvatarFallback>
           </Avatar>
-          <h2 className="font-bold text-md">Username</h2>
+          <h2 className="font-bold text-md">{productInfo.userData.userName}</h2>
           <FaUserSecret size={25} onClick={handleHireDev} className="cursor-pointer" />
 
           <Button variant="destructive" className="flex items-center gap-2">
@@ -47,7 +47,11 @@ const ProductUser = () => {
             Help Desk
           </Button>
 
-          <h1 className="text-sm">User Uploaded Date</h1>
+
+          <div className="flex flex-col items-center justify-center gap-1">
+          <h1 className="text-sm">Project Upload Date </h1>
+          <h1 className="text-sm">{productInfo.currentDate} </h1>
+          </div>
         </div>
       </div>
 

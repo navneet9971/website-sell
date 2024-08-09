@@ -48,9 +48,11 @@ const ProductInfoPage = () => {
 
       <div className="flex items-start justify-between px-8 mt-10">
         <div className="w-5/12">
-          <ProductUser />
+          <ProductUser 
+           productInfo={productInfoData}
+          />
         </div>
-        <div className="w-2/3">
+        <div className="w-[60rem]">
           <ProductDes 
             description={productInfoData.codeDescription} 
             appwork={productInfoData.installationInstructions} 
@@ -58,6 +60,7 @@ const ProductInfoPage = () => {
             tags={productInfoData.tags} 
             industry={productInfoData.industry} 
             appUse = {productInfoData.appUse}
+            userName = {productInfoData.userData.userName}
           />
         </div>
       </div>

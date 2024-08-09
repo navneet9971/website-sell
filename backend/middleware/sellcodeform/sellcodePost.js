@@ -5,7 +5,7 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const router = express.Router();
 const SellData = require('../../models/sellcodeModel/sellGetModel');
 const verifyToken = require('../../models/verifyToken/verifyToken');
-const Auth = require('../../models/authModel/Auths'); // Import Auth model
+const Auth = require('../../models/authModel/Auths'); 
 
 // Configure Cloudinary
 cloudinary.config({
@@ -18,9 +18,9 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: 'uploads', 
+    folder: 'uploads',
     allowedFormats: ['jpg', 'jpeg', 'png', 'pdf', 'zip'],
-    resource_type: 'auto', 
+    resource_type: 'auto',
   },
 });
 
@@ -63,7 +63,6 @@ router.post('/sell', verifyToken, upload.fields([
     const parsedIndustry = typeof industry === 'string' ? industry.split(',') : industry;
     const parsedAppuse = typeof appUse === 'string' ? appUse.split(',') : appUse;
 
-
     const newSellData = new SellData({
       productTitle,
       codeDescription,
@@ -82,7 +81,14 @@ router.post('/sell', verifyToken, upload.fields([
       projectCode: projectCode ? projectCode[0].path : null,
       installationGuide: installationGuide ? installationGuide[0].path : null,
       user: user._id,
-      chooseUpload
+      currentDate: new Date().toISOString(), 
+      chooseUpload,
+      userData: {
+        fullName: user.fullName,
+        userName: user.userName,
+        email: user.email,
+        image: user.image,
+      }
     });
 
     await newSellData.save();
@@ -94,6 +100,5 @@ router.post('/sell', verifyToken, upload.fields([
     return res.status(500).json({ error: 'Server is down', details: error.message });
   }
 });
-
 
 module.exports = router;

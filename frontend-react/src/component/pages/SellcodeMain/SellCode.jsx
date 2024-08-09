@@ -1,11 +1,10 @@
-
 import React, { useState } from "react";
 import SellCodePage from "../SellCodePage";
 import Cookies from "js-cookie";
 import axiosInstance from "../../../interceptor/axiosInstance";
 
 const SellCode = () => {
-  const userId  = Cookies.get("userId")
+  const userId = Cookies.get("userId");
   const [formData, setFormData] = useState({
     productTitle: "",
     codeDescription: "",
@@ -16,57 +15,53 @@ const SellCode = () => {
     adaptationInstructions: "",
     industry: [],
     devices: [],
-    appUse:[],
+    appUse: [],
     livePreview: "",
     videoUrl: "",
     images: "",
     installationGuide: null,
     projectCode: null,
     price: "",
-    // weeklyFreeCode: false,
     monthlyFreeCode: false,
-    // termsOfService: "",
     chooseUpload: "",
     user: userId,
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     const form = new FormData();
-    
+
     // Append text fields
     for (const key in formData) {
-      if (formData.hasOwnProperty(key) && key !== 'images' && key !== 'installationGuide' && key !== 'projectCode') {
+      if (formData.hasOwnProperty(key) && key !== "images" && key !== "installationGuide" && key !== "projectCode") {
         form.append(key, formData[key]);
       }
     }
-  
+
     // Append file fields
-    for (const fileKey of ['images', 'installationGuide', 'projectCode']) {
+    for (const fileKey of ["images", "installationGuide", "projectCode"]) {
       if (formData[fileKey]) {
         for (const file of formData[fileKey]) {
           form.append(fileKey, file);
         }
       }
     }
-  
+    // Append current date
+    form.append("currentDate", new Date().toISOString());
+
     try {
-      const response = await axiosInstance.post('/api/sell', form, {
+      const response = await axiosInstance.post("/api/sell", form, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
-      console.log('Response:', response.data);
+      console.log("Response:", response.data);
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error("Error submitting form:", error);
     }
   };
-  
-  
-  
 
-  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
@@ -76,7 +71,7 @@ const SellCode = () => {
   };
 
   const handleCheckboxChange = (event) => {
-    const { name, value } = event.target;
+    const { name } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: !prevFormData[name],

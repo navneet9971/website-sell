@@ -2,32 +2,8 @@ import React from 'react'
 import { FaFacebook, FaGithub } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 
-const ProductDes = ({ description, appwork, features, tags, appUse }) => {
+const ProductDes = ({ description, appwork, features, tags, appUse, userName }) => {
 
-  const des = [
-    {
-      // descr: "Food Recipe app is an iOS platform application which can be used for making application about food recipes. With more than 200 recipes already included in this app, it is a super various content for food lovers, chefs, and cooking experts. This application is fully native, created in the latest Xcode version, support all latest feature of the iOS platform to provide the best user experience. The application is specially optimized, extremely easy to configure, and detailed documentation attached. You can easily create your own application about any food recipes.",
-      appwork: "How Does App work",
-      applist: `
-    - Recipe categories
-    - User profile management
-    - Shopping list
-    - Advanced search functionality
-    - Step-by-step cooking instructions
-    - Save favorite recipes
-    `,
-      // appstart: "WHAT DO I NEED TO GET STARTED",
-      // startdes: "To get started with the Food Recipe app, you need a Mac computer with the latest version of Xcode installed. You should have a basic understanding of Swift programming language and iOS app development. Additionally, you will need an Apple Developer account to deploy the app on the App Store.",
-//       appfeature: "Feature",
-//       featurework: `
-//       Comprehensive recipe database
-// User-friendly interface
-// Advanced search functionality
-// Step-by-step cooking instructions
-// Shopping list integration
-// Ability to save favorite recipes`
-    }
-  ];
   
   const handleMedia = () => {
     alert("Chal raha hu bhai chill kar")
@@ -54,27 +30,27 @@ const ProductDes = ({ description, appwork, features, tags, appUse }) => {
       <div>
         {/* {des.map((item, index) => ( */}
           <div  className='p-2 min-h-[29.5rem] text-md text-gray-700'>
-            <div>{description}</div>
+            <div className='break-words w-[50rem]'>{description}</div>
 
             <div className='flex flex-col items-start justify-start mt-3 gap-2'>
               <h1 className='text-xl font-bold'>How Does App work</h1>
               <ul>
       {appUse.map((appUse, index) => (
-        <li key={index}>- {appUse}</li>
+        <li className='break-words w-[50rem]' key={index}>- {appUse}</li>
       ))}
     </ul>
             </div>
 
             <div className='flex flex-col items-start justify-start mt-3 gap-2'>
               <h1 className='text-xl font-bold'>WHAT DO I NEED TO GET STARTED</h1>
-              <h1 className='text-md'>{appwork}</h1>
+              <h1 className="text-md break-words w-[50rem]">{appwork}</h1>
             </div>
 
             <div className='flex flex-col items-start justify-start mt-3 gap-2'>
               <h1 className='text-xl font-bold'>Feature</h1>
               <ul>
       {features.map((feature, index) => (
-        <li key={index}>- {feature}</li>
+        <li className='break-words w-[50rem]' key={index}>- {feature}</li>
       ))}
     </ul>
             </div>
@@ -102,7 +78,7 @@ const ProductDes = ({ description, appwork, features, tags, appUse }) => {
 
       <div className='flex flex-col items-start px-2 gap-2'>
         <h1 className='font-bold text-sm'>Have questions, please contact my Info:</h1>
-        <h1 className='font-bold text-md'>Username</h1>
+        <h1 className='font-bold text-md'>Username: {userName}</h1>
       </div>
     </div>
   )
