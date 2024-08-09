@@ -93,9 +93,9 @@ export const BentoGridItem = ({
         <img
           src={img}
           width={300}
-          height={50}
+          // height={50}
           alt="Bento Item"
-          className="object-cover"
+          className="object-cover h-40"
         />
 
         <button

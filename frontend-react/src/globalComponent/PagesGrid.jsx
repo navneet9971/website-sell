@@ -21,14 +21,14 @@ const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
       <BentoGrid className="max-w-full mx-auto md:auto-rows-[27.5rem]">
         {dataToDisplay.map((item) => (
           <BentoGridItem
-            key={item.id}
-            title={item.title}
-            description={item.description}
-            language={item.language}
-            industry={item.industry}
-            devices={item.devices}
+            key={item._id}
+            title={item.productTitle}
+            description={item.codeDescription}
+            language={Array.isArray(item.programmingLanguage) ? item.programmingLanguage.join(', ') : item.programmingLanguage}
+            industry={Array.isArray(item.industry) ? item.industry.join(', ') : item.industry}
+            devices={Array.isArray(item.devices) ? item.devices.join(', ') : item.devices}
             className={item.className}
-            img={item.img}
+            img={item.projectImages?.[0] || item.img}  
             price={item.price}
             userId={userId}
             onClick={() => handleCardClick(item.id)}
