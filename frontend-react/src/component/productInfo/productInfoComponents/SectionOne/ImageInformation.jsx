@@ -21,7 +21,7 @@ const ImageInformation = ({ id, userId, productInfo }) => {
     const [likedItems, setLikedItems] = useState([]);
     const [cartItems, setCartItems] = useState([]);
     const { increaseLikeCount, decreaseLikeCount, increaseCartCount, decreaseCartCount } = useCountNum();
-   const navigation = useNavigate();
+    const navigation = useNavigate();
 
     const handleButtonClick = () => {
         if (!userId) {
@@ -73,18 +73,18 @@ const ImageInformation = ({ id, userId, productInfo }) => {
 
     const handleUseguide = () => {
         if (productInfo.useGuide) {
-           alert('working')
+            alert('working')
         } else {
             toast.error('No use guide available');
         }
     };
-    
+
 
 
     const isInCart = cartItems.includes(id);
-//languages colud be seprite her because backend they will not send with differnt index
+    //languages colud be seprite her because backend they will not send with differnt index
     const languagesArray = (productInfo.programmingLanguage[0] || '').split(',').map(lang => lang.trim());
-    
+
 
     return (
         <div className='w-full h-full border-black bg-slate-200'>
@@ -115,16 +115,16 @@ const ImageInformation = ({ id, userId, productInfo }) => {
                 </div>
 
                 <div className='flex items-center gap-2 mt-2'>
-    {languagesArray.length > 0 ? (
-        languagesArray.map((lang, index) => (
-            <div key={index} className='box-border font-semibold bg-white text-xs shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
-                <h1 className=''>{lang}</h1>
-            </div>
-        ))
-    ) : (
-        <p>No programming languages specified</p>
-    )}
-</div>
+                    {languagesArray.length > 0 ? (
+                        languagesArray.map((lang, index) => (
+                            <div key={index} className='box-border font-semibold bg-white text-xs shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
+                                <h1 className=''>{lang}</h1>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No programming languages specified</p>
+                    )}
+                </div>
 
                 <div className='flex items-center justify-start gap-2 mt-6'>
                     <HiBuildingOffice2 size={20} />
@@ -132,25 +132,25 @@ const ImageInformation = ({ id, userId, productInfo }) => {
                 </div>
 
                 <div className='flex items-center gap-2 mt-2'>
-    {productInfo.industry.map((indu, index) => (
-        <div key={index} className='box-border font-semibold text-xs bg-white shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
-            <h1 className=''>{indu}</h1>
-        </div>
-    ))}
-</div>
+                    {productInfo.industry.map((indu, index) => (
+                        <div key={index} className='box-border font-semibold text-xs bg-white shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
+                            <h1 className=''>{indu}</h1>
+                        </div>
+                    ))}
+                </div>
 
-<div className='flex items-center justify-start gap-2 mt-6'>
-                    <FcMultipleDevices  size={20} />
+                <div className='flex items-center justify-start gap-2 mt-6'>
+                    <FcMultipleDevices size={20} />
                     <h1 className='font-bold text-sm'>Devices</h1>
                 </div>
 
                 <div className='flex items-center gap-2 mt-2'>
-    {productInfo.devices.map((device, index) => (
-        <div key={index} className='box-border font-semibold text-xs bg-white shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
-            <h1 className=''>{device}</h1>
-        </div>
-    ))}
-</div>
+                    {productInfo.devices.map((device, index) => (
+                        <div key={index} className='box-border font-semibold text-xs bg-white shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
+                            <h1 className=''>{device}</h1>
+                        </div>
+                    ))}
+                </div>
 
 
                 <div className='flex flex-col items-start gap-2 mt-8 '>
@@ -163,8 +163,8 @@ const ImageInformation = ({ id, userId, productInfo }) => {
                         <ButtonUserGuid />
                         <ButtonCodeInsight />
 
-                        <ButtonLivePerview 
-                        productInfo={productInfo}
+                        <ButtonLivePerview
+                            productInfo={productInfo}
                         />
                     </div>
                 </div>
