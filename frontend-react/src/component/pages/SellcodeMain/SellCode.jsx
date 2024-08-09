@@ -18,7 +18,7 @@ const SellCode = () => {
     devices: [],
     livePreview: "",
     videoUrl: "",
-    projectImages: [],
+    images: "",
     installationGuide: null,
     projectCode: null,
     price: "",
@@ -32,21 +32,36 @@ const SellCode = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
   
-    try {
-      const response = await axiosInstance.post(
-        '/api/sell',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json', 
-          },
+    const form = new FormData();
+    
+    // Append text fields
+    for (const key in formData) {
+      if (formData.hasOwnProperty(key) && key !== 'images' && key !== 'installationGuide' && key !== 'projectCode') {
+        form.append(key, formData[key]);
+      }
+    }
+  
+    // Append file fields
+    for (const fileKey of ['images', 'installationGuide', 'projectCode']) {
+      if (formData[fileKey]) {
+        for (const file of formData[fileKey]) {
+          form.append(fileKey, file);
         }
-      );
+      }
+    }
+  
+    try {
+      const response = await axiosInstance.post('/api/sell', form, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       console.log('Response:', response.data);
     } catch (error) {
       console.error('Error submitting form:', error);
     }
   };
+  
   
   
 

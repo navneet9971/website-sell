@@ -12,7 +12,7 @@ function clearAllCookies() {
   Object.keys(cookies).forEach(cookieName => {
     // Try removing with different paths if necessary
     Cookie.remove(cookieName, { path: '/' });
-    // You might need to add more paths or domains here
+    // You might need to add more paths or domains here if needed
   });
 
   // Verify if cookies are removed
@@ -20,7 +20,4 @@ function clearAllCookies() {
   console.log('Cookies after removal:', remainingCookies);
 }
 
-// Call the function to clear all cookies
-clearAllCookies();
-
-export default clearAllCookies
+export default clearAllCookies;

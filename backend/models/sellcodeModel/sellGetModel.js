@@ -12,7 +12,7 @@ const sellDataSchema = new mongoose.Schema({
   devices: { type: [String],  },
   livePreview: { type: String },
   videoUrl: { type: String },
-  projectImages: { type: String },
+  projectImages: { type: [String], default: [] },
   price: { type: Number,  },
   installationGuide: { type: String },
   chooseUpload: { type: String,  },

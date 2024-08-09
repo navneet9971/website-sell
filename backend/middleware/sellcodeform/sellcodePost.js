@@ -18,9 +18,9 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: 'uploads', // Folder name in Cloudinary
+    folder: 'uploads', 
     allowedFormats: ['jpg', 'jpeg', 'png', 'pdf', 'zip'],
-    resource_type: 'auto', // This will allow different file types
+    resource_type: 'auto', 
   },
 });
 
@@ -31,7 +31,7 @@ router.use(express.json());
 
 // Route to handle sell code submission
 router.post('/sell', verifyToken, upload.fields([
-  { name: 'images', maxCount: 1 },
+  { name: 'images', maxCount: 3 },
   { name: 'installationGuide', maxCount: 1 },
   { name: 'projectCode', maxCount: 1 },
 ]), async (req, res) => {
@@ -74,7 +74,7 @@ router.post('/sell', verifyToken, upload.fields([
       devices: parsedDevices,
       livePreview,
       videoUrl,
-      projectImages: images ? images[0].path : null,
+      projectImages: images ? images.map(file => file.path) : [],
       price,
       projectCode: projectCode ? projectCode[0].path : null,
       installationGuide: installationGuide ? installationGuide[0].path : null,
