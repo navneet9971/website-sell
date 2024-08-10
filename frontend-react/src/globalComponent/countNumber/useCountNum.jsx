@@ -7,6 +7,7 @@ const useCountNum = create((set) => ({
   decreaseLikeCount: () => set((state) => ({ likeCount: state.likeCount - 1 })),
   increaseCartCount: () => set((state) => ({ cartCount: state.cartCount + 1 })),
   decreaseCartCount: () => set((state) => ({ cartCount: state.cartCount - 1 })),
+  setCartCount: (count) => set({ cartCount: count }), // Ensure this function exists
 }));
 
 export default useCountNum;

@@ -8,7 +8,7 @@ const AddLike = () => {
     const navigate = useNavigate()
     const likeCount = useCountNum((state) => state.likeCount);
 
-
+    
     const handleLikePage = () => {
         navigate(`/navbar/likeInfo`);
     }

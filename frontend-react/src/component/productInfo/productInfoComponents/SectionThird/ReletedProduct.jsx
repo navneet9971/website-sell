@@ -2,13 +2,13 @@ import { useNavigate } from 'react-router-dom';
 import { TrendingData } from '../../../../data/data'
 import PagesGrid from '../../../../globalComponent/PagesGrid'
 import React, { useState } from 'react'
-import { useAuth } from '@clerk/clerk-react';
+// import { useAuth } from '@clerk/clerk-react';
 
 const ReletedProduct = ({ id }) => {
     const [showAll, setShowAll] = useState(false);
     const dataToDisplay = showAll ? TrendingData : TrendingData.slice(0, 4);
     const navigate = useNavigate();
-    const { userId } =  useAuth();
+    // const { userId } =  useAuth();
 
     const handleCardClick = (id) => {
        navigate(`/productInfo/${id}`);
@@ -24,7 +24,7 @@ const ReletedProduct = ({ id }) => {
        <PagesGrid 
        data={dataToDisplay} 
        onClick={() => handleCardClick(id)}
-       user={userId}
+      //  user={userId}
        />
        </div>
         </div>

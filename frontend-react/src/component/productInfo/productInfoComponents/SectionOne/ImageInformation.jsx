@@ -3,23 +3,25 @@ import { languge, use } from '../../../../data/data';
 import useCountNum from '../../../../globalComponent/countNumber/useCountNum';
 
 import React, { useState } from 'react';
-import { FaComputer, FaCheck, FaFileCode, FaHandHoldingHeart, FaCircleUser, FaCartPlus, FaBookBookmark, FaPlay } from "react-icons/fa6";
+import { FaComputer, FaCheck, FaFileCode, FaHandHoldingHeart, FaCircleUser, FaCartPlus, FaProductHunt  } from "react-icons/fa6";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 import { FaGrinHearts } from "react-icons/fa";
-import { BsFillCartCheckFill } from "react-icons/bs";
+
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { FcMultipleDevices } from "react-icons/fc";
-import ButtonUserGuid from './ButtonsSection/ButtonUserGuid';
-import ButtonCodeInsight from './ButtonsSection/ButtonCodeInsight';
+
 import ButtonLivePerview from './ButtonsSection/ButtonLivePerview';
+import ButtonVidePerview from './ButtonsSection/ButtonVidePerview';
+import ButtonUserGuide from './ButtonsSection/ButtonUserGUide';
+import ProductAddCart from './AddCart&Like/ProductAddCart';
 
 
 const ImageInformation = ({ id, userId, productInfo }) => {
 
     const [liked, setLiked] = useState(false);
     const [likedItems, setLikedItems] = useState([]);
-    const [cartItems, setCartItems] = useState([]);
+   
     const { increaseLikeCount, decreaseLikeCount, increaseCartCount, decreaseCartCount } = useCountNum();
     const navigation = useNavigate();
 
@@ -42,22 +44,7 @@ const ImageInformation = ({ id, userId, productInfo }) => {
         }
     };
 
-    const handleAddCart = () => {
-        if (!userId) {
-            toast.error('Please login first!');
-            return;
-        }
-
-        if (cartItems.includes(id)) {
-            setCartItems(cartItems.filter(item => item !== id));
-            decreaseCartCount();
-            toast.error('Item removed from cart!');
-        } else {
-            setCartItems([...cartItems, id]);
-            increaseCartCount();
-            toast.success('Item added to cart!');
-        }
-    };
+   
 
 
     const handlePurchaseCode = () => {
@@ -70,7 +57,7 @@ const ImageInformation = ({ id, userId, productInfo }) => {
         }
     }
 
-    const isInCart = cartItems.includes(id);
+    // const isInCart = cartItems.includes(id);
     //languages colud be seprite her because backend they will not send with differnt index
     const languagesArray = (productInfo.programmingLanguage[0] || '').split(',').map(lang => lang.trim());
 
@@ -83,11 +70,10 @@ const ImageInformation = ({ id, userId, productInfo }) => {
                 <h1 className='text-3xl font-bold'><span>&#8377;</span>{productInfo.price}</h1>
 
                 <div className='flex items-center justify-center gap-5'>
-                    <Button onClick={handleAddCart} variant="outline"
-                        className={`flex items-center gap-2 ${isInCart ? 'bg-green-600' : 'bg-blue-600'} text-white`}>
-                        {isInCart ? <BsFillCartCheckFill /> : <FaCartPlus />}
-                        {isInCart ? 'Added' : 'Add to cart'}
-                    </Button>
+                  <ProductAddCart 
+                  productInfo={productInfo}
+                  userId={userId}
+                  />
 
                     <Button onClick={handleButtonClick} variant="destructive"
                         className={`flex items-center gap-2 ${liked ? 'bg-pink-600' : 'bg-red-600'}`}>
@@ -98,6 +84,16 @@ const ImageInformation = ({ id, userId, productInfo }) => {
             </div>
 
             <div className='px-3 mt-3'>
+
+            <div className='flex items-center justify-start gap-2'>
+                    <FaProductHunt  size={20} />
+                    <h1 className='font-bold text-sm'>Product Name</h1>
+                </div>
+                <div className='flex items-center gap-2 mb-3 mt-1'>
+                <h1 className='font-bold text-xl '>{productInfo.productTitle} </h1>
+                    </div>
+
+
                 <div className='flex items-center justify-start gap-2'>
                     <FaComputer size={20} />
                     <h1 className='font-bold text-sm'>Programming Language</h1>
@@ -149,8 +145,12 @@ const ImageInformation = ({ id, userId, productInfo }) => {
                     </div>
 
                     <div className='flex  items-center gap-4'>
-                        <ButtonUserGuid />
-                        <ButtonCodeInsight />
+                        <ButtonUserGuide />
+
+
+                        <ButtonVidePerview 
+                         productInfo={productInfo}
+                        />
 
                         <ButtonLivePerview
                             productInfo={productInfo}

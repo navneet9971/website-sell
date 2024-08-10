@@ -33,6 +33,7 @@ const ProductInfoPage = () => {
         <div className="flex-1">
           <ImageSection
             id={id}
+            userId={userId}
             productImages={productInfoData.projectImages || []}
           />
         </div>
@@ -49,6 +50,7 @@ const ProductInfoPage = () => {
       <div className="flex items-start justify-between px-8 mt-10">
         <div className="w-5/12">
           <ProductUser
+          userId={userId}
             productInfo={productInfoData}
           />
         </div>

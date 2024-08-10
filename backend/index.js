@@ -7,6 +7,9 @@ const sellRoute = require('./middleware/sellcodeform/sellcodePost');
 const login = require('./middleware/auth/login');
 const signup = require('./middleware/auth/signup');
 const profile = require('./middleware/auth/profile');
+const addCart = require('./middleware/addCartMiddleware/addCartPost')
+const addCartGet = require('./middleware/addCartMiddleware/addCartGet');
+
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -35,6 +38,10 @@ app.use('/api', profile);
 // Application routes
 app.use('/api', getSellData);
 app.use('/api', sellRoute);
+
+//add cart Routes
+app.use('/api', addCart);
+app.use("/api", addCartGet)
 
 // Error handling middleware
 app.use((err, req, res, next) => {
