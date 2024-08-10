@@ -7,7 +7,7 @@ const addCartSchema = new mongoose.Schema({
     price: {type: String},
     industry: { type: [String] },
     productTitle: {type: String},
-    projectImages: { type: [String], defult: []},
+    projectImages: { type: String, defult: ''},
 }) 
 
 module.exports = mongoose.model('AddCart', addCartSchema);

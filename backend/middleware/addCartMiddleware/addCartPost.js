@@ -9,13 +9,13 @@ router.use(express.json());
 // Route to add a product to the cart
 router.post('/add-cart', verifyToken, async (req, res) => {
     try {
-        const { product_id, user_id, price, image, industry, productTitle } = req.body;
+        const { product_id, user_id, price, industry, productTitle, projectImages } = req.body;
 
         const newAddCart = new AddCart({
             product_id,
             user_id,
             price,
-            image,
+            projectImages, 
             industry,
             productTitle,
         });
@@ -53,10 +53,7 @@ router.delete('/remove-cart', verifyToken, async (req, res) => {
     }
 });
 
-// Route to get all cart items for a user
-
-//If any prodlen with user-cart api they will not send a cartcount then use this api
-// // Route to get the count of items in the user's cart
+// Uncomment if you want to add more functionality, like getting the cart count
 // router.get('/cart-count', verifyToken, async (req, res) => {
 //     try {
 //         const { user_id } = req.query;
@@ -65,7 +62,6 @@ router.delete('/remove-cart', verifyToken, async (req, res) => {
 //             return res.status(400).json({ error: 'User ID is required' });
 //         }
 
-//         // Find all cart items for the user and return the count
 //         const cartCount = await AddCart.countDocuments({ user_id });
 
 //         return res.status(200).json({

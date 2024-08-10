@@ -9,8 +9,18 @@ import { useCart } from '../../../../../globalComponent/CartContext';
 const ProductAddCart = ({ productInfo, userId }) => {
     const { state, dispatch } = useCart();
     const [cartItems, setCartItems] = useState([]);
-
     const id = productInfo._id;
+
+    const [cartForm, setCartForm] = useState({
+        productTitle: productInfo.productTitle,
+        price: productInfo.price,
+        user_id: userId, //Send Login UserId here
+        product_id: id,
+        projectImages: productInfo.projectImages[0],
+        industry: productInfo.industry.join(', '),
+    });
+
+   
 
     useEffect(() => {
         const fetchCartItems = async () => {
@@ -44,7 +54,7 @@ const ProductAddCart = ({ productInfo, userId }) => {
                 toast.error('Item removed from cart!');
             } else {
                 // Add to cart
-                await axiosInstance.post('/api/add-cart', { product_id: id, user_id: userId });
+                await axiosInstance.post('/api/add-cart', cartForm)
                 setCartItems(prevItems => [...prevItems, id]);
                 dispatch({ type: 'UPDATE_CART_COUNT', payload: state.cartCount + 1 });
                 toast.success('Item added to cart!');
