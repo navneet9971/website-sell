@@ -19,7 +19,7 @@ const AddCart = () => {
             <button onClick={handleViewCart} className="relative">
                 <FiShoppingCart size={28} className="text-blue-600" />
                 {cartCount > 0 && (
-                    <span className="absolute -top-1.5 -right-2.5 text-white bg-red-500 rounded-full px-1 py-0.5 text-xs">
+                    <span className="absolute -top-1.5 -right-2.5 text-white bg-red-500 rounded-full px-1.5 py-0.5 text-xs">
                         {cartCount}
                     </span>
                 )}
