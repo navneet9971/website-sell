@@ -14,7 +14,7 @@ export const Categories = ( {userId, categoriesproductData} ) => {
   const handleShowMore = () => {
     setShowAll(true);
     navigate('/homepagedata/categoryList', {
-    state: { categoriesproductData, userId } 
+    state: { CategoriesToDisplay, userId } 
     })
   };
 

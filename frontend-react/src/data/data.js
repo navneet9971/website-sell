@@ -22,7 +22,7 @@ export const navigation = [
     {
         id: "1",
         title: "Itachi",
-        description: "This is the description for item 1. This is the description for item 1. This is the description for item 1. This is the description for item 1.",
+        description: "This is the description for item 1. This is the description for item 1. This is the description for item 1. This is the description for item 1. This is the description for item 1. This is the description for item 1. This is the description for item 1. This is the description for item 1.",
         language: "Japanese, English, French, German, Hindi, Tamil",
         industry: "Anime, Manga, Gaming, Action, Sc-fi",
         devices: "TV, Mobile, Tablet, Console",

@@ -5,7 +5,7 @@ import useCountNum from '../../../../globalComponent/countNumber/useCountNum';
 import React, { useState } from 'react';
 import { FaComputer, FaCheck, FaFileCode, FaHandHoldingHeart, FaCircleUser, FaCartPlus, FaProductHunt  } from "react-icons/fa6";
 import { HiBuildingOffice2 } from "react-icons/hi2";
-import { FaGrinHearts } from "react-icons/fa";
+
 
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -15,34 +15,16 @@ import ButtonLivePerview from './ButtonsSection/ButtonLivePerview';
 import ButtonVidePerview from './ButtonsSection/ButtonVidePerview';
 import ButtonUserGuide from './ButtonsSection/ButtonUserGUide';
 import ProductAddCart from './AddCart&Like/ProductAddCart';
+import ProductAddLike from './AddCart&Like/ProductAddLike';
 
 
 const ImageInformation = ({ id, userId, productInfo }) => {
 
-    const [liked, setLiked] = useState(false);
-    const [likedItems, setLikedItems] = useState([]);
    
-    const { increaseLikeCount, decreaseLikeCount, increaseCartCount, decreaseCartCount } = useCountNum();
+   
     const navigation = useNavigate();
 
-    const handleButtonClick = () => {
-        if (!userId) {
-            toast.error('Please login first!');
-            return;
-        }
-
-        if (liked) {
-            setLiked(false);
-            setLikedItems((prevLikedItems) => prevLikedItems.filter((item) => item !== id));
-            decreaseLikeCount();
-            toast.error('Item removed from likes!');
-        } else {
-            setLiked(true);
-            setLikedItems((prevLikedItems) => [...prevLikedItems, id]);
-            increaseLikeCount();
-            toast.success('Item liked!');
-        }
-    };
+   
 
    
 
@@ -75,11 +57,11 @@ const ImageInformation = ({ id, userId, productInfo }) => {
                   userId={userId}
                   />
 
-                    <Button onClick={handleButtonClick} variant="destructive"
-                        className={`flex items-center gap-2 ${liked ? 'bg-pink-600' : 'bg-red-600'}`}>
-                        {liked ? <FaGrinHearts /> : <FaHandHoldingHeart />}
-                        {liked ? "Loved" : "Favorites"}
-                    </Button>
+<ProductAddLike 
+productInfo= {productInfo}
+userId ={userId}
+/>
+                   
                 </div>
             </div>
 

@@ -3,12 +3,15 @@ import React from 'react'
 import { FiHeart } from 'react-icons/fi';
 import useCountNum from '../../../../../globalComponent/countNumber/useCountNum';
 import { useNavigate } from 'react-router-dom';
+import { useLike } from '../../../../../globalComponent/LikeContext';
 
 const AddLike = () => {
-    const navigate = useNavigate()
-    const likeCount = useCountNum((state) => state.likeCount);
+    const navigate = useNavigate();
+    const { state } = useLike();
+    const { likeCount } = state;
 
-    
+    console.log('Current state:', state);  // Check the state here
+
     const handleLikePage = () => {
         navigate(`/navbar/likeInfo`);
     }
@@ -23,9 +26,9 @@ const AddLike = () => {
                     </span>
                 )}
             </button>
-
         </div>
-    )
+    );
 }
+
 
 export default AddLike

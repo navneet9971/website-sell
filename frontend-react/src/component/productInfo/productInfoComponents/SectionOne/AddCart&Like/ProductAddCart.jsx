@@ -11,14 +11,14 @@ const ProductAddCart = ({ productInfo, userId }) => {
     const [cartItems, setCartItems] = useState([]);
     const id = productInfo._id;
 
-    const [cartForm, setCartForm] = useState({
+    const cartForm = {
         productTitle: productInfo.productTitle,
         price: productInfo.price,
-        user_id: userId, //Send Login UserId here
+        user_id: userId, 
         product_id: id,
         projectImages: productInfo.projectImages[0],
         industry: productInfo.industry.join(', '),
-    });
+    };
 
    
 

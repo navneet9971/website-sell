@@ -11,12 +11,12 @@ const CategoriesListPage = () => {
 
   const heading = "Hot Categories"
   const location = useLocation();
-  const { codesproductData, userId } = location.state || {}; // Destructure the data from state
+  const { CategoriesToDisplay, userId } = location.state || {}; // Destructure the data from state
 
 
   return (
     <PagesGrid
-      data={codesproductData}
+      data={CategoriesToDisplay}
       heading={heading}
       userId = {userId}
     />

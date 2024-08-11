@@ -9,6 +9,8 @@ const signup = require('./middleware/auth/signup');
 const profile = require('./middleware/auth/profile');
 const addCart = require('./middleware/addCartMiddleware/addCartPost')
 const addCartGet = require('./middleware/addCartMiddleware/addCartGet');
+const addLike = require('./middleware/addLikeMiddleware/addLikePost');
+const addLikeGet = require('./middleware/addLikeMiddleware/addLikeGet');
 
 
 const app = express();
@@ -41,7 +43,11 @@ app.use('/api', sellRoute);
 
 //add cart Routes
 app.use('/api', addCart);
-app.use("/api", addCartGet)
+app.use('/api', addCartGet)
+
+//add Like Routes
+app.use('/api', addLike);
+app.use('/api', addLikeGet)
 
 // Error handling middleware
 app.use((err, req, res, next) => {
