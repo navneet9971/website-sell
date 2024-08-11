@@ -48,39 +48,40 @@ const ProductLikePage = () => {
   return (
     <div className='px-10 py-2'>
       <h1 className='text-2xl font-bold mb-6'>Favorite Codes</h1>
-      <div className="w-80 flex flex-wrap gap-6">
+      <div className="flex flex-wrap gap-6">
         {likedItems.map((item) => (
-          <FollowerPointerCard
-            key={item.product_id}
-            title={<TitleComponent title={item.productTitle} avatar={item.projectImages} />}
-          >
-            <div className="relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100">
-              <div className="w-full aspect-w-16 aspect-h-10 bg-gray-100 rounded-tr-lg rounded-tl-lg overflow-hidden relative">
-                <img
-                  src={item.projectImages}
-                  alt="thumbnail"
-                  className="group-hover:scale-95 group-hover:rounded-2xl transform object-cover transition duration-200 w-full h-full"
-                />
-              </div>
-              <div className="p-4">
-                <h2 className="font-bold my-4 text-lg text-zinc-700">
-                  {item.productTitle}
-                </h2>
-                <h2 className="font-normal my-4 text-sm text-zinc-500 mt-3 tracking-wide leading-relaxed line-clamp-3">
-                  {item.codeDescription}
-                </h2>
-                <div className="flex flex-row justify-between items-center mt-10">
-                  <span className="text-2xl font-bold text-gray-500">&#x20B9; {item.price}</span>
-                  <button
-                    onClick={() => removeItem(item.product_id)}
-                    className="relative z-10 px-6 py-2 bg-red-600 hover:bg-red-400 text-white font-bold rounded-xl text-xs"
-                  >
-                    Remove
-                  </button>
+          <div key={item.product_id} className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
+            <FollowerPointerCard
+              title={<TitleComponent title={item.productTitle} avatar={item.projectImages} />}
+            >
+              <div className="relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100">
+                <div className="w-full aspect-w-16 aspect-h-10 bg-gray-100 rounded-tr-lg rounded-tl-lg overflow-hidden relative">
+                  <img
+                    src={item.projectImages}
+                    alt="thumbnail"
+                    className="group-hover:scale-95 group-hover:rounded-2xl transform object-cover transition duration-200 w-full h-[12rem]"
+                  />
+                </div>
+                <div className="p-4">
+                  <h2 className="font-bold my-4 text-lg text-zinc-700">
+                    {item.productTitle}
+                  </h2>
+                  <h2 className="font-normal my-4 text-sm text-zinc-500 mt-3 tracking-wide leading-relaxed line-clamp-3">
+                    {item.codeDescription}
+                  </h2>
+                  <div className="flex flex-row justify-between items-center mt-10">
+                    <span className="text-2xl font-bold text-gray-500">&#x20B9; {item.price}</span>
+                    <button
+                      onClick={() => removeItem(item.product_id)}
+                      className="relative z-10 px-6 py-2 bg-red-600 hover:bg-red-400 text-white font-bold rounded-xl text-xs"
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </FollowerPointerCard>
+            </FollowerPointerCard>
+          </div>
         ))}
       </div>
     </div>
@@ -88,16 +89,20 @@ const ProductLikePage = () => {
 };
 
 const TitleComponent = ({ title, avatar }) => (
-  <div className="flex items-center space-x-2">
-    <img
-      src={avatar}
-      height="20"
-      width="20"
-      alt="avatar"
-      className="rounded-full border-2 border-white"
-    />
-    <p>{title}</p>
-  </div>
+  <div className="flex items-center space-x-2 bg-yellow-500 p-1 rounded-xl">
+  <img
+    src={avatar}
+    height="40"
+    width="40"
+    alt="avatar"
+    className="rounded-xl"
+  />
+  <p className='text-white font-bold'>
+    {title.split(' ').slice(0, 1).join(' ')}
+  </p>
+</div>
+
+
 );
 
 export default ProductLikePage;

@@ -10,6 +10,8 @@ const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
     console.log(item._id); 
   };
 
+  console.log(dataToDisplay)
+
   return (
     <div className='px-6'>
       <div className='flex items-center justify-between'>
@@ -19,9 +21,9 @@ const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
         )}
       </div>
       <BentoGrid className="max-w-full mx-auto md:auto-rows-[27.5rem]">
-        {dataToDisplay.map((item) => (
+        {dataToDisplay.map((item, index) => (
           <BentoGridItem
-            key={item._id}
+            key={index}
             title={item.productTitle}
             description={item.codeDescription}
             language={Array.isArray(item.programmingLanguage) ? item.programmingLanguage.join(', ') : item.programmingLanguage}
@@ -31,7 +33,8 @@ const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
             img={item.projectImages?.[0] || item.img}  
             price={item.price}
             userId={userId}
-            onClick={() => handleCardClick(item)} // Pass the entire item
+            productId={item._id}
+            onClick={() => handleCardClick(item)} 
           />
         ))}
       </BentoGrid>

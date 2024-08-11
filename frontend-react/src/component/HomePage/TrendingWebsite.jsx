@@ -9,17 +9,19 @@ const TrendingWebsite = ({ userId, websiteproductData }) => {
   const navigate = useNavigate()
   const heading = "Trending Website"
 
+  const websitefilteredData = websiteproductData?.filter(item => item.chooseUpload === "fullwebsite") || [];
+
   const handleShowTrending = () => {
     setShowAll(true);
     navigate('/homepagedata/trendingWebsiteList', { 
-      state: { websiteproductData, userId } 
+      state: { websitefilteredData, userId } 
     });
   }
 
   return (
     <div>
        <PagesGrid 
-       data={websiteproductData} 
+       data={websitefilteredData} 
        showAll={showAll}
        heading={heading}
        onClick={handleShowTrending}

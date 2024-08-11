@@ -14,8 +14,8 @@ import { FcMultipleDevices } from "react-icons/fc";
 import ButtonLivePerview from './ButtonsSection/ButtonLivePerview';
 import ButtonVidePerview from './ButtonsSection/ButtonVidePerview';
 import ButtonUserGuide from './ButtonsSection/ButtonUserGUide';
-import ProductAddCart from './AddCart&Like/ProductAddCart';
-import ProductAddLike from './AddCart&Like/ProductAddLike';
+import {ProductAddCart} from './AddCart&Like/ProductAddCart';
+import {ProductAddLike} from './AddCart&Like/ProductAddLike';
 
 
 const ImageInformation = ({ id, userId, productInfo }) => {
@@ -52,7 +52,7 @@ const ImageInformation = ({ id, userId, productInfo }) => {
                 <h1 className='text-3xl font-bold'><span>&#8377;</span>{productInfo.price}</h1>
 
                 <div className='flex items-center justify-center gap-5'>
-                  <ProductAddCart 
+                  <ProductAddCart
                   productInfo={productInfo}
                   userId={userId}
                   />

@@ -58,7 +58,10 @@ module.exports = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+          
         },
+        lightBlue: '#03a9f4',
+        lightGreen: '#4caf50',
       },
     
 
@@ -86,6 +89,9 @@ module.exports = {
   },
   plugins: [
     flowbite.plugin(),
-    require("tailwindcss-animate")
+    require("tailwindcss-animate"),
+   
   ],
 }
+
+

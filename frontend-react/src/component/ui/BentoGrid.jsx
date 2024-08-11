@@ -3,11 +3,14 @@ import { Button } from "./button";
 // import Image from "next/image";
 import { LiaFileCodeSolid, LiaIndustrySolid } from "react-icons/lia";
 import { MdDevices } from "react-icons/md";
-import { FaHeartBroken, FaHeart } from "react-icons/fa";
+
 import { useState } from "react";
 import { toast } from "react-toastify";
 import useCountNum from "../../globalComponent/countNumber/useCountNum";
 import { useNavigate } from "react-router-dom";
+
+import { AddCartBento } from "../productInfo/productInfoComponents/SectionOne/AddCart&Like/ProductAddCart";
+import { AddLikeBento } from "../productInfo/productInfoComponents/SectionOne/AddCart&Like/ProductAddLike";
 
 
 export const BentoGrid = ({ className, children }) => {
@@ -35,6 +38,7 @@ export const BentoGridItem = ({
   onClick,
   price,
   userId,
+  productId
 }) => {
   const [liked, setLiked] = useState(false);
   const [likedItems, setLikedItems] = useState([]);
@@ -42,7 +46,6 @@ export const BentoGridItem = ({
   const navigate = useNavigate()
 
   const priceNumber = parseFloat(price);
-
   const truncateNames = (names) => {
     if (names.length <= 4) {
       return names.join(', ');
@@ -50,15 +53,19 @@ export const BentoGridItem = ({
     return `${names.slice(0, 4).join(', ')}...`;
   };
 
+  console.log(userId)
+  console.log(productId)
+  console.log(title)
+
   const languageNames = language ? language.split(',').map(name => name.trim()) : [];
   const industryNames = industry ? industry.split(',').map(name => name.trim()) : [];
   const deviceNames = devices ? devices.split(',').map(name => name.trim()) : [];
 
   const handleBuyItem = () => {
     if (!userId) {
-      navigate('/sign-up'); 
+      navigate('/sign-up');
     } else {
-      navigate('/buy'); 
+      navigate('/buy');
     }
   };
 
@@ -98,16 +105,23 @@ export const BentoGridItem = ({
           className="object-cover h-40"
         />
 
-        <button
-          className={`absolute top-1 right-1 bg-white rounded-full p-1.5 shadow-md transition duration-200 ${liked ? 'bg-green-100' : 'hover:bg-gray-200'}`}
-          onClick={handleLikeItem}
-        >
-          {liked ? (
-            <FaHeart size={17} color="green" />
-          ) : (
-            <FaHeartBroken size={17} color="red" />
-          )}
-        </button>
+
+        <AddLikeBento
+          productId={productId}
+          productTitle={title}
+          codedescription={description}
+          price={price}
+          projectImages={img}
+        />
+
+        <AddCartBento
+          productId={productId}
+          productTitle={title}
+          price={price}
+          projectImages={img}
+          industry={industry}
+        />
+
 
         <div className="group-hover/bento:translate-x-2 transition duration-200">
           <div className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200 mb-3 mt-2 cursor-pointer hover:text-neutral-400" onClick={onClick}>
@@ -151,3 +165,8 @@ export const BentoGridItem = ({
     </div>
   );
 };
+
+
+
+
+

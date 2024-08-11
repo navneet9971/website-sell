@@ -45,7 +45,7 @@ export const FollowerPointerCard = ({
         cursor: "none",
       }}
       ref={ref}
-      className={cn("relative", className)}
+      className={cn("relative flex", className)}
     >
       <AnimatePresence>
         {isInside && <FollowPointer x={x} y={y} title={title} />}
