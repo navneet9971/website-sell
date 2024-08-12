@@ -134,7 +134,7 @@ export const AddCartBento = ({ productId, productTitle, price, projectImages, in
 
     return (
         <button
-            className={`absolute top-1 right-1 ${isInCart ? 'bg-lightGreen' : 'bg-lightBlue'} rounded-full p-1.5 shadow-md transition duration-200 hover:bg-blue-400`}
+            className={`absolute top-[8.3rem] right-1 ${isInCart ? 'bg-lightGreen' : 'bg-lightBlue'} rounded-full p-1 shadow-md transition duration-200 hover:bg-blue-400`}
             onClick={handleAddCart}
         >
             <FaShoppingCart size={17} color={isInCart ? "#fff" : "#fff"} />

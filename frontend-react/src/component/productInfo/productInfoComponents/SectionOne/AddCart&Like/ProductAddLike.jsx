@@ -147,7 +147,7 @@ export const AddLikeBento = ({
 
     return (
         <button
-            className={`absolute top-1 left-1 bg-white rounded-full p-1.5 shadow-md transition duration-200 ${liked ? 'bg-green-100' : 'hover:bg-gray-200'}`}
+            className={`absolute top-[8.3rem] right-9  rounded-full p-1 shadow-md transition duration-200 ${liked ? 'bg-green-100' : 'hover:bg-gray-200'}`}
             onClick={handleButtonClick}
         >
             {liked ? (

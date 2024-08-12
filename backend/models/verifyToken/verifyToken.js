@@ -12,6 +12,7 @@ const verifyToken = (req, res, next) => {
             if (err) {
                 return res.status(403).json({ error: 'Access denied' });
             }
+            console.log('Decoded token:', authData);
             req.authData = authData;
             next();
         });

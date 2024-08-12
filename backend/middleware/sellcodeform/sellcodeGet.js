@@ -12,7 +12,7 @@ router.get('/sell', async (req, res) => {
         const query = {};
         if (userId) query.user = userId;
         if (productId) query._id = productId;
-
+ 
         // Fetch data based on the constructed query object
         const sellData = await SellData.find(query);
 

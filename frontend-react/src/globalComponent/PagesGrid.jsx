@@ -1,17 +1,59 @@
+import { useEffect, useState, useMemo } from 'react';
 import { BentoGrid, BentoGridItem } from '../component/ui/BentoGrid';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../interceptor/axiosInstance';
 
 const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
   const navigate = useNavigate();
-  const dataToDisplay = showAll ? data : data.slice(0, 8);
+  const [reviews, setReviews] = useState({});
+  const fetchedProductIds = useMemo(() => new Set(), []); // Track fetched reviews
+  
+  
+  const dataToDisplay = useMemo(() => {
+    return showAll ? data : data.slice(0, 8);
+  }, [data, showAll]);
 
   const handleCardClick = (item) => {
     navigate(`/productInfo/${item._id}`);
-    console.log(item._id); 
+    console.log(item._id);
   };
 
-  console.log(dataToDisplay)
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const reviewsData = { ...reviews }; // Start with existing reviews
 
+      try {
+        const requests = dataToDisplay
+          .filter(item => !fetchedProductIds.has(item._id)) // Only fetch if not already fetched
+          .map(async (item) => {
+            const response = await axiosInstance(`/api/review-get?productId=${item._id}`);
+            fetchedProductIds.add(item._id); 
+            reviewsData[item._id] = response.data;
+          });
+
+        await Promise.all(requests);
+        setReviews(reviewsData);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+
+    if (dataToDisplay.length > 0) {
+      fetchReviews();
+    }
+  }, [dataToDisplay, fetchedProductIds]);
+
+  console.log(dataToDisplay);
+
+  const sortedItems = useMemo(() => {
+    return dataToDisplay.sort((a, b) => {
+      const ratingA = reviews[a._id]?.overallRating || 0;
+      const ratingB = reviews[b._id]?.overallRating || 0;
+      return ratingB - ratingA;
+    });
+  }, [dataToDisplay, reviews]);
+
+  
   return (
     <div className='px-6'>
       <div className='flex items-center justify-between'>
@@ -21,7 +63,7 @@ const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
         )}
       </div>
       <BentoGrid className="max-w-full mx-auto md:auto-rows-[27.5rem]">
-        {dataToDisplay.map((item, index) => (
+        {sortedItems.map((item, index) => (
           <BentoGridItem
             key={index}
             title={item.productTitle}
@@ -29,12 +71,12 @@ const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
             language={Array.isArray(item.programmingLanguage) ? item.programmingLanguage.join(', ') : item.programmingLanguage}
             industry={Array.isArray(item.industry) ? item.industry.join(', ') : item.industry}
             devices={Array.isArray(item.devices) ? item.devices.join(', ') : item.devices}
-            className={item.className}
-            img={item.projectImages?.[0] || item.img}  
+            img={item.projectImages?.[0] || item.img}
             price={item.price}
             userId={userId}
             productId={item._id}
-            onClick={() => handleCardClick(item)} 
+            totalReview={reviews[item._id] || []}
+            onClick={() => handleCardClick(item)}
           />
         ))}
       </BentoGrid>

@@ -15,7 +15,7 @@ const ExplorePage = () => {
     axiosInstance.get(`/api/sell`)
         .then((response) => {
             console.log("Response:", response.data);
-            setproductData(response.data); // Store the data in state
+            setproductData(response.data); 
         })
         .catch((error) => {
             console.error("Error fetching category data:", error);

@@ -7,6 +7,7 @@ import ProductUser from './productInfoComponents/SectionTwo/ProductUser';
 import ProductDes from './productInfoComponents/SectionTwo/ProductDes';
 import Cookies from 'js-cookie';
 import axiosInstance from '../../interceptor/axiosInstance';
+import ReviewSection from './productInfoComponents/SectionFour/ReviewSection';
 
 const ProductInfoPage = () => {
   const { id } = useParams();
@@ -52,6 +53,7 @@ const ProductInfoPage = () => {
           <ProductUser
           userId={userId}
             productInfo={productInfoData}
+            productId={id}
           />
         </div>
         <div className="w-[60rem]">
@@ -69,6 +71,12 @@ const ProductInfoPage = () => {
 
       <div className='flex items-start justify-start mt-10 px-8'>
         <ReletedProduct id={id} />
+      </div>
+
+      <div className='flex items-start justify-start mt-10 px-8'>
+        <ReviewSection id={id} 
+          productId={id}
+        />
       </div>
     </div>
   );

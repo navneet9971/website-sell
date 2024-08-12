@@ -11,7 +11,8 @@ const addCart = require('./middleware/addCartMiddleware/addCartPost')
 const addCartGet = require('./middleware/addCartMiddleware/addCartGet');
 const addLike = require('./middleware/addLikeMiddleware/addLikePost');
 const addLikeGet = require('./middleware/addLikeMiddleware/addLikeGet');
-
+const userReviewPost = require('./middleware/userReviewMiddleware/userReviewPost');
+const userReviewGet = require('./middleware/userReviewMiddleware/userReviewGet');
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -48,6 +49,10 @@ app.use('/api', addCartGet)
 //add Like Routes
 app.use('/api', addLike);
 app.use('/api', addLikeGet)
+
+//add Review Routes
+app.use('/api', userReviewPost)
+app.use('/api', userReviewGet)
 
 // Error handling middleware
 app.use((err, req, res, next) => {

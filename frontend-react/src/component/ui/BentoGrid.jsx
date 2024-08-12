@@ -38,13 +38,13 @@ export const BentoGridItem = ({
   onClick,
   price,
   userId,
-  productId
+  productId,
+  totalReview
 }) => {
-  const [liked, setLiked] = useState(false);
-  const [likedItems, setLikedItems] = useState([]);
-  const { increaseLikeCount, decreaseLikeCount } = useCountNum();
+ 
   const navigate = useNavigate()
 
+  
   const priceNumber = parseFloat(price);
   const truncateNames = (names) => {
     if (names.length <= 4) {
@@ -52,10 +52,6 @@ export const BentoGridItem = ({
     }
     return `${names.slice(0, 4).join(', ')}...`;
   };
-
-  console.log(userId)
-  console.log(productId)
-  console.log(title)
 
   const languageNames = language ? language.split(',').map(name => name.trim()) : [];
   const industryNames = industry ? industry.split(',').map(name => name.trim()) : [];
@@ -69,29 +65,10 @@ export const BentoGridItem = ({
     }
   };
 
-  const handleLikeItem = () => {
-    if (!userId) {
-      toast.error('Please login and try again!');
-      return;
-    }
-
-    if (liked) {
-      setLiked(false);
-      setLikedItems((prevLikedItems) => prevLikedItems.filter((item) => item !== key));
-      decreaseLikeCount();
-      toast.error('Item removed from likes!');
-    } else {
-      setLiked(true);
-      setLikedItems((prevLikedItems) => [...prevLikedItems, key]);
-      increaseLikeCount();
-      toast.success('Item liked!');
-    }
-  };
-
   return (
     <div
       className={cn(
-        "w-72 h-[27.5rem] overflow-hidden row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-gray-100 border border-transparent justify-between flex flex-col space-y-4",
+        "w-72 h-[28.8rem] overflow-hidden row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-gray-100 border border-transparent justify-between flex flex-col space-y-4",
         className
       )}
       key={key}
@@ -124,9 +101,20 @@ export const BentoGridItem = ({
 
 
         <div className="group-hover/bento:translate-x-2 transition duration-200">
-          <div className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200 mb-3 mt-2 cursor-pointer hover:text-neutral-400" onClick={onClick}>
+          <div className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200  mt-2 cursor-pointer hover:text-neutral-400" onClick={onClick}>
             {title}
           </div>
+          <div className='flex space-x-1 mb-3'>
+                        {[1, 2, 3, 4, 5].map((star) => (
+                            <span
+                                key={star}
+                                className={`text-sm ${star <= totalReview.overallRating ? 'text-yellow-500' : 'text-gray-400'}`}
+                            >
+                                ★
+                            </span>
+                        ))}
+                        <p className='flex items-start justify-start  mt-[.177rem] text-xs'>{totalReview.overallRating} out of 5</p>
+                    </div>
           <div className="font-sans font-normal text-neutral-600 text-xs dark:text-neutral-300 mb-3 line-clamp-2 cursor-default">
             {description}
           </div>
