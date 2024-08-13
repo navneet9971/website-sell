@@ -13,8 +13,6 @@ export default function Navbar() {
 const navigate = useNavigate();
 const userId  = Cookies.get("userId")
 
-
-
   const handleLogin = () => {
     navigate('/sign-in');
   };
@@ -22,6 +20,8 @@ const userId  = Cookies.get("userId")
   const handleSignUp = () => {
     navigate('/sign-up');
   };
+
+
 
   return (
     <Disclosure as="nav" className="bg-gray-800 fixed top-0 left-0 right-0 z-50">

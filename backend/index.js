@@ -13,6 +13,7 @@ const addLike = require('./middleware/addLikeMiddleware/addLikePost');
 const addLikeGet = require('./middleware/addLikeMiddleware/addLikeGet');
 const userReviewPost = require('./middleware/userReviewMiddleware/userReviewPost');
 const userReviewGet = require('./middleware/userReviewMiddleware/userReviewGet');
+const userProfilePut = require('./middleware/userMiddlerWare/UserProfilePut');
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -37,6 +38,9 @@ app.get('/', (req, res) => {
 app.use('/api', login);
 app.use('/api', signup);
 app.use('/api', profile);
+
+//user Profile Get 
+app.use('/api', userProfilePut)
 
 // Application routes
 app.use('/api', getSellData);

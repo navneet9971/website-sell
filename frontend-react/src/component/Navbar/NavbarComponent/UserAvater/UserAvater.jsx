@@ -27,6 +27,10 @@ const UserAvater = () => {
     clearCookies();
   };
 
+  const handleUserProfile = () => {
+    navigate('/userProfile')
+  }
+
   return (
     <Navbar fluid rounded className='bg-gray-800 py-0 px-0'>
       <div className="flex md:order-2">
@@ -46,7 +50,10 @@ const UserAvater = () => {
               <span className="block text-sm">{userObject.fullName}</span>
               <span className="block truncate text-sm font-medium">{userObject.email}</span>
             </Dropdown.Header>
-            <Dropdown.Item>Dashboard</Dropdown.Item>
+            <Dropdown.Item
+            onClick={handleUserProfile}>
+              Profile
+            </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
           </Dropdown>

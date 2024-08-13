@@ -18,6 +18,8 @@ import Signin from '../auth/signin/signin';
 import { AuthenticateWithRedirectCallback } from '@clerk/clerk-react';
 import VerifyEmail from '../auth/verifyEmail/VerifyEmail';
 import CompleteSignUpPage from '../auth/CompleteSignUp/CompleteSignUpPage';
+import UserProfile from '../component/ProfileSection/UserProfile';
+
 
 const MainRoutes = () => {
 
@@ -48,6 +50,7 @@ const MainRoutes = () => {
         <Route path="/homepagedata/trendingcodes" element={<TrendingCodeListPage />} />
         <Route path="/homepagedata/trendingWebsiteList" element={<TrendingWebsitePage />} />
         <Route path="/productInfo/:id" element={<ProductInfo />} />
+        <Route path="/userProfile" element={<UserProfile />} />
 
         {/* Protected Routes */}
         <Route path="/collection" element={<ProtectedRoute element={<CollectionPage />} />} />
