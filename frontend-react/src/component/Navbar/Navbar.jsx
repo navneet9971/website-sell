@@ -11,7 +11,8 @@ import Cookies from 'js-cookie';
 
 export default function Navbar() {
 const navigate = useNavigate();
- const userId  = Cookies.get("userId")
+const userId  = Cookies.get("userId")
+
 
 
   const handleLogin = () => {

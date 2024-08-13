@@ -1,7 +1,13 @@
 import React from 'react';
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 
-export function SignupPage({ formData, handleChange, handleSubmit, handleSignIn }) {
+export function SignupPage({ 
+    formData, 
+    handleChange, 
+    handleSubmit, 
+    handleSignIn,
+    handleFileChange
+}) {
     return (
         <div className='flex items-center justify-center '>
             <div className=" p-8 rounded  mt-4 border border-solid  shadow-lg shadow-gray-400" >
@@ -34,7 +40,17 @@ export function SignupPage({ formData, handleChange, handleSubmit, handleSignIn 
                             value={formData.userName}
                             onChange={handleChange}
                         />
-                    </div>
+                            </div>
+<div>
+<label className='block text-sm font-medium'>Upload Images of Project</label>
+                <input
+                  type='file'
+                  name='profilePic'
+                  onChange={handleFileChange}
+                  className='mt-1 block w-full p-2 border rounded-md'
+                />
+</div>
+                
                     <div>
                         <div className="mb-2 block">
                             <Label htmlFor="email" value="Email" />

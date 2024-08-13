@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../../../../interceptor/axiosInstance';
 import { toast } from 'react-toastify'; // Import toast
-import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
 
 const ReviewUser = ({ productId }) => {
   const product_id = productId;

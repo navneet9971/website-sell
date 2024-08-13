@@ -35,6 +35,7 @@ const Signin = () => {
       const userDataResponse = await axiosInstance.get('/api/profile');
       const userData = userDataResponse.data;
       Cookies.set("userId", userData.user._id)
+      Cookies.set("userData", JSON.stringify(userData.user));
   
       navigate('/');
   
