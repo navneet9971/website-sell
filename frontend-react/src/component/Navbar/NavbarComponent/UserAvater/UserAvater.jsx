@@ -28,8 +28,9 @@ const UserAvater = () => {
   };
 
   const handleUserProfile = () => {
-    navigate('/userProfile')
-  }
+    console.log(userObject); // Ensure this logs the expected data
+    navigate('/userProfile', { state: { data: userObject } });
+  };
 
   return (
     <Navbar fluid rounded className='bg-gray-800 py-0 px-0'>

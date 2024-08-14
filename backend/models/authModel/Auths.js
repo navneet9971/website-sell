@@ -6,23 +6,23 @@ const bcrypt = require('bcryptjs');
 const AuthSchema = new Schema({
     fullName: { type: String, required: true },
     userName: { type: String, required: true },
-    email: { type: String, required: true, unique: true, match: [/.+@.+\..+/, 'Please fill a valid email address']  },
+    email: { type: String, required: true, unique: true, match: [/.+@.+\..+/, 'Please fill a valid email address'] },
     password: { type: String, required: true },
-    remember: {type: Boolean, require: true},
-    profilePic: { type: String, require: true},
+    remember: { type: Boolean, require: true },
+    profilePic: { type: String, require: true },
 });
 
 // Password hashing middleware
-AuthSchema.pre('save', async function(next) {
+AuthSchema.pre('save', async function (next) {
     if (this.isModified('password') || this.isNew) {
         try {
-           const salt = await bcrypt.genSalt(10)
-           const hashedPassword = await bcrypt.hash(this.password, salt)
-           this.password = hashedPassword;
-           next();
+            const salt = await bcrypt.genSalt(10)
+            const hashedPassword = await bcrypt.hash(this.password, salt)
+            this.password = hashedPassword;
+            next();
         } catch (err) {
             console.error('Error hashing password:', err);
-            next(err); 
+            next(err);
         }
     } else {
         next();

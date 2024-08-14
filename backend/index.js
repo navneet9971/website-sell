@@ -14,6 +14,9 @@ const addLikeGet = require('./middleware/addLikeMiddleware/addLikeGet');
 const userReviewPost = require('./middleware/userReviewMiddleware/userReviewPost');
 const userReviewGet = require('./middleware/userReviewMiddleware/userReviewGet');
 const userProfilePut = require('./middleware/userMiddlerWare/UserProfilePut');
+// const userProfilePost = require('./middleware/userMiddlerWare/UserProfilePost')
+const userProfileGet = require('./middleware/userMiddlerWare/UserProfileGet');
+
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -22,7 +25,7 @@ app.use(express.json());
 app.use(cors());
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => {
     console.error('MongoDB connection error:', err);
@@ -41,6 +44,8 @@ app.use('/api', profile);
 
 //user Profile Get 
 app.use('/api', userProfilePut)
+// app.use('/api', userProfilePost)
+app.use('/api', userProfileGet)
 
 // Application routes
 app.use('/api', getSellData);

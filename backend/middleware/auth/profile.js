@@ -9,7 +9,8 @@ const verifyToken = require('../../models/verifyToken/verifyToken');
 router.get('/profile', verifyToken, async (req, res) => {
     try {
         const authData = jwt.verify(req.token, secretKey);
-        const user = await Auth.findById(authData.id).select('fullName email profilePic');
+        const user = await Auth.findById(authData.id)
+        .select('fullName email profilePic userName ');
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }

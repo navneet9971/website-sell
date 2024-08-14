@@ -1,72 +1,99 @@
 const express = require('express');
 const router = express.Router();
-const Auth = require('../../models/authModel/Auths'); // Fixed typo: AUth -> Auth
 const multer = require('multer');
 const { v2: cloudinary } = require('cloudinary');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const verifyToken = require('../../models/verifyToken/verifyToken');
+const User = require('../../models/addUserModel/UserModel');
+const Auth = require('../../models/authModel/Auths')
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
+    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const storage = new CloudinaryStorage({
     cloudinary,
     params: {
         folder: 'uploads',
-        allowedFormats: ['jpg', 'png', 'jpeg']
+        allowedFormats: ['jpg', 'jpeg', 'png'],
+        resource_type: 'auto',
     },
 });
 
-const upload = multer({ storage }); // Fixed typo: mullter -> multer
+const upload = multer({ storage });
 
 router.use(express.json());
 
-router.put('/user-profile', upload.fields([{ name: 'profilePic', maxCount: 1 }]), async (req, res) => {
+router.put('/user-profile', verifyToken, upload.fields([{ name: 'profilePic', maxCount: 1 }]), async (req, res) => {
     try {
         const {
-            bio, email, 
-            city, state, 
-            address, date_of_birth, 
-            phoneNumber, twitter, 
-            facebook, linkedin, 
-            github
+            bio, 
+            city, 
+            country, 
+            address, 
+            date_of_birth, 
+            phoneNumber, 
+            twitter, 
+            facebook, 
+            linkedin, 
+            github,
         } = req.body;
 
-        // Find the existing user by email
-        const existingUser = await Auth.findOne({ email });
-        if (!existingUser) {
-            return res.status(404).json({ error: 'User not found' });
+        const { id } = req.authData; // Assuming id is the user's id from the Auth model
+        const profilePic = req.files && req.files['profilePic'] ? req.files['profilePic'][0].path : null;
+
+        // Update User model
+        let user = await User.findOne({ user: id });
+        
+        if (!user) {
+            user = new User({
+                bio,
+                city,
+                country,
+                address,
+                date_of_birth,
+                phoneNumber,
+                twitter,
+                facebook,
+                linkedin,
+                github,
+                user: id,
+                profilePic,
+            });
+        } else {
+            user.bio = bio ?? user.bio;
+            user.city = city ?? user.city;
+            user.country = country ?? user.country;
+            user.address = address ?? user.address;
+            user.date_of_birth = date_of_birth ?? user.date_of_birth;
+            user.phoneNumber = phoneNumber ?? user.phoneNumber;
+            user.twitter = twitter ?? user.twitter;
+            user.facebook = facebook ?? user.facebook;
+            user.linkedin = linkedin ?? user.linkedin;
+            user.github = github ?? user.github;
+            user.profilePic = profilePic ?? user.profilePic;
+            // Update userData.profilePic if it exists
+            if (user.userData) {
+                user.userData.profilePic = profilePic ?? user.userData.profilePic;
+            }
         }
 
-        // Update user details
-        existingUser.bio = bio || existingUser.bio;
-        existingUser.city = city || existingUser.city;
-        existingUser.state = state || existingUser.state;
-        existingUser.address = address || existingUser.address;
-        existingUser.date_of_birth = date_of_birth || existingUser.date_of_birth;
-        existingUser.phoneNumber = phoneNumber || existingUser.phoneNumber;
-        existingUser.twitter = twitter || existingUser.twitter;
-        existingUser.facebook = facebook || existingUser.facebook;
-        existingUser.linkedin = linkedin || existingUser.linkedin;
-        existingUser.github = github || existingUser.github;
+        await user.save();
 
-        // Update the profile picture if it was uploaded
-        if (req.files && req.files.profilePic && req.files.profilePic[0]) {
-            const profilePicUrl = req.files.profilePic[0].path;
-            existingUser.profilePic = profilePicUrl;
+        // Update profilePic in Auth model
+        if (profilePic) {
+            await Auth.findByIdAndUpdate(id, { profilePic });
         }
 
-        // Save the updated user
-        await existingUser.save();
-
-        // Respond with the updated user details
-        res.status(200).json({ message: 'Profile updated successfully', user: existingUser });
+        res.status(200).json({ message: user ? 'Profile updated successfully' : 'Profile created successfully', user });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Server error' });
+        console.error('Error handling profile:', error);
+        res.status(500).json({ error: 'An error occurred while handling the profile', details: error.message });
     }
 });
+
+
 
 module.exports = router;
