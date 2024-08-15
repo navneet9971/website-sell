@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SellCodePage from "../SellCodePage";
 import Cookies from "js-cookie";
 import axiosInstance from "../../../interceptor/axiosInstance";
+import axios from "axios";
 
 const SellCode = () => {
   const userId = Cookies.get("userId");
@@ -27,6 +28,45 @@ const SellCode = () => {
     user: userId,
   });
 
+  const [languageOptions, setLanguageOptions] = useState([]);
+
+  useEffect(() => {
+    // Fetch the programming languages from the API
+    const fetchLanguages = async () => {
+      try {
+        const response = await axiosInstance.get('/api/languages', {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+
+        // Ensure response data is in the expected format
+        if (response.data && response.data.languages) {
+          const languages = response.data.languages;
+
+          // Map the fetched data to the format expected by the Select component
+          const options = languages.flatMap(language => [
+            {
+              value: language.name,
+              label: language.name
+            },
+            ...language.frameworks.map(framework => ({
+              value: `${language.name} - ${framework}`,
+              label: `${framework} `
+              // (${language.name})`
+            }))
+          ]);
+
+          setLanguageOptions(options);
+        }
+      } catch (error) {
+        console.error('Error fetching programming languages:', error);
+      }
+    };
+
+    fetchLanguages();
+  }, []);
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -91,7 +131,7 @@ const SellCode = () => {
       ...prevFormData,
       [name]: selectedOptions.map((option) => option.value),
     }));
-  };
+  };  
 
   const handleTagsChange = (tags) => {
     setFormData((prevFormData) => ({
@@ -122,6 +162,8 @@ const SellCode = () => {
     }));
   };
 
+  
+
   return (
     <SellCodePage
       handleSubmit={handleSubmit}
@@ -134,6 +176,7 @@ const SellCode = () => {
       handleFeaturesChange={handleFeaturesChange}
       handleChange={handleChange}
       handleAppUse={handleAppUse}
+      languageOptions={languageOptions}
     />
   );
 };

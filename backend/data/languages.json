@@ -1,0 +1,261 @@
+{
+    "languages": [
+      {
+        "name": "JavaScript",
+        "frameworks": [
+          "React",
+          "Angular",
+          "Vue.js",
+          "Node.js",
+          "Express.js"
+        ]
+      },
+      {
+        "name": "Python",
+        "frameworks": [
+          "Django",
+          "Flask",
+          "FastAPI",
+          "Pyramid",
+          "Tornado"
+        ]
+      },
+      {
+        "name": "Java",
+        "frameworks": [
+          "Spring",
+          "Hibernate",
+          "JavaServer Faces (JSF)",
+          "Apache Struts",
+          "Vaadin"
+        ]
+      },
+      {
+        "name": "C++",
+        "frameworks": [
+          "Qt",
+          "Boost",
+          "Cinder",
+          "Poco",
+          "Unreal Engine"
+        ]
+      },
+      {
+        "name": "C#",
+        "frameworks": [
+          ".NET (ASP.NET, Entity Framework)",
+          "Xamarin",
+          "Unity",
+          "Blazor",
+          "NancyFX"
+        ]
+      },
+      {
+        "name": "Ruby",
+        "frameworks": [
+          "Ruby on Rails",
+          "Sinatra",
+          "Hanami",
+          "Padrino",
+          "Grape"
+        ]
+      },
+      {
+        "name": "PHP",
+        "frameworks": [
+          "Laravel",
+          "Symfony",
+          "CodeIgniter",
+          "Zend Framework",
+          "Yii"
+        ]
+      },
+      {
+        "name": "Swift",
+        "frameworks": [
+          "SwiftUI",
+          "Vapor",
+          "Kitura",
+          "Perfect",
+          "RxSwift"
+        ]
+      },
+      {
+        "name": "Kotlin",
+        "frameworks": [
+          "Ktor",
+          "Spring Boot",
+          "Exposed",
+          "TornadoFX",
+          "Anko"
+        ]
+      },
+      {
+        "name": "Go",
+        "frameworks": [
+          "Gin",
+          "Echo",
+          "Revel",
+          "Buffalo",
+          "Beego",
+          "Gobuster (directory brute-forcing)",
+          "Ffuf (fuzzing)",
+          "Gosec (static analysis)"
+        ]
+      },
+      {
+        "name": "Rust",
+        "frameworks": [
+          "Actix",
+          "Rocket",
+          "Warp",
+          "Tide",
+          "Yew",
+          "RustScan (port scanning)",
+          "Zebra (network security)",
+          "Trunk (web security)"
+        ]
+      },
+      {
+        "name": "Dart",
+        "frameworks": [
+          "Flutter"
+        ]
+      },
+      {
+        "name": "Objective-C",
+        "frameworks": [
+          "UIKit",
+          "Cocoa Touch",
+          "Core Data"
+        ]
+      },
+      {
+        "name": "React Native",
+        "frameworks": [
+          "Expo",
+          "NativeBase",
+          "React Navigation"
+        ]
+      },
+      {
+        "name": "XAML",
+        "frameworks": [
+          "Xamarin.Forms",
+          "WPF",
+          "UWP"
+        ]
+      },
+      {
+        "name": "Elixir",
+        "frameworks": [
+          "Phoenix",
+          "Nerves"
+        ]
+      },
+      {
+        "name": "Scala",
+        "frameworks": [
+          "Akka",
+          "Play Framework",
+          "Lagom"
+        ]
+      },
+      {
+        "name": "Lua",
+        "frameworks": [
+          "LÖVE",
+          "Corona SDK",
+          "Solar2D"
+        ]
+      },
+      {
+        "name": "Haskell",
+        "frameworks": [
+          "Yesod",
+          "Snap",
+          "Spock"
+        ]
+      },
+      {
+        "name": "Groovy",
+        "frameworks": [
+          "Grails",
+          "Spock",
+          "Ratpack"
+        ]
+      },
+      {
+        "name": "SwiftUI",
+        "frameworks": [
+          "SwiftUI"
+        ]
+      },
+      {
+        "name": "C",
+        "frameworks": [
+          "Libpcap (network packet capture)",
+          "OpenSSL (cryptography library)",
+          "Metasploit Framework (penetration testing)"
+        ]
+      },
+      {
+        "name": "Assembly",
+        "frameworks": [
+          "IDA Pro (disassembler and debugger)",
+          "Ghidra (reverse engineering)",
+          "Radare2 (reverse engineering)"
+        ]
+      },
+      {
+        "name": "Python (Security)",
+        "frameworks": [
+          "Scapy (networking)",
+          "Pwntools (exploit development)",
+          "Impacket (network protocols)",
+          "PyCryptodome (cryptography)"
+        ]
+      },
+      {
+        "name": "Go (Security)",
+        "frameworks": [
+          "Gobuster (directory brute-forcing)",
+          "Ffuf (fuzzing)",
+          "Gosec (static analysis)"
+        ]
+      },
+      {
+        "name": "Rust (Security)",
+        "frameworks": [
+          "RustScan (port scanning)",
+          "Zebra (network security)",
+          "Trunk (web security)"
+        ]
+      },
+      {
+        "name": "HTML",
+        "frameworks": [
+          "Bootstrap",
+          "Foundation",
+          "Bulma"
+        ]
+      },
+      {
+        "name": "CSS",
+        "frameworks": [
+          "Bootstrap",
+          "Tailwind CSS",
+          "Bulma",
+          "Foundation"
+        ]
+      },
+      {
+        "name": "XML",
+        "frameworks": [
+          "XSLT",
+          "XPath"
+        ]
+      }
+    ]
+  }
+  
