@@ -15,8 +15,11 @@ const SellCodePage = ({
   handleFeaturesChange,
   handleChange,
   handleAppUse,
-  languageOptions
+  languageOptions,
+  codeTypes
 }) => {
+
+  console.log(codeTypes)
 
   return (
     <div>
@@ -62,22 +65,25 @@ const SellCodePage = ({
         onChange={(selectedOptions) => handleMultiSelectChange('programmingLanguage', selectedOptions)}
       />
     </div>
-              <div>
-                <label className='block text-sm font-medium'>
-                  Select Upload Type:
-                </label>
-                <select
-                  id="chooseUpload"
-                  name="chooseUpload"
-                  value={formData.chooseUpload}
-                  onChange={handleChange}
-                  className='mt-1 block w-full p-2 border rounded-md'
-                >
-                  <option value="">Select the option</option>
-                  <option value="fullwebsite">Upload Full Website</option>
-                  <option value="piececode">Piece of Code</option>
-                </select>
-              </div>
+    <div>
+      <label className="block text-sm font-medium">
+        Select Upload Type:
+      </label>
+      <select
+        id="chooseUpload"
+        name="chooseUpload"
+        value={formData.chooseUpload}
+        onChange={handleChange}
+        className="mt-1 block w-full p-2 border rounded-md"
+      >
+        <option value="">Select the option</option>
+        {codeTypes.map((type) => (
+          <option key={type.id} value={type.name}>
+            {type.name}
+          </option>
+        ))}
+      </select>
+    </div>
 
               <div>
               <label className='block text-sm font-medium'>How Does App work </label>

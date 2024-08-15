@@ -2,6 +2,7 @@ const express = require('express');
 // Use promises API for async file operations
 const fs = require('fs').promises; 
 const path = require('path');
+const codeTypes = require('../../data/UploadType');
 
 const router = express.Router();
 
@@ -16,5 +17,12 @@ router.get('/languages', async (req, res) => {
     res.status(500).send('Error reading data file.');
   }
 });
+
+
+// GET API to retrieve the types of code
+router.get('/code-types', (req, res) => {
+    res.json(codeTypes);
+});
+
 
 module.exports = router;

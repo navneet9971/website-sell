@@ -29,6 +29,7 @@ const SellCode = () => {
   });
 
   const [languageOptions, setLanguageOptions] = useState([]);
+  const [codeTypes, setCodeType] = useState([]);
 
   useEffect(() => {
     // Fetch the programming languages from the API
@@ -65,6 +66,24 @@ const SellCode = () => {
     };
 
     fetchLanguages();
+  }, []);
+
+  // Fetch code types and store them in state
+  useEffect(() => {
+    const fetchCodeTypes = async () => {
+      try {
+        const response = await axiosInstance.get('/api/code-types');
+
+        if (response.data) {
+          setCodeType(response.data);
+          console.log(response.data)
+        }
+      } catch (error) {
+        console.error('Error fetching code types:', error);
+      }
+    };
+
+    fetchCodeTypes();
   }, []);
   
   const handleSubmit = async (event) => {
@@ -177,6 +196,7 @@ const SellCode = () => {
       handleChange={handleChange}
       handleAppUse={handleAppUse}
       languageOptions={languageOptions}
+      codeTypes={codeTypes}
     />
   );
 };
