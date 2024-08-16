@@ -37,7 +37,7 @@ export const ProductAddCart = ({ productInfo, userId }) => {
         };
 
         fetchCartItems();
-    }, [userId, dispatch]);
+    }, []);
 
     const handleAddCart = async () => {
         if (!userId) {

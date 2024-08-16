@@ -34,7 +34,6 @@ const SellCode = () => {
   const [deviceOptions, setDevicesOptions] = useState([]);
 
   useEffect(() => {
-    // Fetch the programming languages from the API
     const fetchLanguages = async () => {
       try {
         const response = await axiosInstance.get('/api/languages', {
@@ -42,11 +41,11 @@ const SellCode = () => {
             'Content-Type': 'application/json',
           }
         });
-  
+
         // Ensure response data is in the expected format
         if (response.data && response.data.languages) {
           const languages = response.data.languages;
-  
+
           // Map the fetched data to the format expected by the Select component
           const options = languages.flatMap(language => [
             {
@@ -58,72 +57,57 @@ const SellCode = () => {
               label: framework  // Label as framework name
             }))
           ]);
-  
+
           setLanguageOptions(options);
         }
       } catch (error) {
         console.error('Error fetching programming languages:', error);
       }
     };
-  
+
     fetchLanguages();
   }, []);
-  
+
   // Fetch code types and store them in state
   useEffect(() => {
-    const fetchCodeTypes = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axiosInstance.get('/api/code-types');
+        // Fetch code types
+        const codeTypesResponse = axiosInstance.get('/api/code-types');
+        // Fetch industries
+        const industriesResponse = axiosInstance.get('/api/industries');
+        // Fetch devices
+        const devicesResponse = axiosInstance.get('/api/devices');
 
-        if (response.data) {
-          setCodeType(response.data);
-          console.log(response.data)
+        // Wait for all requests to complete
+        const [codeTypes, industries, devices] = await Promise.all([
+          codeTypesResponse,
+          industriesResponse,
+          devicesResponse,
+        ]);
+
+        // Set state with the fetched data
+        if (codeTypes.data) {
+          setCodeType(codeTypes.data);
+          console.log('Code Types:', codeTypes.data);
+        }
+        if (industries.data) {
+          setIndustryOptions(industries.data);
+          console.log('Industries:', industries.data);
+        }
+        if (devices.data) {
+          setDevicesOptions(devices.data);
+          console.log('Devices:', devices.data);
         }
       } catch (error) {
-        console.error('Error fetching code types:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchCodeTypes();
+    fetchData();
   }, []);
 
-  
-  // Fetch code types and store them in state
-  useEffect(() => {
-    const fetchCodeTypes = async () => {
-      try {
-        const response = await axiosInstance.get('/api/industries');
 
-        if (response.data) {
-          setIndustryOptions(response.data);
-          console.log(response.data)
-        }
-      } catch (error) {
-        console.error('Error fetching code types:', error);
-      }
-    };
-
-    fetchCodeTypes();
-  }, []);
-
-   // Fetch code types and store them in state
-   useEffect(() => {
-    const fetchCodeTypes = async () => {
-      try {
-        const response = await axiosInstance.get('/api/devices');
-
-        if (response.data) {
-          setDevicesOptions(response.data);
-          console.log(response.data)
-        }
-      } catch (error) {
-        console.error('Error fetching code types:', error);
-      }
-    };
-
-    fetchCodeTypes();
-  }, []);
-  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -146,7 +130,7 @@ const SellCode = () => {
     }
     // Append current date
     form.append("currentDate", new Date().toISOString());
-// console.log(formData)
+    // console.log(formData)
     try {
       const response = await axiosInstance.post("/api/sell", form, {
         headers: {
@@ -188,7 +172,7 @@ const SellCode = () => {
       ...prevFormData,
       [name]: selectedOptions.map((option) => option.value),
     }));
-  };  
+  };
 
   const handleTagsChange = (tags) => {
     setFormData((prevFormData) => ({
@@ -219,7 +203,7 @@ const SellCode = () => {
     }));
   };
 
-  
+
 
   return (
     <SellCodePage

@@ -9,7 +9,6 @@ import CategoriesListPage from '../component/HomePage/SeparatePages/CategoriesLi
 import TrendingCodeListPage from '../component/HomePage/SeparatePages/TrendingCodeListPage';
 // import TrendingWebsitePage from '../component/HomePage/SeparatePages/TrendingWebsitePage';
 import ProductInfo from '../component/productInfo/productInfo';
-import CollectionPage from '../component/pages/CollectionPage';
 import SellCode from '../component/pages/SellcodeMain/SellCode';
 import BuyCodePage from '../component/pages/BuyCodePage';
 import ProtectedRoute from './ProtectedRoute';
@@ -53,7 +52,6 @@ const MainRoutes = () => {
         <Route path="/userProfile" element={<UserProfile />} />
 
         {/* Protected Routes */}
-        <Route path="/collection" element={<ProtectedRoute element={<CollectionPage />} />} />
         <Route path="/buycode" element={<ProtectedRoute element={<BuyCodePage />} />} />
         <Route path="/sellcode" element={<ProtectedRoute element={<SellCode />} />} />
       </Routes>

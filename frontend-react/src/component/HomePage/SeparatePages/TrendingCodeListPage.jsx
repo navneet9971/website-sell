@@ -1,21 +1,24 @@
-import { useLocation } from 'react-router-dom'
-// import { CodeData } from '../../../data/data'
-import PagesGrid from '../../../globalComponent/PagesGrid'
-import React from 'react'
-// import { auth } from "@clerk/nextjs/server";
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import PagesGrid from '../../../globalComponent/PagesGrid';
 
-const TrendingCodeListPage = () => {
-const heading = "Trending Codes"
-const location = useLocation();
-  const { codesproductData, userId } = location.state || {}; // Destructure the data from state
+const TrendingCodesDetailPage = () => {
+  const location = useLocation();
 
-    return (
-            <PagesGrid  
-            data = {codesproductData}
-            heading={heading}
-            userId = {userId}
-            />
-    )
-}
+  console.log('Location state:', location.state);
+  const { codesproductData = [], userId, category = "Unknown" } = location.state || {};
 
-export default TrendingCodeListPage
+  return (
+    <div>
+    
+      <PagesGrid
+        data={codesproductData}
+        showAll={true} 
+        heading={category} 
+        userId={userId}
+      />
+    </div>
+  );
+};
+
+export default TrendingCodesDetailPage;

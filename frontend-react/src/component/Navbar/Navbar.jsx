@@ -10,8 +10,8 @@ import UserAvater from "./NavbarComponent/UserAvater/UserAvater"
 import Cookies from 'js-cookie';
 
 export default function Navbar() {
-const navigate = useNavigate();
-const userId  = Cookies.get("userId")
+  const navigate = useNavigate();
+  const userId = Cookies.get("userId")
 
   const handleLogin = () => {
     navigate('/sign-in');
@@ -56,7 +56,7 @@ const userId  = Cookies.get("userId")
               <>
                 <AddLike />
                 <AddCart />
-                
+
                 <button
                   type="button"
                   className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -67,12 +67,12 @@ const userId  = Cookies.get("userId")
                 </button>
 
                 <div>
-                <UserAvater />
+                  <UserAvater />
                 </div>
               </>
             ) : (
               <>
-              
+
                 <button
                   onClick={handleLogin}
                   className="relative rounded-md bg-gray-700 text-white px-3 py-2 text-sm hover:bg-gray-600"
@@ -84,9 +84,9 @@ const userId  = Cookies.get("userId")
                   onClick={handleSignUp}
                   className="relative rounded-md bg-gray-700 text-white px-3 py-2 text-sm hover:bg-gray-600 ml-2"
                 >
-              Sign in
+                  Sign in
                 </button>
-         
+
               </>
             )}
           </div>

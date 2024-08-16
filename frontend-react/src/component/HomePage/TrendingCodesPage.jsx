@@ -6,9 +6,9 @@ const TrendingCodesPage = ({ userId, codesproductData = [] }) => {
   const [showAll, setShowAll] = useState(false);
   const navigate = useNavigate();
 
-  // Group data by `chooseUpload`
+
   const groupedData = codesproductData.reduce((acc, item) => {
-    const category = item.chooseUpload || "Unknown";
+    const category = item.chooseUpload || "Codes";
     if (!acc[category]) {
       acc[category] = [];
     }
@@ -16,22 +16,28 @@ const TrendingCodesPage = ({ userId, codesproductData = [] }) => {
     return acc;
   }, {});
 
-  const handleShowCoding = () => {
+  const handleShowCoding = (category) => {
     setShowAll(true);
+
+    console.log('Navigating to:', groupedData[category], category);
     navigate('/homepagedata/trendingcodes', { 
-      state: { codesproductData, userId } 
+      state: { 
+        codesproductData: groupedData[category], 
+        userId,
+        category 
+      } 
     });
   };
 
   return (
     <div>
       {Object.keys(groupedData).map(category => (
-        <div className = "mt-20" key={category}>
+        <div className="mt-3" key={category}>
           <PagesGrid
             data={groupedData[category]}
             showAll={showAll}
             heading={category} 
-            onClick={handleShowCoding}
+            onClick={() => handleShowCoding(category)} 
             userId={userId}
           />
         </div>

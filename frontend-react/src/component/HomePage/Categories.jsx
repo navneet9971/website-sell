@@ -1,7 +1,4 @@
-// components/Categories.js
 import { useState } from 'react';
-// import GridData from '../../globalcomponents/GridData';
-// import { CategoriesData } from '../../data/data';
 import PagesGrid from '../../globalComponent/PagesGrid';
 import { useNavigate } from 'react-router-dom';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { miniNavbar } from '../../data/data';
 import { useNavigate } from 'react-router-dom';
 
-const SecondNavbar = ({ currentScreen }) => {
+const SecondNavbar = () => {
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {

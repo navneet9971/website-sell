@@ -1,7 +1,6 @@
 
 import React from 'react'
 import { FiHeart } from 'react-icons/fi';
-import useCountNum from '../../../../../globalComponent/countNumber/useCountNum';
 import { useNavigate } from 'react-router-dom';
 import { useLike } from '../../../../../globalComponent/LikeContext';
 
@@ -10,7 +9,7 @@ const AddLike = () => {
     const { state } = useLike();
     const { likeCount } = state;
 
-    console.log('Current state:', state);  // Check the state here
+    console.log('Current state:', state);  
 
     const handleLikePage = () => {
         navigate(`/navbar/likeInfo`);

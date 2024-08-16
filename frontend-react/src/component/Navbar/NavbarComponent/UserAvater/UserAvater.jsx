@@ -28,7 +28,7 @@ const UserAvater = () => {
   };
 
   const handleUserProfile = () => {
-    console.log(userObject); // Ensure this logs the expected data
+    console.log(userObject); 
     navigate('/userProfile', { state: { data: userObject } });
   };
 
