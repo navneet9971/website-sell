@@ -30,6 +30,8 @@ const SellCode = () => {
 
   const [languageOptions, setLanguageOptions] = useState([]);
   const [codeTypes, setCodeType] = useState([]);
+  const [industryOptions, setIndustryOptions] = useState([]);
+  const [deviceOptions, setDevicesOptions] = useState([]);
 
   useEffect(() => {
     // Fetch the programming languages from the API
@@ -40,11 +42,11 @@ const SellCode = () => {
             'Content-Type': 'application/json',
           }
         });
-
+  
         // Ensure response data is in the expected format
         if (response.data && response.data.languages) {
           const languages = response.data.languages;
-
+  
           // Map the fetched data to the format expected by the Select component
           const options = languages.flatMap(language => [
             {
@@ -52,22 +54,21 @@ const SellCode = () => {
               label: language.name
             },
             ...language.frameworks.map(framework => ({
-              value: `${language.name} - ${framework}`,
-              label: `${framework} `
-              // (${language.name})`
+              value: framework,  // Send only the framework name
+              label: framework  // Label as framework name
             }))
           ]);
-
+  
           setLanguageOptions(options);
         }
       } catch (error) {
         console.error('Error fetching programming languages:', error);
       }
     };
-
+  
     fetchLanguages();
   }, []);
-
+  
   // Fetch code types and store them in state
   useEffect(() => {
     const fetchCodeTypes = async () => {
@@ -76,6 +77,43 @@ const SellCode = () => {
 
         if (response.data) {
           setCodeType(response.data);
+          console.log(response.data)
+        }
+      } catch (error) {
+        console.error('Error fetching code types:', error);
+      }
+    };
+
+    fetchCodeTypes();
+  }, []);
+
+  
+  // Fetch code types and store them in state
+  useEffect(() => {
+    const fetchCodeTypes = async () => {
+      try {
+        const response = await axiosInstance.get('/api/industries');
+
+        if (response.data) {
+          setIndustryOptions(response.data);
+          console.log(response.data)
+        }
+      } catch (error) {
+        console.error('Error fetching code types:', error);
+      }
+    };
+
+    fetchCodeTypes();
+  }, []);
+
+   // Fetch code types and store them in state
+   useEffect(() => {
+    const fetchCodeTypes = async () => {
+      try {
+        const response = await axiosInstance.get('/api/devices');
+
+        if (response.data) {
+          setDevicesOptions(response.data);
           console.log(response.data)
         }
       } catch (error) {
@@ -108,7 +146,7 @@ const SellCode = () => {
     }
     // Append current date
     form.append("currentDate", new Date().toISOString());
-
+// console.log(formData)
     try {
       const response = await axiosInstance.post("/api/sell", form, {
         headers: {
@@ -197,6 +235,8 @@ const SellCode = () => {
       handleAppUse={handleAppUse}
       languageOptions={languageOptions}
       codeTypes={codeTypes}
+      industryOptions={industryOptions}
+      deviceOptions={deviceOptions}
     />
   );
 };

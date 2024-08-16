@@ -3,6 +3,8 @@ const express = require('express');
 const fs = require('fs').promises; 
 const path = require('path');
 const codeTypes = require('../../data/UploadType');
+const industries = require('../../data/industryData');
+const devices = require('../../data/DevicesData');
 
 const router = express.Router();
 
@@ -23,6 +25,15 @@ router.get('/languages', async (req, res) => {
 router.get('/code-types', (req, res) => {
     res.json(codeTypes);
 });
+
+router.get('/industries', (req, res) => {
+    res.json(industries);
+  });
+
+  router.get('/devices', (req, res) => {
+    res.json(devices);
+  });
+
 
 
 module.exports = router;

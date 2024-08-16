@@ -7,7 +7,7 @@ import ProductLikePage from '../component/Navbar/NavbarComponent/LikeComponent/L
 import ExplorePage from '../component/pages/ExplorePage';
 import CategoriesListPage from '../component/HomePage/SeparatePages/CategoriesListPage';
 import TrendingCodeListPage from '../component/HomePage/SeparatePages/TrendingCodeListPage';
-import TrendingWebsitePage from '../component/HomePage/SeparatePages/TrendingWebsitePage';
+// import TrendingWebsitePage from '../component/HomePage/SeparatePages/TrendingWebsitePage';
 import ProductInfo from '../component/productInfo/productInfo';
 import CollectionPage from '../component/pages/CollectionPage';
 import SellCode from '../component/pages/SellcodeMain/SellCode';
@@ -48,7 +48,7 @@ const MainRoutes = () => {
         {/* SeparatePages */}
         <Route path="/homepagedata/categoryList" element={<CategoriesListPage />} />
         <Route path="/homepagedata/trendingcodes" element={<TrendingCodeListPage />} />
-        <Route path="/homepagedata/trendingWebsiteList" element={<TrendingWebsitePage />} />
+        {/* <Route path="/homepagedata/trendingWebsiteList" element={<TrendingWebsitePage />} /> */}
         <Route path="/productInfo/:id" element={<ProductInfo />} />
         <Route path="/userProfile" element={<UserProfile />} />
 

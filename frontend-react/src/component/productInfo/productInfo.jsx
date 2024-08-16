@@ -73,7 +73,7 @@ const ProductInfoPage = () => {
         <ReletedProduct id={id} />
       </div>
 
-      <div className='flex items-start justify-start mt-10 px-8'>
+      <div className='flex items-start justify-start mt-20 px-8'>
         <ReviewSection id={id} 
           productId={id}
         />

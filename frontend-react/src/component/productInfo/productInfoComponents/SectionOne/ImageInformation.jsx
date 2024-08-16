@@ -127,7 +127,9 @@ userId ={userId}
                     </div>
 
                     <div className='flex  items-center gap-4'>
-                        <ButtonUserGuide />
+                        <ButtonUserGuide 
+                        productInfo={productInfo}
+                        />
 
 
                         <ButtonVidePerview 

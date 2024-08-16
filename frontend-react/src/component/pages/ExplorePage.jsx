@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Categories } from '../HomePage/Categories'
-import TrendingWebsite from '../HomePage/TrendingWebsite'
+// import TrendingWebsite from '../HomePage/TrendingWebsite'
 import TrendingCodesPage from '../HomePage/TrendingCodesPage'
 import Cookies from 'js-cookie';
 import axiosInstance from '../../interceptor/axiosInstance';
@@ -25,15 +25,15 @@ const ExplorePage = () => {
 
 
   return (
-    <div className='flex flex-col items-center justify-center gap-7' >
+    <div className='flex flex-col items-center justify-center' >
       <Categories
         userId={userId}
         categoriesproductData={productData}
       />
-      <TrendingWebsite
+      {/* <TrendingWebsite
         userId={userId}
         websiteproductData={productData}
-      />
+      /> */}
       <TrendingCodesPage
         userId={userId}
         codesproductData={productData}

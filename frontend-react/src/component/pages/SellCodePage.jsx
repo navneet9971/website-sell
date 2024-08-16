@@ -1,4 +1,4 @@
-import { deviceOptions, industryOptions} from '../../data/data';
+import { deviceOptions } from '../../data/data';
 import React from 'react';
 import Select from 'react-select';
 import TagsInput from 'react-tagsinput';
@@ -16,10 +16,10 @@ const SellCodePage = ({
   handleChange,
   handleAppUse,
   languageOptions,
-  codeTypes
+  codeTypes,
+  industryOptions,
+  deviceOptions
 }) => {
-
-  console.log(codeTypes)
 
   return (
     <div>
@@ -116,7 +116,7 @@ const SellCodePage = ({
                 rows='3'
               />
             </div>
-            <div>
+            {/* <div>
               <label className='block text-sm font-medium'>Change and Adaptation Instructions</label>
               <textarea
                 name='adaptationInstructions'
@@ -125,29 +125,29 @@ const SellCodePage = ({
                 className='mt-1 block w-full p-2 border rounded-md'
                 rows='3'
               />
-            </div>
-            <div>
-              <label className='block text-sm font-medium'>Industry</label>
-              <Select
-                isMulti
-                name='industry'
-                options={industryOptions}
-                className='mt-1 block w-full p-2 border rounded-md'
-                value={industryOptions.filter(option => formData.industry.includes(option.value))}
-                onChange={(selectedOptions) => handleMultiSelectChange('industry', selectedOptions)}
-              />
-            </div>
-            <div>
-              <label className='block text-sm font-medium'>Devices</label>
-              <Select
-                isMulti
-                name='devices'
-                options={deviceOptions}
-                className='mt-1 block w-full p-2 border rounded-md'
-                value={deviceOptions.filter(option => formData.devices.includes(option.value))}
-                onChange={(selectedOptions) => handleMultiSelectChange('devices', selectedOptions)}
-              />
-            </div>
+            </div> */}
+        <div>
+      <label className='block text-sm font-medium'>Industry</label>
+      <Select
+        isMulti
+        name='industry'
+        options={industryOptions}
+        className='mt-1 block w-full p-2 border rounded-md'
+        value={industryOptions.filter(option => formData.industry.includes(option.value))}
+        onChange={(selectedOptions) => handleMultiSelectChange('industry', selectedOptions)}
+      />
+    </div>
+    <div>
+    <label className='block text-sm font-medium'>Devices</label>
+    <Select
+      isMulti
+      name='devices'
+      options={deviceOptions}
+      className='mt-1 block w-full p-2 border rounded-md'
+      value={deviceOptions.filter(option => formData.devices.includes(option.value))}
+      onChange={(selectedOptions) => handleMultiSelectChange('devices', selectedOptions)}
+    />
+  </div>
           </div>
         </div>
 

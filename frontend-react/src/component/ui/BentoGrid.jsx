@@ -47,10 +47,10 @@ export const BentoGridItem = ({
   
   const priceNumber = parseFloat(price);
   const truncateNames = (names) => {
-    if (names.length <= 4) {
+    if (names.length <= 3) {
       return names.join(', ');
     }
-    return `${names.slice(0, 4).join(', ')}...`;
+    return `${names.slice(0, 3).join(', ')}...`;
   };
 
   const languageNames = language ? language.split(',').map(name => name.trim()) : [];
@@ -68,7 +68,7 @@ export const BentoGridItem = ({
   return (
     <div
       className={cn(
-        "w-72 h-[28.8rem] overflow-hidden row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-gray-100 border border-transparent justify-between flex flex-col space-y-4",
+        "w-72 h-[30.8rem] overflow-hidden row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-gray-100 border border-transparent justify-between flex flex-col space-y-4",
         className
       )}
       key={key}
@@ -122,17 +122,17 @@ export const BentoGridItem = ({
           <div className="flex flex-col items-start justify-center gap-2 mt-4 cursor-default">
             <div className="flex items-start justify-start gap-1">
               <LiaFileCodeSolid size={22} color="blue" />
-              <h1 className="text-xs font-bold text-end py-1">{truncateNames(languageNames)}</h1>
+              <h1 className="text-xs font-bold text-start py-1">{truncateNames(languageNames)}</h1>
             </div>
 
             <div className="flex items-start justify-start gap-1">
               <LiaIndustrySolid size={22} color="blue" />
-              <h1 className="text-xs font-bold text-end py-1">{truncateNames(industryNames)}</h1>
+              <h1 className="text-xs font-bold text-start py-1">{truncateNames(industryNames)}</h1>
             </div>
 
             <div className="flex items-start justify-start gap-1">
               <MdDevices size={22} color="blue" />
-              <h1 className="text-xs font-bold text-end py-1">{truncateNames(deviceNames)}</h1>
+              <h1 className="text-xs font-bold text-start py-1">{truncateNames(deviceNames)}</h1>
             </div>
           </div>
 

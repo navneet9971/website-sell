@@ -5,27 +5,37 @@ import { useNavigate } from 'react-router-dom';
 const TrendingCodesPage = ({ userId, codesproductData = [] }) => {
   const [showAll, setShowAll] = useState(false);
   const navigate = useNavigate();
-  const heading = "Trending Codes";
 
-
-  const codefilteredData = codesproductData?.filter(item => item.chooseUpload === "piececode") || [];
+  // Group data by `chooseUpload`
+  const groupedData = codesproductData.reduce((acc, item) => {
+    const category = item.chooseUpload || "Unknown";
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(item);
+    return acc;
+  }, {});
 
   const handleShowCoding = () => {
     setShowAll(true);
     navigate('/homepagedata/trendingcodes', { 
-           state: { codesproductData: codefilteredData, userId } 
+      state: { codesproductData, userId } 
     });
   };
 
   return (
     <div>
-      <PagesGrid
-        data={codefilteredData}
-        showAll={showAll} 
-        heading={heading}
-        onClick={handleShowCoding}
-        userId={userId}
-      />
+      {Object.keys(groupedData).map(category => (
+        <div className = "mt-20" key={category}>
+          <PagesGrid
+            data={groupedData[category]}
+            showAll={showAll}
+            heading={category} 
+            onClick={handleShowCoding}
+            userId={userId}
+          />
+        </div>
+      ))}
     </div>
   );
 };
