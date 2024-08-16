@@ -5,7 +5,7 @@ import { FaCartPlus } from "react-icons/fa6";
 import { Button } from '../../../../ui/button';
 import axiosInstance from "../../../../../interceptor/axiosInstance";
 import { useCart } from '../../../../../globalComponent/CartContext';
-import {  FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 
 export const ProductAddCart = ({ productInfo, userId }) => {
@@ -37,7 +37,7 @@ export const ProductAddCart = ({ productInfo, userId }) => {
         };
 
         fetchCartItems();
-    }, []);
+    }, [userId, dispatch]); // Added dependencies
 
     const handleAddCart = async () => {
         if (!userId) {
@@ -77,8 +77,8 @@ export const ProductAddCart = ({ productInfo, userId }) => {
 export const AddCartBento = ({ productId, productTitle, price, projectImages, industry }) => {
     const { state, dispatch } = useCart();
     const [cartItems, setCartItems] = useState([]);
-    const id = productId
-    const userId  = Cookies.get("userId")
+    const id = productId;
+    const userId = Cookies.get("userId");
 
     const cartForm = {
         productTitle: productTitle,
@@ -104,7 +104,7 @@ export const AddCartBento = ({ productId, productTitle, price, projectImages, in
         };
 
         fetchCartItems();
-    }, [userId, dispatch]);
+    }, [userId, dispatch]); // Added dependencies
 
     const handleAddCart = async () => {
         if (!userId) {
@@ -130,6 +130,7 @@ export const AddCartBento = ({ productId, productTitle, price, projectImages, in
             toast.error('An error occurred while updating the cart.');
         }
     };
+
     const isInCart = cartItems.includes(productId);
 
     return (

@@ -1,9 +1,6 @@
 import { Button } from '../../../ui/button';
-import { languge, use } from '../../../../data/data';
-import useCountNum from '../../../../globalComponent/countNumber/useCountNum';
-
-import React, { useState } from 'react';
-import { FaComputer, FaCheck, FaFileCode, FaHandHoldingHeart, FaCircleUser, FaCartPlus, FaProductHunt  } from "react-icons/fa6";
+import React from 'react';
+import { FaComputer, FaCheck, FaFileCode, FaCircleUser, FaProductHunt  } from "react-icons/fa6";
 import { HiBuildingOffice2 } from "react-icons/hi2";
 
 

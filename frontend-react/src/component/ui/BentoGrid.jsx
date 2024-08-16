@@ -1,12 +1,7 @@
 import { cn } from "../../lib/utils";
 import { Button } from "./button";
-// import Image from "next/image";
 import { LiaFileCodeSolid, LiaIndustrySolid } from "react-icons/lia";
 import { MdDevices } from "react-icons/md";
-
-import { useState } from "react";
-import { toast } from "react-toastify";
-import useCountNum from "../../globalComponent/countNumber/useCountNum";
 import { useNavigate } from "react-router-dom";
 
 import { AddCartBento } from "../productInfo/productInfoComponents/SectionOne/AddCart&Like/ProductAddCart";
@@ -77,9 +72,9 @@ export const BentoGridItem = ({
         <img
           src={img}
           width={300}
-          // height={50}
+          height={50}
           alt="Bento Item"
-          className="object-cover h-40"
+          className="h-40 object-cover"
         />
 
 

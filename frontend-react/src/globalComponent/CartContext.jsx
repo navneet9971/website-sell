@@ -1,7 +1,8 @@
-import React, { createContext, useReducer, useEffect, useContext } from 'react';
+import React, { createContext, useReducer, useEffect, useContext, useMemo, useCallback } from 'react';
 import Cookies from 'js-cookie';
 import axiosInstance from '../interceptor/axiosInstance';
 import cartReducer from './countNumber/cartReducer';
+import throttle from 'lodash/throttle'; // Correct import for lodash throttle
 
 const CartContext = createContext();
 
@@ -9,8 +10,8 @@ export const CartProvider = ({ children }) => {
     const [state, dispatch] = useReducer(cartReducer, { cart: [], cartCount: 0 });
     const userId = Cookies.get("userId");
 
-    useEffect(() => {
-        const fetchCartCount = async () => {
+    const fetchCartCount = useCallback(
+        throttle(async () => {
             if (userId) {
                 try {
                     const response = await axiosInstance.get('/api/user-cart', { params: { user_id: userId } });
@@ -19,13 +20,18 @@ export const CartProvider = ({ children }) => {
                     console.error('Error fetching cart count:', error);
                 }
             }
-        };
+        }, 2000), // Throttle to avoid frequent API calls
+        [userId]
+    );
 
+    useEffect(() => {
         fetchCartCount();
-    }, [userId]);
+    }, [fetchCartCount]);
+
+    const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
 
     return (
-        <CartContext.Provider value={{ state, dispatch }}>
+        <CartContext.Provider value={contextValue}>
             {children}
         </CartContext.Provider>
     );

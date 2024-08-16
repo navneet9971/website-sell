@@ -50,13 +50,12 @@ export default function Navbar() {
             />
           </div>
 
-          <div className='flex items-center justify-center gap-6'>
+          <div className="flex items-center justify-center gap-6">
             <ModeToggle />
             {userId ? (
               <>
                 <AddLike />
                 <AddCart />
-
                 <button
                   type="button"
                   className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -65,41 +64,40 @@ export default function Navbar() {
                   <span className="sr-only">View notifications</span>
                   <BellIcon aria-hidden="true" className="h-6 w-6" />
                 </button>
-
                 <div>
                   <UserAvater />
                 </div>
               </>
             ) : (
               <>
-
                 <button
                   onClick={handleLogin}
                   className="relative rounded-md bg-gray-700 text-white px-3 py-2 text-sm hover:bg-gray-600"
                 >
                   Login
                 </button>
-
                 <button
                   onClick={handleSignUp}
                   className="relative rounded-md bg-gray-700 text-white px-3 py-2 text-sm hover:bg-gray-600 ml-2"
                 >
                   Sign in
                 </button>
-
               </>
             )}
           </div>
+
         </div>
       </div>
 
       <DisclosurePanel className="sm:hidden">
-        <div className="space-y-1 px-2 pb-3 pt-2">
-          <Input
-            className="w-60 h-8"
-            placeholder="Search.."
-          />
-          <ModeToggle />
+        <div className="p-[2px] rounded-lg transition duration-300 group">
+          <div className="space-y-1 px-2 pb-3 pt-2">
+            <Input
+              className="w-60 h-8"
+              placeholder="Search.."
+            />
+            <ModeToggle />
+          </div>
         </div>
       </DisclosurePanel>
     </Disclosure>

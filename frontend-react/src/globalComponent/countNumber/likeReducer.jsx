@@ -1,17 +1,21 @@
 const likeReducer = (state, action) => {
     switch (action.type) {
-        case 'ADD_TO_LIKE':
+        case 'ADD_TO_LIKE': {
+            const newLikeList = [...state.like, action.payload];
             return {
                 ...state,
-                like: [...state.like, action.payload],
-                likeCount: state.like.length + 1,
+                like: newLikeList,
+                likeCount: newLikeList.length,
             };
-        case 'REMOVE_FROM_LIKE':
+        }
+        case 'REMOVE_FROM_LIKE': {
+            const newLikeList = state.like.filter(item => item.product_id !== action.payload.product_id);
             return {
                 ...state,
-                like: state.like.filter(item => item.product_id !== action.payload.product_id),
-                likeCount: state.like.length - 1,
+                like: newLikeList,
+                likeCount: newLikeList.length,
             };
+        }
         case 'UPDATE_LIKE_COUNT':
             return {
                 ...state,
@@ -27,5 +31,6 @@ const likeReducer = (state, action) => {
             return state;
     }
 };
+
 
 export default likeReducer;

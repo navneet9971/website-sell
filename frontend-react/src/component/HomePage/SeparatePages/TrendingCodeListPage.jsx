@@ -9,7 +9,6 @@ const TrendingCodesDetailPage = () => {
   const { codesproductData = [], userId, category = "Unknown" } = location.state || {};
 
   return (
-    <div>
     
       <PagesGrid
         data={codesproductData}
@@ -17,7 +16,6 @@ const TrendingCodesDetailPage = () => {
         heading={category} 
         userId={userId}
       />
-    </div>
   );
 };
 

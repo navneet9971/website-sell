@@ -18,7 +18,6 @@ export const Categories = ( {userId, categoriesproductData} ) => {
   console.log(userId);
 
   return (
-    <div>
       <PagesGrid
         data={CategoriesToDisplay}
         showAll={showAll}
@@ -26,7 +25,6 @@ export const Categories = ( {userId, categoriesproductData} ) => {
         onClick={handleShowMore}
         userId={userId}
       />
-    </div>
   );
 };
 

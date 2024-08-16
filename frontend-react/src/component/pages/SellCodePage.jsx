@@ -1,4 +1,3 @@
-import { deviceOptions } from '../../data/data';
 import React from 'react';
 import Select from 'react-select';
 import TagsInput from 'react-tagsinput';

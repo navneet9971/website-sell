@@ -43,7 +43,6 @@ const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
     }
   }, [dataToDisplay, fetchedProductIds]);
 
-  console.log(dataToDisplay);
 
   const sortedItems = useMemo(() => {
     return dataToDisplay.sort((a, b) => {

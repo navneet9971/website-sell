@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Avatar, Dropdown, Navbar } from 'flowbite-react';
+import { Dropdown, Navbar } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 import clearCookies from '../../../../RemoveCookies/ClearCookies';
 import Cookies from 'js-cookie';
@@ -43,7 +43,7 @@ const UserAvater = () => {
               <img
               alt="User settings"
               src={userObject.profilePic}
-              className='w-[3.2rem] h-[2.9rem] object-centre rounded-full'
+              className='w-12 h-11 object-center rounded-full'
             />            
             }
           >

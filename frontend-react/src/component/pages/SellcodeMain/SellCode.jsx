@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import SellCodePage from "../SellCodePage";
 import Cookies from "js-cookie";
 import axiosInstance from "../../../interceptor/axiosInstance";
-import axios from "axios";
+import throttle from 'lodash/throttle'; // Correct import for lodash throttle
 
 const SellCode = () => {
   const userId = Cookies.get("userId");
@@ -33,94 +33,130 @@ const SellCode = () => {
   const [industryOptions, setIndustryOptions] = useState([]);
   const [deviceOptions, setDevicesOptions] = useState([]);
 
-  useEffect(() => {
-    const fetchLanguages = async () => {
-      try {
-        const response = await axiosInstance.get('/api/languages', {
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        });
-
-        // Ensure response data is in the expected format
-        if (response.data && response.data.languages) {
-          const languages = response.data.languages;
-
-          // Map the fetched data to the format expected by the Select component
-          const options = languages.flatMap(language => [
-            {
-              value: language.name,
-              label: language.name
-            },
-            ...language.frameworks.map(framework => ({
-              value: framework,  // Send only the framework name
-              label: framework  // Label as framework name
-            }))
-          ]);
-
-          setLanguageOptions(options);
+  // Throttle API call for languages
+  const fetchLanguages = useCallback(throttle(async () => {
+    try {
+      const response = await axiosInstance.get('/api/languages', {
+        headers: {
+          'Content-Type': 'application/json',
         }
-      } catch (error) {
-        console.error('Error fetching programming languages:', error);
-      }
-    };
+      });
 
-    fetchLanguages();
-  }, []);
+      if (response.data && response.data.languages) {
+        const languages = response.data.languages;
 
-  // Fetch code types and store them in state
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch code types
-        const codeTypesResponse = axiosInstance.get('/api/code-types');
-        // Fetch industries
-        const industriesResponse = axiosInstance.get('/api/industries');
-        // Fetch devices
-        const devicesResponse = axiosInstance.get('/api/devices');
-
-        // Wait for all requests to complete
-        const [codeTypes, industries, devices] = await Promise.all([
-          codeTypesResponse,
-          industriesResponse,
-          devicesResponse,
+        const options = languages.flatMap(language => [
+          {
+            value: language.name,
+            label: language.name
+          },
+          ...language.frameworks.map(framework => ({
+            value: framework,
+            label: framework
+          }))
         ]);
 
-        // Set state with the fetched data
-        if (codeTypes.data) {
-          setCodeType(codeTypes.data);
-          console.log('Code Types:', codeTypes.data);
-        }
-        if (industries.data) {
-          setIndustryOptions(industries.data);
-          console.log('Industries:', industries.data);
-        }
-        if (devices.data) {
-          setDevicesOptions(devices.data);
-          console.log('Devices:', devices.data);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
+        setLanguageOptions(options);
       }
-    };
+    } catch (error) {
+      console.error('Error fetching programming languages:', error);
+    }
+  }, 2000), []); // Throttle to 2 seconds
 
+  // Throttle API call for code types, industries, and devices
+  const fetchData = useCallback(throttle(async () => {
+    try {
+      const [codeTypesResponse, industriesResponse, devicesResponse] = await Promise.all([
+        axiosInstance.get('/api/code-types'),
+        axiosInstance.get('/api/industries'),
+        axiosInstance.get('/api/devices'),
+      ]);
+
+      if (codeTypesResponse.data) {
+        setCodeType(codeTypesResponse.data);
+      }
+      if (industriesResponse.data) {
+        setIndustryOptions(industriesResponse.data);
+      }
+      if (devicesResponse.data) {
+        setDevicesOptions(devicesResponse.data);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }, 2000), []); // Throttle to 2 seconds
+
+  useEffect(() => {
+    fetchLanguages();
+  }, [fetchLanguages]);
+
+  useEffect(() => {
     fetchData();
+  }, [fetchData]);
+
+  const handleInputChange = useCallback((event) => {
+    const { name, value } = event.target;
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   }, []);
 
+  const handleCheckboxChange = useCallback((event) => {
+    const { name } = event.target;
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [name]: !prevFormData[name],
+    }));
+  }, []);
 
-  const handleSubmit = async (event) => {
+  const handleFileChange = useCallback((event) => {
+    const { name, files } = event.target;
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [name]: files,
+    }));
+  }, []);
+
+  const handleMultiSelectChange = useCallback((name, selectedOptions) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [name]: selectedOptions.map(option => option.value),
+    }));
+  }, []);
+
+  const handleTagsChange = useCallback((tags) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      tags,
+    }));
+  }, []);
+
+  const handleFeaturesChange = useCallback((features) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      features,
+    }));
+  }, []);
+
+  const handleAppUse = useCallback((appUse) => {
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      appUse,
+    }));
+  }, []);
+
+  const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
 
     const form = new FormData();
 
-    // Append text fields
     for (const key in formData) {
       if (formData.hasOwnProperty(key) && key !== "images" && key !== "installationGuide" && key !== "projectCode") {
         form.append(key, formData[key]);
       }
     }
 
-    // Append file fields
     for (const fileKey of ["images", "installationGuide", "projectCode"]) {
       if (formData[fileKey]) {
         for (const file of formData[fileKey]) {
@@ -128,9 +164,9 @@ const SellCode = () => {
         }
       }
     }
-    // Append current date
+
     form.append("currentDate", new Date().toISOString());
-    // console.log(formData)
+
     try {
       const response = await axiosInstance.post("/api/sell", form, {
         headers: {
@@ -141,69 +177,7 @@ const SellCode = () => {
     } catch (error) {
       console.error("Error submitting form:", error);
     }
-  };
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
-
-  const handleCheckboxChange = (event) => {
-    const { name } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: !prevFormData[name],
-    }));
-  };
-
-  const handleFileChange = (event) => {
-    const { name, files } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: files,
-    }));
-  };
-
-  const handleMultiSelectChange = (name, selectedOptions) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: selectedOptions.map((option) => option.value),
-    }));
-  };
-
-  const handleTagsChange = (tags) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      tags,
-    }));
-  };
-
-  const handleFeaturesChange = (features) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      features,
-    }));
-  };
-
-  const handleAppUse = (appUse) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      appUse,
-    }));
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
-
-
+  }, [formData]);
 
   return (
     <SellCodePage
@@ -215,7 +189,7 @@ const SellCode = () => {
       handleMultiSelectChange={handleMultiSelectChange}
       handleTagsChange={handleTagsChange}
       handleFeaturesChange={handleFeaturesChange}
-      handleChange={handleChange}
+      handleChange={handleInputChange} // Reuse handleInputChange for single input change
       handleAppUse={handleAppUse}
       languageOptions={languageOptions}
       codeTypes={codeTypes}

@@ -1,32 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import PagesGrid from '../../globalComponent/PagesGrid';
 import { useNavigate } from 'react-router-dom';
+import throttle from 'lodash/throttle';
 
 const TrendingCodesPage = ({ userId, codesproductData = [] }) => {
   const [showAll, setShowAll] = useState(false);
   const navigate = useNavigate();
 
+  const groupedData = useMemo(() => 
+    codesproductData.reduce((acc, item) => {
+      const category = item.chooseUpload || "Codes";
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(item);
+      return acc;
+    }, {}), [codesproductData]);
 
-  const groupedData = codesproductData.reduce((acc, item) => {
-    const category = item.chooseUpload || "Codes";
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-    acc[category].push(item);
-    return acc;
-  }, {});
+  const throttledNavigate = useMemo(() => 
+    throttle((category) => {
+      setShowAll(true);
+      navigate('/homepagedata/trendingcodes', { 
+        state: { 
+          codesproductData: groupedData[category], 
+          userId,
+          category 
+        } 
+      });
+    }, 1000), [navigate, groupedData, userId]);
 
   const handleShowCoding = (category) => {
-    setShowAll(true);
-
-    console.log('Navigating to:', groupedData[category], category);
-    navigate('/homepagedata/trendingcodes', { 
-      state: { 
-        codesproductData: groupedData[category], 
-        userId,
-        category 
-      } 
-    });
+    throttledNavigate(category);
   };
 
   return (
