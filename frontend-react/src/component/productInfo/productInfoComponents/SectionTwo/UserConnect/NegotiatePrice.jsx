@@ -59,7 +59,7 @@ const NegotiatePrice = ({ productInfo }) => {
             <DialogTrigger asChild>
                 <Button variant="destructive" className="flex items-center gap-2">
                     <FaHandshake size={20} />
-                    Negotiate Price
+                    <p className='hover:text-blue-500'>Negotiate Price</p>
                 </Button>
             </DialogTrigger>
 
@@ -136,9 +136,9 @@ const NegotiatePrice = ({ productInfo }) => {
                 </div>
 
                 <div className="flex gap-4 mt-4">
-                    <Button 
-                        variant="outline" 
-                        onClick={handleConfirm} 
+                    <Button
+                        variant="outline"
+                        onClick={handleConfirm}
                         disabled={isLoading}
                     >
                         {isLoading ? 'Sending...' : 'Send'}

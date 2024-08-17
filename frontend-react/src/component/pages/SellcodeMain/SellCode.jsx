@@ -114,9 +114,10 @@ const SellCode = () => {
 
   const handleFileChange = useCallback((event) => {
     const { name, files } = event.target;
+    const selectedFiles = Array.from(files).slice(0, 3); // Limit to 3 files
     setFormData(prevFormData => ({
       ...prevFormData,
-      [name]: files,
+      [name]: selectedFiles,
     }));
   }, []);
 

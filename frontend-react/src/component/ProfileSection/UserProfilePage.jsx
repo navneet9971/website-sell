@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const UserProfilePage = ({ userData, formData, handleChange, handleSubmit, handleFileChange }) => {
   const fileInputRef = useRef(null);

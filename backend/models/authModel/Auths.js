@@ -9,7 +9,7 @@ const AuthSchema = new Schema({
     email: { type: String, required: true, unique: true, match: [/.+@.+\..+/, 'Please fill a valid email address'] },
     password: { type: String, required: true },
     remember: { type: Boolean, require: true },
-    profilePic: { type: String, require: true },
+    profilePic: { type: String, default: '' }
 });
 
 // Password hashing middleware

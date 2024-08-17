@@ -6,6 +6,7 @@ import { FaHeartBroken, FaHeart } from "react-icons/fa";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import useCountNum from "../../globalComponent/countNumber/useCountNum";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export const LikeGrid = ({ className, children }) => {
   return (
@@ -64,7 +65,8 @@ export const LikeGridItem = ({
       )}
     >
       <div className="relative">
-        <img
+        <LazyLoadImage
+        effect="blur"
           src={img}
           width={300}
           height={50}

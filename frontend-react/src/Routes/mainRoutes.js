@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from './ProtectedRoute';
 import { AuthenticateWithRedirectCallback } from '@clerk/clerk-react';
 import LoadingScreen from '../component/ui/loading';
+import ErrorBoundary from './Errorboundary';
 
 
 // Lazy-loaded components
@@ -17,7 +18,6 @@ const BuyCodePage = lazy(() => import('../component/pages/BuyCodePage'));
 const Signup = lazy(() => import('../auth/singup/signup'));
 const Signin = lazy(() => import('../auth/signin/signin'));
 const VerifyEmail = lazy(() => import('../auth/verifyEmail/VerifyEmail'));
-const CompleteSignUpPage = lazy(() => import('../auth/CompleteSignUp/CompleteSignUpPage'));
 const UserProfile = lazy(() => import('../component/ProfileSection/UserProfile'));
 const ProductInfo = lazy(() => import('../component/productInfo/productInfo'));
 
@@ -25,6 +25,7 @@ const ProductInfo = lazy(() => import('../component/productInfo/productInfo'));
 const MainRoutes = () => {
   return (
     <div className="mt-24">
+      <ErrorBoundary>
       <Suspense fallback={<LoadingScreen />}>
         <Routes>
           <Route path="/sign-up/*" element={<Signup />} />
@@ -34,7 +35,6 @@ const MainRoutes = () => {
             path="/sso-callback"
             element={<AuthenticateWithRedirectCallback />}
           />
-          <Route path="/complete-sign-up" element={<CompleteSignUpPage />} />
           <Route path="/" element={<ExplorePage />} />
           <Route
             path="/navbar/cartInfo"
@@ -68,6 +68,7 @@ const MainRoutes = () => {
           />
         </Routes>
       </Suspense>
+      </ErrorBoundary>
     </div>
   );
 };

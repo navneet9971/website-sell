@@ -8,6 +8,7 @@ import ProductDes from './productInfoComponents/SectionTwo/ProductDes';
 import Cookies from 'js-cookie';
 import axiosInstance from '../../interceptor/axiosInstance';
 import ReviewSection from './productInfoComponents/SectionFour/ReviewSection';
+import LoadingScreen from '../ui/loading';
 
 const ProductInfoPage = () => {
   const { id } = useParams();
@@ -32,9 +33,7 @@ const ProductInfoPage = () => {
 
   if (!productInfoData) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-lg text-gray-600">Loading...</p>
-      </div>
+      <LoadingScreen />
     );
   }
 
@@ -84,7 +83,7 @@ const ProductInfoPage = () => {
       </div>
 
       <div className='flex items-start justify-start mt-20 px-8'>
-        <ReviewSection id={id} 
+        <ReviewSection id={id}
           productId={id}
         />
       </div>

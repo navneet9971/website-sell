@@ -41,7 +41,7 @@ const SellSupport = ({ productInfo }) => {
             <DialogTrigger asChild>
                 <Button variant="jump">
                     <FaHandshake size={20} />
-                    Seller Support
+                  <p className='hover:text-blue-500'>Seller Support</p>
                 </Button>
             </DialogTrigger>
 

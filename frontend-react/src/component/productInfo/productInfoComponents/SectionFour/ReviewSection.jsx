@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import img from "../../../../assets/anime.jpg";
 import axiosInstance from '../../../../interceptor/axiosInstance';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const ReviewSection = ({ productId }) => {
     const [reviewData, setReviewData] = useState([]);
@@ -48,7 +49,8 @@ const ReviewSection = ({ productId }) => {
                 <div key={index} className='mt-8'>
                  
                     <div className='flex items-center justify-start gap-4'>
-                        <img
+                        <LazyLoadImage
+                        effect="blur"
                             src={img}
                             className="w-12 h-12 rounded-full"
                             alt='review-img'

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import { AddCartBento } from "../productInfo/productInfoComponents/SectionOne/AddCart&Like/ProductAddCart";
 import { AddLikeBento } from "../productInfo/productInfoComponents/SectionOne/AddCart&Like/ProductAddLike";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 
 export const BentoGrid = ({ className, children }) => {
@@ -69,10 +70,11 @@ export const BentoGridItem = ({
       key={key}
     >
       <div className="relative">
-        <img
+        <LazyLoadImage
+        effect="blur"
           src={img}
-          width={300}
-          height={50}
+          width={257}
+          height={155}
           alt="Bento Item"
           className="h-40 object-cover"
         />
@@ -96,7 +98,7 @@ export const BentoGridItem = ({
 
 
         <div className="group-hover/bento:translate-x-2 transition duration-200">
-          <div className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200  mt-2 cursor-pointer hover:text-neutral-400" onClick={onClick}>
+          <div className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200  mt-2 cursor-pointer hover:text-neutral-400 " onClick={onClick}>
             {title}
           </div>
           <div className='flex space-x-1 mb-3'>

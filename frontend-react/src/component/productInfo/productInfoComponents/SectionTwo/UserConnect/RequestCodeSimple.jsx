@@ -41,7 +41,7 @@ const RequestCodeSimple = ({ productInfo }) => {
             <DialogTrigger asChild>
                 <Button variant="jump">
                     <FaHandshake size={20} />
-                    Request Code Sample
+                   <p className='hover:text-blue-500'>Request Code Sample </p>
                 </Button>
             </DialogTrigger>
 

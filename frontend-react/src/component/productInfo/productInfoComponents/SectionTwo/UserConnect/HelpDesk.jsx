@@ -41,7 +41,7 @@ const HelpDesk = ( {productInfo } ) => {
             <DialogTrigger asChild>
             <Button variant="jump">
             <FaHandshake size={20} />
-            Help Desk
+            <p className='hover:text-blue-500'>Help Desk</p>
           </Button>
             </DialogTrigger>
 

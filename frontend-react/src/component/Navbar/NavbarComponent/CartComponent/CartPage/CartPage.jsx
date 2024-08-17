@@ -7,6 +7,7 @@ import axiosInstance from '../../../../../interceptor/axiosInstance';
 import { useCart } from '../../../../../globalComponent/CartContext';
 import { useNavigate } from 'react-router-dom';
 import cart from "../../../../../assets/online.svg";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const CartPage = () => {
   const userId = Cookies.get("userId");
@@ -76,11 +77,12 @@ const CartPage = () => {
             {cartItems.map(item => (
               <div key={item.product_id} className='flex items-start justify-between w-full p-4 border-b'>
                 <div className='flex items-start gap-4'>
-                  <img
+                  <LazyLoadImage
                     src={item.projectImages}
                     width={170}
-                    height={170}
+                    height={100}
                     alt={item.productTitle}
+                    effect="blur"
                   />
                   <div className='flex flex-col'>
                     <h2 
@@ -104,10 +106,11 @@ const CartPage = () => {
 
             {cartItems.length === 0 && (
               <div className='flex flex-col items-center justify-center mt-8'>
-                <img 
+                <LazyLoadImage
                   src={cart}
                   width={160}
-                  height={160}
+                  height={115}
+                  effect="blur"
                 />
                 <h2 className='text-2xl font-semibold'>Your cart is empty</h2>
                 <p className='text-gray-600'>Add items to your cart to see them here.</p>

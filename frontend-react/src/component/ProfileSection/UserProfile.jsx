@@ -23,6 +23,7 @@ const UserProfile = () => {
     profilePic: '',
   });
 
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({

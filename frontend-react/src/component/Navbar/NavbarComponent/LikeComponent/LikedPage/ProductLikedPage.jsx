@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import axiosInstance from '../../../../../interceptor/axiosInstance';
 import { useLike } from '../../../../../globalComponent/LikeContext';
 import panda from "../../../../../assets/panda.svg";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const ProductLikePage = () => {
   const userId = Cookies.get("userId");
@@ -66,7 +67,8 @@ const ProductLikePage = () => {
               >
                 <div className="relative overflow-hidden rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100">
                   <div className="w-full aspect-w-16 aspect-h-10 bg-gray-100 rounded-tr-lg rounded-tl-lg overflow-hidden relative">
-                    <img
+                    <LazyLoadImage
+                    effect="blur"
                       src={item.projectImages}
                       alt="thumbnail"
                       className="group-hover:scale-95 group-hover:rounded-2xl transform object-cover transition duration-200 w-full h-[12rem]"
@@ -100,10 +102,11 @@ const ProductLikePage = () => {
 
       {!loading && likedItems.length === 0 && (
         <div className='flex flex-col items-center justify-center mt-8'>
-          <img 
+          <LazyLoadImage
+          effect="blur"
             src={panda}
             width={120}
-            height={120}
+            height={160}
           />
           <h2 className='text-2xl font-semibold'>You didn't like any product</h2>
           <p className='text-gray-600'>Like a product to see them here.</p>
@@ -115,7 +118,8 @@ const ProductLikePage = () => {
 
 const TitleComponent = ({ title, avatar }) => (
   <div className="flex items-center space-x-2 bg-yellow-500 p-1 rounded-xl">
-    <img
+    <LazyLoadImage
+    effect="blur"
       src={avatar}
       height="40"
       width="40"

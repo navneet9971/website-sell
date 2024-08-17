@@ -8,6 +8,7 @@ import AddLike from '../Navbar/NavbarComponent/LikeComponent/AddLikeButton/AddLi
 import { useNavigate } from 'react-router-dom';
 import UserAvater from "./NavbarComponent/UserAvater/UserAvater"
 import Cookies from 'js-cookie';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -20,9 +21,7 @@ export default function Navbar() {
   const handleSignUp = () => {
     navigate('/sign-up');
   };
-
-
-
+  
   return (
     <Disclosure as="nav" className="bg-gray-800 fixed top-0 left-0 right-0 z-50">
       <div className="mx-auto max-w-full px-2 sm:px-6 lg:px-8">
@@ -38,7 +37,8 @@ export default function Navbar() {
           </div>
           <div className="flex flex-1 gap-20 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <img
+              <LazyLoadImage
+                effect="blur"
                 alt="Your Company"
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                 className="h-8 w-auto"
@@ -56,14 +56,6 @@ export default function Navbar() {
               <>
                 <AddLike />
                 <AddCart />
-                {/* <button
-                  type="button"
-                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon aria-hidden="true" className="h-6 w-6" />
-                </button> */}
                 <div>
                   <UserAvater />
                 </div>

@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
         fullName: { type: String }, 
         userName: { type: String }, 
         email: { type: String },
-        profilePic: { type: String, default: ''}
+        profilePic: { type: String, default: '' }
       }
 });
 

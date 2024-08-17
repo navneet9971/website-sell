@@ -18,189 +18,289 @@ const SellCodePage = ({
   codeTypes,
   industryOptions,
   deviceOptions,
-  loading
+  loading,
 }) => {
-
   return (
-    <div>
-      <h1 className='text-center text-4xl font-bold mb-10'>Sell Your Code Form</h1>
-      {loading ? (
-         <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
-         <div className="text-xl font-semibold">Submitting...</div>
-       </div>
-      ): (
+    <div className="max-w-5xl mx-auto p-6 sm:p-6">
+      <h1 className="text-center text-4xl font-bold text-gray-900 mb-4">
+        Sell Your Code
+      </h1>
 
-   
-      <form onSubmit={handleSubmit} className='p-6 space-y-10'>
-        {/* Source Code Details Section */}
-        <div className='flex items-start justify-around'>
-          <div className='w-2/5 h-auto bg-gray-100 shadow-lg p-6'>
-            <h2 className='text-xl font-semibold mb-4'>Source Code Details</h2>
-            <div className='space-y-4'>
+      {loading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+          <div className="text-lg font-semibold text-white">Submitting...</div>
+        </div>
+      )}
+
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-8 bg-white shadow-lg rounded-lg p-8"
+      >
+        {/* Source Code Details & Features Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+              Source Code Details
+            </h2>
+            <div className="space-y-4">
               <div>
-                <label className='block text-sm font-medium'>Source Code Product Title</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Source Code Product Title
+                </label>
                 <input
-                  type='text'
-                  name='productTitle'
+                  type="text"
+                  name="productTitle"
                   value={formData.productTitle}
                   onChange={handleInputChange}
-                  className='mt-1 block w-full p-2 border rounded-md'
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
               <div>
-                <label className='block text-sm font-medium'>Source Code Description</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Source Code Description
+                </label>
                 <textarea
-                  name='codeDescription'
+                  name="codeDescription"
                   value={formData.codeDescription}
                   onChange={handleInputChange}
-                  className='mt-1 block w-full p-2 border rounded-md'
-                  rows='3'
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  rows="3"
                 />
               </div>
               <div>
-                <label className='block text-sm font-medium'>Tags</label>
-                <TagsInput value={formData.tags} onChange={handleTagsChange} inputProps={{ placeholder: 'Add a tag' }} />
+                <label className="block text-sm font-medium text-gray-700">
+                  Tags
+                </label>
+                <TagsInput
+                  value={formData.tags}
+                  onChange={handleTagsChange}
+                  inputProps={{
+                    placeholder: "Add a tag",
+                    className: "p-2 block mb-2 w-64 rounded-md shadow-sm border border-gray-300 focus:ring-blue-500 focus:border-blue-500",
+                  }}
+                />
               </div>
-              <div className='w-80'>
-      <label className="block text-sm font-medium text-gray-600">Programming Language</label>
-      <Select
-        isMulti
-        name="programmingLanguage"
-        options={languageOptions}
-        className="mt-2 block w-full"
-        value={languageOptions.filter(option => formData.programmingLanguage.includes(option.value))}
-        onChange={(selectedOptions) => handleMultiSelectChange('programmingLanguage', selectedOptions)}
-      />
-    </div>
-    <div>
-      <label className="block text-sm font-medium">
-        Select Upload Type:
-      </label>
-      <select
-        id="chooseUpload"
-        name="chooseUpload"
-        value={formData.chooseUpload}
-        onChange={handleChange}
-        className="mt-1 block w-full p-2 border rounded-md"
-      >
-        <option value="">Select the option</option>
-        {codeTypes.map((type) => (
-          <option key={type.id} value={type.name}>
-            {type.name}
-          </option>
-        ))}
-      </select>
-    </div>
-
               <div>
-              <label className='block text-sm font-medium'>How Does App work </label>
-              <TagsInput
-  value={formData.appUse}
-  onChange={handleAppUse}
-  inputProps={{ placeholder: '', className: 'w-60 border-none bg-inherit p-1 mb-8'  }} 
-/>
-
-            </div>
-
-
+                <label className="block text-sm font-medium text-gray-700">
+                  Programming Language
+                </label>
+                <Select
+                  isMulti
+                  name="programmingLanguage"
+                  options={languageOptions}
+                  className="mt-1"
+                  classNamePrefix="select"
+                  value={languageOptions.filter((option) =>
+                    formData.programmingLanguage.includes(option.value)
+                  )}
+                  onChange={(selectedOptions) =>
+                    handleMultiSelectChange("programmingLanguage", selectedOptions)
+                  }
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      borderRadius: "0.375rem",
+                      borderColor: "#d1d5db",
+                      "&:hover": { borderColor: "#d1d5db" },
+                      boxShadow: "none",
+                      padding: "4px",
+                      minHeight: "2.5rem",
+                    }),
+                    valueContainer: (base) => ({
+                      ...base,
+                      padding: "0.5rem",
+                    }),
+                  }}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Select Upload Type
+                </label>
+                <select
+                  id="chooseUpload"
+                  name="chooseUpload"
+                  value={formData.chooseUpload}
+                  onChange={handleChange}
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="">Select the option</option>
+                  {codeTypes.map((type) => (
+                    <option key={type.id} value={type.name}>
+                      {type.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  How Does App Work
+                </label>
+                <TagsInput
+                  value={formData.appUse}
+                  onChange={handleAppUse}
+                  inputProps={{
+                    placeholder: "How to app use Step by Step",
+                    className: "p-2 block mb-2 w-64 rounded-md shadow-sm border border-gray-300 focus:ring-blue-500 focus:border-blue-500",
+                  }}
+                />
+              </div>
             </div>
           </div>
-          
-          <div className='flex flex-col gap-4  w-2/5 h-auto bg-gray-100 shadow-lg p-6'>
-            <div>
-              <label className='block text-sm font-medium'>Features</label>
-              <TagsInput value={formData.features} onChange={handleFeaturesChange} 
-              inputProps={{ placeholder: 'Add a features', className: 'w-60 border-none bg-inherit p-1 mb-8' }} />
+
+          <div>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+              Features & Instructions
+            </h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Features
+                </label>
+                <TagsInput
+                  value={formData.features}
+                  onChange={handleFeaturesChange}
+                  inputProps={{
+                    placeholder: "Add a feature Step by Step",
+                    className: "p-2 block mb-2 w-64 rounded-md shadow-sm border border-gray-300 focus:ring-blue-500 focus:border-blue-500",
+                  }}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Installation Instructions
+                </label>
+                <textarea
+                  name="installationInstructions"
+                  value={formData.installationInstructions}
+                  onChange={handleInputChange}
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  rows="3"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Industry
+                </label>
+                <Select
+                  isMulti
+                  name="industry"
+                  options={industryOptions}
+                  className="mt-1"
+                  classNamePrefix="select"
+                  value={industryOptions.filter((option) =>
+                    formData.industry.includes(option.value)
+                  )}
+                  onChange={(selectedOptions) =>
+                    handleMultiSelectChange("industry", selectedOptions)
+                  }
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      borderRadius: "0.375rem",
+                      borderColor: "#d1d5db",
+                      "&:hover": { borderColor: "#d1d5db" },
+                      boxShadow: "none",
+                      padding: "4px",
+                      minHeight: "2.5rem",
+                    }),
+                    valueContainer: (base) => ({
+                      ...base,
+                      padding: "0.5rem",
+                    }),
+                  }}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Devices
+                </label>
+                <Select
+                  isMulti
+                  name="devices"
+                  options={deviceOptions}
+                  className="mt-1"
+                  classNamePrefix="select"
+                  value={deviceOptions.filter((option) =>
+                    formData.devices.includes(option.value)
+                  )}
+                  onChange={(selectedOptions) =>
+                    handleMultiSelectChange("devices", selectedOptions)
+                  }
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      borderRadius: "0.375rem",
+                      borderColor: "#d1d5db",
+                      "&:hover": { borderColor: "#d1d5db" },
+                      boxShadow: "none",
+                      padding: "4px",
+                      minHeight: "2.5rem",
+                    }),
+                    valueContainer: (base) => ({
+                      ...base,
+                      padding: "0.5rem",
+                    }),
+                  }}
+                />
+              </div>
             </div>
-           
-            <div>
-              <label className='block text-sm font-medium'>Installation Instructions</label>
-              <textarea
-                name='installationInstructions'
-                value={formData.installationInstructions}
-                onChange={handleInputChange}
-                className='mt-1 block w-full p-2 border rounded-md'
-                rows='3'
-              />
-            </div>
-            {/* <div>
-              <label className='block text-sm font-medium'>Change and Adaptation Instructions</label>
-              <textarea
-                name='adaptationInstructions'
-                value={formData.adaptationInstructions}
-                onChange={handleInputChange}
-                className='mt-1 block w-full p-2 border rounded-md'
-                rows='3'
-              />
-            </div> */}
-        <div>
-      <label className='block text-sm font-medium'>Industry</label>
-      <Select
-        isMulti
-        name='industry'
-        options={industryOptions}
-        className='mt-1 block w-full p-2 border rounded-md'
-        value={industryOptions.filter(option => formData.industry.includes(option.value))}
-        onChange={(selectedOptions) => handleMultiSelectChange('industry', selectedOptions)}
-      />
-    </div>
-    <div>
-    <label className='block text-sm font-medium'>Devices</label>
-    <Select
-      isMulti
-      name='devices'
-      options={deviceOptions}
-      className='mt-1 block w-full p-2 border rounded-md'
-      value={deviceOptions.filter(option => formData.devices.includes(option.value))}
-      onChange={(selectedOptions) => handleMultiSelectChange('devices', selectedOptions)}
-    />
-  </div>
           </div>
         </div>
 
-        {/* Visuals Section */}
-        <div className='w-full flex items-start justify-around'>
-          <div className='w-2/5 h-auto bg-blue-100 shadow-lg p-6'>
-            <h2 className='text-xl font-semibold mb-4'>Visuals</h2>
-            <div className='space-y-4'>
+        {/* Visuals & Documents Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+              Visuals
+            </h2>
+            <div className="space-y-4">
               <div>
-                <label className='block text-sm font-medium'>Live Preview URL</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Live Preview URL
+                </label>
                 <input
-                  type='url'
-                  name='livePreview'
+                  type="url"
+                  name="livePreview"
                   value={formData.livePreview}
                   onChange={handleInputChange}
-                  className='mt-1 block w-full p-2 border rounded-md'
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
               <div>
-                <label className='block text-sm font-medium'>Video URL</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  Video URL
+                </label>
                 <input
-                  type='url'
-                  name='videoUrl'
-                  value={formData.videoUrl}
+                  type="url"
+                  name="videoURL"
+                  value={formData.videoURL}
                   onChange={handleInputChange}
-                  className='mt-1 block w-full p-2 border rounded-md'
+                  className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
-              <div>
-                <label className='block text-sm font-medium'>Upload Images of Project</label>
-                <input
-                  type='file'
-                  name='images'
-                  multiple
-                  onChange={handleFileChange}
-                  className='mt-1 block w-full p-2 border rounded-md'
-                />
-              </div>
+              
             </div>
           </div>
 
-          {/* Document and Code Section */}
-          <div className='w-2/5 h-auto bg-green-100 shadow-lg p-6'>
-            <h2 className='text-xl font-semibold mb-4'>Document and Code</h2>
-            <div className='space-y-4'>
-              <div>
+          <div>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+              Documents & Files
+            </h2>
+            <div className="space-y-4">
+            <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Upload Screenshots
+                </label>
+                <input
+                  type="file"
+                  name="images"
+                  multiple
+                  onChange={handleFileChange}
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+            <div>
                 <label className='block text-sm font-medium'>Upload Installation Guide (PDF)</label>
                 <input
                   type='file'
@@ -210,68 +310,78 @@ const SellCodePage = ({
                   className='mt-1 block w-full p-2 border rounded-md'
                 />
               </div>
-              <div>
-                <label className='block text-sm font-medium'>Upload Project Code (ZIP)</label>
-                <input
-                  type='file'
-                  name='projectCode'
-                  accept='.zip'
-                  onChange={handleFileChange}
-                  className='mt-1 block w-full p-2 border rounded-md'
-                />
-              </div>
             </div>
           </div>
         </div>
 
-        <div className='flex items-start justify-around'>
-          {/* Pricing Section */}
-          <div className='w-2/5 h-auto bg-red-100 shadow-lg p-6'>
-            <h2 className='text-xl font-semibold mb-4'>Pricing</h2>
-            <div className='space-y-4'>
-              <div>
-                <label className='block text-sm font-medium'>Price</label>
-                <input
-                  type='text'
-                  name='price'
-                  value={formData.price}
-                  onChange={handleInputChange}
-                  className='mt-1 block w-full p-2 border rounded-md'
-                />
-              </div>
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='weeklyFreeCode'
-                  value='Add Product on Weekly Free Source Code'
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='text-sm font-medium'>Add Product on Weekly Free Source Code</label>
-              </div>
-              <div className='flex items-center space-x-4'>
-                <input
-                  type='checkbox'
-                  name='monthlyFreeCode'
-                  value='Add Product on Monthly Free Source Code'
-                  onChange={handleCheckboxChange}
-                  className='mt-1'
-                />
-                <label className='text-sm font-medium'>Add Product on Monthly Free Source Code</label>
-              </div>
+        {/* Pricing & Terms Section */}
+        <div>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+            Pricing & Terms
+          </h2>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Price
+              </label>
+              <input
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={handleInputChange}
+                className="mt-1 block w-48 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                min="0"
+              />
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="agreeToTerms"
+                checked={formData.agreeToTerms}
+                onChange={handleCheckboxChange}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
+              <label className="ml-2 text-sm font-medium text-gray-700">
+                I agree to the terms and conditions
+              </label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="agreeToTerms"
+                checked={formData.agreeToTerms}
+                onChange={handleCheckboxChange}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
+              <label className="ml-2 text-sm font-medium text-gray-700">
+                I agree to the terms and conditions
+              </label>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                name="agreeToTerms"
+                checked={formData.agreeToTerms}
+                onChange={handleCheckboxChange}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
+              <label className="ml-2 text-sm font-medium text-gray-700">
+                I agree to the terms and conditions
+              </label>
             </div>
           </div>
         </div>
 
-        <div className='flex justify-center mt-10'>
+        {/* Submit Button */}
+        <div className="flex justify-center mt-8">
           <button
-            type='submit'
-            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+            type="submit"
+            className="inline-flex items-center px-6 py-3 text-base font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
             Submit
           </button>
         </div>
       </form>
-         )}
     </div>
   );
 };

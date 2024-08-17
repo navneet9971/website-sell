@@ -3,6 +3,7 @@ import { Dropdown, Navbar } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 import clearCookies from '../../../../RemoveCookies/ClearCookies';
 import Cookies from 'js-cookie';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const UserAvater = () => {
   const [userObject, setUserObject] = useState(null);
@@ -40,7 +41,8 @@ const UserAvater = () => {
             arrowIcon={false}
             inline
             label={
-              <img
+              <LazyLoadImage
+              effect="blur"
               alt="User settings"
               src={userObject.profilePic}
               className='w-12 h-11 object-center rounded-full'
