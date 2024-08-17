@@ -13,7 +13,7 @@ const ImageSection = ({ productImages }) => {
       effect="blur"
         src={displayImage}
         width={600}
-        height={100}
+        height={350}
         alt="Displayed"
       />
       
@@ -24,7 +24,7 @@ const ImageSection = ({ productImages }) => {
             effect="blur"
               src={url}
               alt={`Image ${index}`}
-              width={230}
+              width={270}
               height={100}
             />
           </div>

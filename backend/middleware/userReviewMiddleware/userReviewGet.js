@@ -9,12 +9,11 @@ router.get('/review-get', async (req, res) => {
     try {
         const { productId, userId } = req.query;
 
-        // Build query to fetch reviews based on productId and userId
         const query = {};
         if (productId) query.product_id = productId; // Assuming productId is a field in UserReview
         if (userId) query.user = userId;
 
-        console.log('Query:', query);  // Debugging line
+        console.log('Query:', query);  
 
         // Fetch reviews
         const reviews = await UserReview.find(query);
@@ -23,11 +22,11 @@ router.get('/review-get', async (req, res) => {
         const userIds = [...new Set(reviews.map(review => review.user))]; // Ensure unique user IDs
 
         // Fetch user details
-        const users = await Auth.find({ _id: { $in: userIds } }).select('fullName email');
+        const users = await Auth.find({ _id: { $in: userIds } }).select('fullName email profilePic');
 
         // Create a map of user details for quick lookup
         const userMap = users.reduce((map, user) => {
-            map[user._id] = { fullName: user.fullName, email: user.email };
+            map[user._id] = { fullName: user.fullName, email: user.email, profilePic: user.profilePic };
             return map;
         }, {});
 

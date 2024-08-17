@@ -8,7 +8,7 @@ import {
     DialogTrigger,
 } from "../../../../ui/Popup";
 import { Button } from "../../../../ui/button";
-import { FaHandshake } from "react-icons/fa";
+import { TbCodeAsterisk } from "react-icons/tb";
 import axiosInstance from '../../../../../interceptor/axiosInstance';
 import { toast } from 'react-toastify';
 
@@ -39,8 +39,8 @@ const RequestCodeSimple = ({ productInfo }) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="jump">
-                    <FaHandshake size={20} />
+                <Button variant="jump" className="flex items-center gap-2">
+                    <TbCodeAsterisk size={27} className="text-blue-500"/>
                    <p className='hover:text-blue-500'>Request Code Sample </p>
                 </Button>
             </DialogTrigger>

@@ -8,7 +8,7 @@ import {
     DialogTrigger,
 } from "../../../../ui/Popup";
 import { Button } from "../../../../ui/button";
-import { FaHandshake } from "react-icons/fa";
+import { MdOutlineSupportAgent } from "react-icons/md";
 import axiosInstance from '../../../../../interceptor/axiosInstance';
 import { toast } from 'react-toastify';
 
@@ -39,8 +39,8 @@ const SellSupport = ({ productInfo }) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="jump">
-                    <FaHandshake size={20} />
+                <Button variant="jump" className="flex items-center gap-2">
+                    <MdOutlineSupportAgent size={27} className="text-red-500" />
                   <p className='hover:text-blue-500'>Seller Support</p>
                 </Button>
             </DialogTrigger>

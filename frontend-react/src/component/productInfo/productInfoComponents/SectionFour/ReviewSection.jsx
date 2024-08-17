@@ -51,7 +51,7 @@ const ReviewSection = ({ productId }) => {
                     <div className='flex items-center justify-start gap-4'>
                         <LazyLoadImage
                         effect="blur"
-                            src={img}
+                            src={review.user?.profilePic}
                             className="w-12 h-12 rounded-full"
                             alt='review-img'
                         />

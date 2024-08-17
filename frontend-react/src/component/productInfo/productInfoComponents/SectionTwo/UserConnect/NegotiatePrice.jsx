@@ -7,7 +7,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "../../../../ui/Popup";
-import { FaHandshake } from "react-icons/fa";
+import { SiLeaderprice } from "react-icons/si";
 import { Button } from "../../../../ui/button";
 import { Input } from '../../../../ui/input';
 import { Label } from "../../../../ui/label";
@@ -58,7 +58,7 @@ const NegotiatePrice = ({ productInfo }) => {
         <Dialog>
             <DialogTrigger asChild>
                 <Button variant="destructive" className="flex items-center gap-2">
-                    <FaHandshake size={20} />
+                <SiLeaderprice size={27} className="text-red-500" />
                     <p className='hover:text-blue-500'>Negotiate Price</p>
                 </Button>
             </DialogTrigger>

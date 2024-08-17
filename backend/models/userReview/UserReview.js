@@ -8,10 +8,6 @@ const ReviewSchema = new mongoose.Schema({
         ref: 'auths', 
         required: true 
       },
-      userData: { 
-        fullName: { type: String }, 
-        userName: { type: String }, 
-      },
     product_id: {type: String},
     createdAt: { type: Date, default: Date.now }
 })

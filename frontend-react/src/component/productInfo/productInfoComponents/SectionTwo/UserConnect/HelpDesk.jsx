@@ -8,7 +8,7 @@ import {
     DialogTrigger,
 } from "../../../../ui/Popup";
 import { Button } from "../../../../ui/button";
-import { FaHandshake } from "react-icons/fa";
+import { FcCustomerSupport } from "react-icons/fc";
 import axiosInstance from '../../../../../interceptor/axiosInstance';
 import { toast } from 'react-toastify';
 
@@ -39,8 +39,8 @@ const HelpDesk = ( {productInfo } ) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-            <Button variant="jump">
-            <FaHandshake size={20} />
+            <Button variant="jump" className="flex items-center gap-2">
+            <FcCustomerSupport size={27}  />
             <p className='hover:text-blue-500'>Help Desk</p>
           </Button>
             </DialogTrigger>
