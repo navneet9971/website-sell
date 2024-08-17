@@ -3,6 +3,8 @@ import PagesGrid from '../../globalComponent/PagesGrid';
 import { useNavigate } from 'react-router-dom';
 import throttle from 'lodash/throttle';
 
+const NAVIGATION_DELAY = 1000;
+
 const TrendingCodesPage = ({ userId, codesproductData = [] }) => {
   const [showAll, setShowAll] = useState(false);
   const navigate = useNavigate();
@@ -19,15 +21,20 @@ const TrendingCodesPage = ({ userId, codesproductData = [] }) => {
 
   const throttledNavigate = useMemo(() => 
     throttle((category) => {
-      setShowAll(true);
-      navigate('/homepagedata/trendingcodes', { 
-        state: { 
-          codesproductData: groupedData[category], 
-          userId,
-          category 
-        } 
-      });
-    }, 1000), [navigate, groupedData, userId]);
+      if (!groupedData[category]) return; // null check
+      try {
+        setShowAll(true);
+        navigate('/homepagedata/trendingcodes', { 
+          state: { 
+            codesproductData: groupedData[category], 
+            userId,
+            category 
+          } 
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }, NAVIGATION_DELAY), [navigate, groupedData, userId]);
 
   const handleShowCoding = (category) => {
     throttledNavigate(category);

@@ -4,18 +4,28 @@ import PagesGrid from '../../../globalComponent/PagesGrid';
 
 const TrendingCodesDetailPage = () => {
   const location = useLocation();
+  const {
+    codesproductData = [],
+    productData = [],
+    userId,
+    category = "Unknown",
+    header = ""
+  } = location.state || {};
 
-  console.log('Location state:', location.state);
-  const { codesproductData = [], userId, category = "Unknown" } = location.state || {};
 
+  // Combine the two arrays into one
+  const combinedData = [...codesproductData, ...productData];
+  // Determine what to show in the header
+  const combinedHeader = header ? header : `${category}  ${header}`;
+
+  
   return (
-    
-      <PagesGrid
-        data={codesproductData}
-        showAll={true} 
-        heading={category} 
-        userId={userId}
-      />
+    <PagesGrid
+      data={combinedData}
+      showAll={true}
+      heading={combinedHeader}
+      userId={userId}
+    />
   );
 };
 

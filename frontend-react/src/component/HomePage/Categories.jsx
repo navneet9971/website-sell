@@ -15,7 +15,6 @@ export const Categories = ( {userId, categoriesproductData} ) => {
     })
   };
 
-  console.log(userId);
 
   return (
       <PagesGrid
@@ -27,5 +26,7 @@ export const Categories = ( {userId, categoriesproductData} ) => {
       />
   );
 };
+
+export default Categories;
 
 
