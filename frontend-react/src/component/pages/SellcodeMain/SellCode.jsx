@@ -3,6 +3,7 @@ import SellCodePage from "../SellCodePage";
 import Cookies from "js-cookie";
 import axiosInstance from "../../../interceptor/axiosInstance";
 import throttle from 'lodash/throttle'; // Correct import for lodash throttle
+import { toast } from "react-toastify";
 
 const SellCode = () => {
   const userId = Cookies.get("userId");
@@ -32,6 +33,7 @@ const SellCode = () => {
   const [codeTypes, setCodeType] = useState([]);
   const [industryOptions, setIndustryOptions] = useState([]);
   const [deviceOptions, setDevicesOptions] = useState([]);
+  const [loading, setLoading] = useState(false); // Loading state
 
   // Throttle API call for languages
   const fetchLanguages = useCallback(throttle(async () => {
@@ -148,15 +150,16 @@ const SellCode = () => {
 
   const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
-
+    setLoading(true); // Show loading screen
+  
     const form = new FormData();
-
+    
     for (const key in formData) {
       if (formData.hasOwnProperty(key) && key !== "images" && key !== "installationGuide" && key !== "projectCode") {
         form.append(key, formData[key]);
       }
     }
-
+  
     for (const fileKey of ["images", "installationGuide", "projectCode"]) {
       if (formData[fileKey]) {
         for (const file of formData[fileKey]) {
@@ -164,21 +167,30 @@ const SellCode = () => {
         }
       }
     }
-
+  
     form.append("currentDate", new Date().toISOString());
-
+  
     try {
       const response = await axiosInstance.post("/api/sell", form, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+    
+      toast.success("Form submitted successfully!"); 
       console.log("Response:", response.data);
     } catch (error) {
+      if (error.response) {
+        toast.error(`Error: ${error.response.data.message || "Failed to submit form"}`);
+      } else {
+        toast.error("Network error. Please try again.");
+      }
       console.error("Error submitting form:", error);
+    }finally {
+      setLoading(false); // Hide loading screen
     }
   }, [formData]);
-
+  
   return (
     <SellCodePage
       handleSubmit={handleSubmit}
@@ -195,6 +207,7 @@ const SellCode = () => {
       codeTypes={codeTypes}
       industryOptions={industryOptions}
       deviceOptions={deviceOptions}
+      loading={loading}
     />
   );
 };

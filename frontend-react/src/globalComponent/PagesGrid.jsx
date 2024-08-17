@@ -6,7 +6,7 @@ import axiosInstance from '../interceptor/axiosInstance';
 const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
   const navigate = useNavigate();
   const [reviews, setReviews] = useState({});
-  const fetchedProductIds = useMemo(() => new Set(), []); // Track fetched reviews
+  const fetchedProductIds = useMemo(() => new Set(), []); 
   
   
   const dataToDisplay = useMemo(() => {
@@ -20,11 +20,11 @@ const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
 
   useEffect(() => {
     const fetchReviews = async () => {
-      const reviewsData = { ...reviews }; // Start with existing reviews
+      const reviewsData = { ...reviews }; 
 
       try {
         const requests = dataToDisplay
-          .filter(item => !fetchedProductIds.has(item._id)) // Only fetch if not already fetched
+          .filter(item => !fetchedProductIds.has(item._id)) 
           .map(async (item) => {
             const response = await axiosInstance(`/api/review-get?productId=${item._id}`);
             fetchedProductIds.add(item._id); 

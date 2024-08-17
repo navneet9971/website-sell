@@ -21,7 +21,7 @@ const TrendingCodesPage = ({ userId, codesproductData = [] }) => {
 
   const throttledNavigate = useMemo(() => 
     throttle((category) => {
-      if (!groupedData[category]) return; // null check
+      if (!groupedData[category]) return; 
       try {
         setShowAll(true);
         navigate('/homepagedata/trendingcodes', { 

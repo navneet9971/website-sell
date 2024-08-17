@@ -25,8 +25,18 @@ const ProductInfoPage = () => {
       });
   }, [id]);
 
+  // Scroll to top when the component mounts or when `id` changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
-  if (!productInfoData) return <div>Loading...</div>;
+  if (!productInfoData) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-lg text-gray-600">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className='mb-6'>
@@ -51,7 +61,7 @@ const ProductInfoPage = () => {
       <div className="flex items-start justify-between px-8 mt-10">
         <div className="w-5/12">
           <ProductUser
-          userId={userId}
+            userId={userId}
             productInfo={productInfoData}
             productId={id}
           />

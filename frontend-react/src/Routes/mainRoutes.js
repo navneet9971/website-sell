@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from './ProtectedRoute';
 import { AuthenticateWithRedirectCallback } from '@clerk/clerk-react';
+import LoadingScreen from '../component/ui/loading';
 
 
 // Lazy-loaded components
@@ -24,7 +25,7 @@ const ProductInfo = lazy(() => import('../component/productInfo/productInfo'));
 const MainRoutes = () => {
   return (
     <div className="mt-24">
-      <Suspense fallback={<div>Loading..</div>}>
+      <Suspense fallback={<LoadingScreen />}>
         <Routes>
           <Route path="/sign-up/*" element={<Signup />} />
           <Route path="/sign-in/*" element={<Signin />} />

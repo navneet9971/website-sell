@@ -1,69 +1,85 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../../../ui/avatar";
 import { Button } from "../../../ui/button";
-import React  from 'react';
+import React from 'react';
 import { FaUserSecret, FaHandshake } from "react-icons/fa";
 import ReviewUser from "./ReviewUser/ReviewUser";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../../../ui/Popup";
+import NegotiatePrice from "./UserConnect/NegotiatePrice";
+import RequestCodeSimple from "./UserConnect/RequestCodeSimple";
+import HelpDesk from "./UserConnect/HelpDesk";
+import SellSupport from "./UserConnect/SellSupport";
 
-const ProductUser = ({productInfo, productId}) => {
+
+
+const ProductUser = ({ productInfo, productId }) => {
 
   const handleHireDev = () => {
     alert("Please Hire Me");
   };
 
+  console.log(productInfo);
+
   return (
     <>
 
-<div className="w-[27rem] h-full border-black bg-slate-200 mb-5">
+      <div className="w-[27rem] h-full border-black bg-slate-200 mb-5">
         <h1 className='bg-blue-400 text-white font-bold text-2xl text-center'>Submit Your Review</h1>
-        
+
         <div className=" overflow-hidden">
-      <ReviewUser 
-      productId={productId}
-      />
+          <ReviewUser
+            productId={productId}
+          />
         </div>
       </div>
 
-      
+
       <div className='w-[27rem] h-full border-black bg-slate-200'>
         <h1 className='bg-blue-400 text-white font-bold text-2xl text-center'>Developer</h1>
 
         <div className='flex flex-col items-center justify-center mt-8 gap-3'>
           <Avatar className="w-20 h-20">
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage 
+            src={productInfo.userData.image} 
+            className= "object-cover"
+            />
             <AvatarFallback>Username</AvatarFallback>
           </Avatar>
           <h2 className="font-bold text-md">{productInfo.userData.userName}</h2>
           <FaUserSecret size={25} onClick={handleHireDev} className="cursor-pointer" />
 
-          <Button variant="destructive" className="flex items-center gap-2">
-            <FaHandshake size={20} />
-            Negotiate Price
-          </Button>
+          <Dialog>
+       <NegotiatePrice 
+       productInfo = {productInfo}
+       />
 
-          <Button variant="jump">
-            <FaHandshake size={20} />
-            Request Code Sample
-          </Button>
+       <RequestCodeSimple 
+       productInfo = {productInfo}
+       />
 
-          <Button variant="jump">
-            <FaHandshake size={20} />
-            Seller Support
-          </Button>
+      <SellSupport 
+      productInfo = {productInfo}
+      />
 
-          <Button variant="jump">
-            <FaHandshake size={20} />
-            Help Desk
-          </Button>
-
+          <HelpDesk 
+             productInfo = {productInfo}
+          />
+</Dialog>
 
           <div className="flex flex-col items-center justify-center gap-1">
-          <h1 className="text-sm">Project Upload Date </h1>
-          <h1 className="text-sm">{productInfo.currentDate} </h1>
+            <h1 className="text-sm">Project Upload Date </h1>
+            <h1 className="text-sm">{productInfo.currentDate} </h1>
           </div>
         </div>
       </div>
 
-     
+
     </>
   );
 };

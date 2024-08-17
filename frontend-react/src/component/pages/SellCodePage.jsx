@@ -17,12 +17,20 @@ const SellCodePage = ({
   languageOptions,
   codeTypes,
   industryOptions,
-  deviceOptions
+  deviceOptions,
+  loading
 }) => {
 
   return (
     <div>
       <h1 className='text-center text-4xl font-bold mb-10'>Sell Your Code Form</h1>
+      {loading ? (
+         <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
+         <div className="text-xl font-semibold">Submitting...</div>
+       </div>
+      ): (
+
+   
       <form onSubmit={handleSubmit} className='p-6 space-y-10'>
         {/* Source Code Details Section */}
         <div className='flex items-start justify-around'>
@@ -253,23 +261,6 @@ const SellCodePage = ({
               </div>
             </div>
           </div>
-
-          {/* Terms of Service Section */}
-          {/* <div className='w-2/5 h-auto bg-purple-100 shadow-lg p-6'>
-            <h2 className='text-xl font-semibold mb-4'>Terms of Service</h2>
-            <div className='space-y-4'>
-              <div>
-                <label className='block text-sm font-medium'>Terms of Service</label>
-                <textarea
-                  name='termsOfService'
-                  value={formData.termsOfService}
-                  onChange={handleInputChange}
-                  className='mt-1 block w-full p-2 border rounded-md'
-                  rows='3'
-                />
-              </div>
-            </div>
-          </div> */}
         </div>
 
         <div className='flex justify-center mt-10'>
@@ -280,6 +271,7 @@ const SellCodePage = ({
           </button>
         </div>
       </form>
+         )}
     </div>
   );
 };

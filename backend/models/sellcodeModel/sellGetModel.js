@@ -29,7 +29,7 @@ const sellDataSchema = new mongoose.Schema({
     fullName: { type: String }, 
     userName: { type: String }, 
     email: { type: String },
-    profilePic: { type: String }
+    image: { type: String }
   }
 });
 

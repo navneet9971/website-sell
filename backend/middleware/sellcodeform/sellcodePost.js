@@ -87,7 +87,7 @@ router.post('/sell', verifyToken, upload.fields([
         fullName: user.fullName,
         userName: user.userName,
         email: user.email,
-        image: user.image,
+        image: user.profilePic,
       }
     });
 

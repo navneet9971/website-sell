@@ -42,6 +42,10 @@ const SecondNavbar = () => {
     };
   }, []);
 
+  // Remove duplicate chooseUpload names
+  const uniqueProductData = Array.from(new Set(productData.map(product => product.chooseUpload)))
+    .map(chooseUpload => productData.find(product => product.chooseUpload === chooseUpload));
+
   return (
     <header className="bg-gray-600 shadow fixed top-12 left-0 right-0 z-40">
       <div className="flex items-center justify-start gap-20 mx-auto max-w-7xl h-6 px-4 py-5 sm:px-6 lg:px-8">
@@ -57,7 +61,7 @@ const SecondNavbar = () => {
           </div>
         ))}
         <div className="flex gap-20 relative">
-          {productData.slice(0, limit).map((product, index) => (
+          {uniqueProductData.slice(0, limit).map((product, index) => (
             <div
               key={index}
               className={`cursor-pointer font-bold ${
@@ -68,7 +72,7 @@ const SecondNavbar = () => {
               {product.chooseUpload}
             </div>
           ))}
-          {productData.length > limit && (
+          {uniqueProductData.length > limit && (
             <div className="relative" ref={dropdownRef}>
               <div
                 className="cursor-pointer font-bold text-white"
@@ -78,7 +82,7 @@ const SecondNavbar = () => {
               </div>
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-gray-700 border border-gray-500 rounded shadow-lg z-50">
-                  {productData.slice(limit).map((product, index) => (
+                  {uniqueProductData.slice(limit).map((product, index) => (
                     <div
                       key={index + limit}
                       className={`cursor-pointer px-4 py-2 text-sm font-bold text-white hover:bg-gray-600 ${
