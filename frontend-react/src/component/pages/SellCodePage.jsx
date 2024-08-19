@@ -273,13 +273,13 @@ const SellCodePage = ({
                 </label>
                 <input
                   type="url"
-                  name="videoURL"
-                  value={formData.videoURL}
+                  name="videoUrl"
+                  value={formData.videoUrl}
                   onChange={handleInputChange}
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
-              
+
             </div>
           </div>
 
@@ -288,7 +288,7 @@ const SellCodePage = ({
               Documents & Files
             </h2>
             <div className="space-y-4">
-            <div>
+              <div>
                 <label className="block text-sm font-medium text-gray-700">
                   Upload Screenshots
                 </label>
@@ -300,7 +300,7 @@ const SellCodePage = ({
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
-            <div>
+              <div>
                 <label className='block text-sm font-medium'>Upload Installation Guide (PDF)</label>
                 <input
                   type='file'
@@ -310,6 +310,30 @@ const SellCodePage = ({
                   className='mt-1 block w-full p-2 border rounded-md'
                 />
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* {Code Upload} */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+              Code Zip floder Upload
+            </h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Codes File (folder in zip)
+                </label>
+                <input
+                  type="file"
+                  name="projectCode"
+                  accept=".zip"
+                  onChange={handleFileChange}
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
             </div>
           </div>
         </div>
@@ -334,57 +358,57 @@ const SellCodePage = ({
               />
             </div>
             <div>
-        <input
-          type="checkbox"
-          name="agreeToTerms"
-          checked={formData.agreeToTerms}
-          onChange={handleCheckboxChange}
-          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-        required
-        />
-        <label className="ml-2 text-sm font-medium text-gray-700">
-          I agree to the{' '}
-          <a href="#terms" className="text-blue-600 hover:underline">
-            terms and conditions
-          </a>
-        </label>
-      </div>
+              <input
+                type="checkbox"
+                name="agreeToTerms"
+                checked={formData.agreeToTerms}
+                onChange={handleCheckboxChange}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                required
+              />
+              <label className="ml-2 text-sm font-medium text-gray-700">
+                I agree to the{' '}
+                <a href="#terms" className="text-blue-600 hover:underline">
+                  terms and conditions
+                </a>
+              </label>
+            </div>
 
-      {formData.agreeToTerms && (
-        <div id="terms" className="mt-4">
-          <h2 className="text-lg font-semibold">Terms and Conditions</h2>
-          <p className="mt-2 text-sm text-gray-700">
-            <strong>1. Introduction</strong>
-            <br />
-            Welcome to our application. These Terms and Conditions govern your use of our services and application. By accessing or using our application, you agree to comply with and be bound by these terms.
-          </p>
-          <p className="mt-2 text-sm text-gray-700">
-            <strong>2. User Responsibilities</strong>
-            <br />
-            You agree to use our services responsibly and in accordance with all applicable laws and regulations. You are responsible for maintaining the confidentiality of your account and for all activities that occur under your account.
-          </p>
-          <p className="mt-2 text-sm text-gray-700">
-            <strong>3. Intellectual Property</strong>
-            <br />
-            All content, trademarks, and other intellectual property on our application are owned by us or our licensors. You may not use any content from our application without our express written permission.
-          </p>
-          <p className="mt-2 text-sm text-gray-700">
-            <strong>4. Limitation of Liability</strong>
-            <br />
-            To the fullest extent permitted by law, we are not liable for any indirect, incidental, or consequential damages arising from your use of our application or services.
-          </p>
-          <p className="mt-2 text-sm text-gray-700">
-            <strong>5. Changes to Terms</strong>
-            <br />
-            We may update these Terms and Conditions from time to time. Your continued use of our application following any changes constitutes your acceptance of the new terms.
-          </p>
-          <p className="mt-2 text-sm text-gray-700">
-            <strong>6. Contact Us</strong>
-            <br />
-            If you have any questions or concerns about these Terms and Conditions, please contact us at [your contact information].
-          </p>
-        </div>
-      )}
+            {formData.agreeToTerms && (
+              <div id="terms" className="mt-4">
+                <h2 className="text-lg font-semibold">Terms and Conditions</h2>
+                <p className="mt-2 text-sm text-gray-700">
+                  <strong>1. Introduction</strong>
+                  <br />
+                  Welcome to our application. These Terms and Conditions govern your use of our services and application. By accessing or using our application, you agree to comply with and be bound by these terms.
+                </p>
+                <p className="mt-2 text-sm text-gray-700">
+                  <strong>2. User Responsibilities</strong>
+                  <br />
+                  You agree to use our services responsibly and in accordance with all applicable laws and regulations. You are responsible for maintaining the confidentiality of your account and for all activities that occur under your account.
+                </p>
+                <p className="mt-2 text-sm text-gray-700">
+                  <strong>3. Intellectual Property</strong>
+                  <br />
+                  All content, trademarks, and other intellectual property on our application are owned by us or our licensors. You may not use any content from our application without our express written permission.
+                </p>
+                <p className="mt-2 text-sm text-gray-700">
+                  <strong>4. Limitation of Liability</strong>
+                  <br />
+                  To the fullest extent permitted by law, we are not liable for any indirect, incidental, or consequential damages arising from your use of our application or services.
+                </p>
+                <p className="mt-2 text-sm text-gray-700">
+                  <strong>5. Changes to Terms</strong>
+                  <br />
+                  We may update these Terms and Conditions from time to time. Your continued use of our application following any changes constitutes your acceptance of the new terms.
+                </p>
+                <p className="mt-2 text-sm text-gray-700">
+                  <strong>6. Contact Us</strong>
+                  <br />
+                  If you have any questions or concerns about these Terms and Conditions, please contact us at [your contact information].
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -403,3 +427,4 @@ const SellCodePage = ({
 };
 
 export default SellCodePage;
+
