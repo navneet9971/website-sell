@@ -1,32 +1,24 @@
 const express = require('express');
 const multer = require('multer');
-const { v2: cloudinary } = require('cloudinary');
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const admin = require('firebase-admin');
+const serviceAccount = require('../../sell-code-firebase-adminsdk-r3ih9-109458c447.json');
 const router = express.Router();
 const SellData = require('../../models/sellcodeModel/sellGetModel');
 const verifyToken = require('../../models/verifyToken/verifyToken');
-const Auth = require('../../models/authModel/Auths'); 
+const Auth = require('../../models/authModel/Auths');
 
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+// Initialize Firebase Admin SDK
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  storageBucket: 'sell-code.appspot.com',
 });
 
-// Configure multer to use Cloudinary storage
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: 'uploads',
-    allowedFormats: ['jpg', 'jpeg', 'png', 'pdf', 'zip'],
-    resource_type: 'auto',
-  },
-});
+const bucket = admin.storage().bucket();
 
+// Configure multer to use memory storage
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// Middleware to parse JSON bodies
 router.use(express.json());
 
 // Route to handle sell code submission
@@ -42,10 +34,10 @@ router.post('/sell', verifyToken, upload.fields([
       appUse, livePreview, videoUrl, price, chooseUpload
     } = req.body;
 
-    // Debugging information
     console.log('Request body:', req.body);
     console.log('Request files:', req.files);
 
+    // Validate user authentication
     const { id } = req.authData;
     const user = await Auth.findById(id);
 
@@ -54,14 +46,35 @@ router.post('/sell', verifyToken, upload.fields([
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    // Handle missing files gracefully
-    const { images, installationGuide, projectCode } = req.files || {};
+    const { images = [], installationGuide = [], projectCode = [] } = req.files || {};
 
-    const parsedTags = typeof tags === 'string' ? tags.split(',') : tags;
-    const parsedFeatures = typeof features === 'string' ? features.split(',') : features;
-    const parsedDevices = typeof devices === 'string' ? devices.split(',') : devices;
-    const parsedIndustry = typeof industry === 'string' ? industry.split(',') : industry;
-    const parsedAppuse = typeof appUse === 'string' ? appUse.split(',') : appUse;
+    // Upload files to Firebase Storage
+    const uploadedFiles = await Promise.all(
+      [...images, ...installationGuide, ...projectCode].map(async file => {
+        const fileName = `${Date.now()}_${file.originalname}`;
+        const fileUpload = bucket.file(fileName);
+
+        await fileUpload.save(file.buffer, {
+          contentType: file.mimetype,
+          public: true,
+        });
+
+        const fileUrl = `https://storage.googleapis.com/${bucket.name}/${fileName}`;
+        return fileUrl;
+      })
+    );
+
+    const [imageUrls, installationGuideUrl, projectCodeUrl] = [
+      uploadedFiles.slice(0, images.length),
+      uploadedFiles[images.length] || null,
+      uploadedFiles[images.length + 1] || null,
+    ];
+
+    const parsedTags = typeof tags === 'string' ? tags.split(',').map(tag => tag.trim()) : tags;
+    const parsedFeatures = typeof features === 'string' ? features.split(',').map(feature => feature.trim()) : features;
+    const parsedDevices = typeof devices === 'string' ? devices.split(',').map(device => device.trim()) : devices;
+    const parsedIndustry = typeof industry === 'string' ? industry.split(',').map(industry => industry.trim()) : industry;
+    const parsedAppuse = typeof appUse === 'string' ? appUse.split(',').map(app => app.trim()) : appUse;
 
     const newSellData = new SellData({
       productTitle,
@@ -76,10 +89,10 @@ router.post('/sell', verifyToken, upload.fields([
       appUse: parsedAppuse,
       livePreview,
       videoUrl,
-      projectImages: images ? images.map(file => file.path) : [],
+      projectImages: imageUrls,
       price,
-      projectCode: projectCode ? projectCode[0].path : null,
-      installationGuide: installationGuide ? installationGuide[0].path : null,
+      projectCode: projectCodeUrl,
+      installationGuide: installationGuideUrl,
       user: user._id,
       currentDate: new Date().toISOString(), 
       chooseUpload,
@@ -97,6 +110,9 @@ router.post('/sell', verifyToken, upload.fields([
 
   } catch (error) {
     console.error('Error saving sell data:', error);
+    if (error.message.includes('File too large')) {
+      return res.status(400).json({ error: 'File size exceeds limit' });
+    }
     return res.status(500).json({ error: 'Server is down', details: error.message });
   }
 });
