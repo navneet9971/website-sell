@@ -78,7 +78,7 @@ const ProductInfoPage = () => {
         </div>
       </div>
 
-      <div className='flex items-start justify-start mt-10 px-8'>
+      <div className='px-8 mt-10'>
         <ReletedProduct id={id} />
       </div>
 
