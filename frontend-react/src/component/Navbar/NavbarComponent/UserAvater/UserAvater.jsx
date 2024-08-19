@@ -33,6 +33,10 @@ const UserAvater = () => {
     navigate('/userProfile', { state: { data: userObject } });
   };
 
+  const handleUserAccount = () => {
+  navigate('/accountDetails')
+  }
+
   return (
     <Navbar fluid rounded className='bg-gray-800 py-0 px-0'>
       <div className="flex md:order-2">
@@ -57,6 +61,12 @@ const UserAvater = () => {
             onClick={handleUserProfile}>
               Profile
             </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item
+            onClick={handleUserAccount}>
+              Account Details
+            </Dropdown.Item>
+
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
           </Dropdown>

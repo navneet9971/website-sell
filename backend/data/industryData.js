@@ -51,7 +51,7 @@ const industries = [
     { value: "Quantum Computing", label: "Quantum Computing" },
     { value: "3D Printing", label: "3D Printing" },
     { value: "Cloud Computing", label: "Cloud Computing" },
-    { value: "Nanotechnology", label: "Nanotechnology" }
+    { value: "Nanotechnology", label: "Nanotechnology" },
   ];
   
   module.exports = industries;

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import cart from "../../../../../assets/online.svg";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
+
 const CartPage = () => {
   const userId = Cookies.get("userId");
   const navigate = useNavigate();
@@ -61,6 +62,10 @@ const CartPage = () => {
     navigate(`/productInfo/${item.product_id}`);
     console.log(`Card with id ${item.product_id} clicked`);
   };
+
+  const makePayment = async() => {
+    alert("working on")
+  }
 
   return (
     <div className='flex items-start justify-around px-6 py-8'>
@@ -138,7 +143,11 @@ const CartPage = () => {
             <p className='text-gray-900 font-bold'>&#8377; {total.toFixed(2)}</p>
           </div>
 
-          <Button variant='outline' className='w-full font-bold text-lg'>
+          <Button 
+          variant='outline' 
+          className='w-full font-bold text-lg'
+          onClick={makePayment}
+          >
             Checkout
           </Button>
         </div>

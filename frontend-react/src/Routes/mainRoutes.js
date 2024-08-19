@@ -20,7 +20,7 @@ const Signin = lazy(() => import('../auth/signin/signin'));
 const VerifyEmail = lazy(() => import('../auth/verifyEmail/VerifyEmail'));
 const UserProfile = lazy(() => import('../component/ProfileSection/UserProfile'));
 const ProductInfo = lazy(() => import('../component/productInfo/productInfo'));
-
+const AccountDetails = lazy(() => import('../component/AccountDetails/AccountDetails'));
 
 const MainRoutes = () => {
   return (
@@ -43,6 +43,10 @@ const MainRoutes = () => {
           <Route
             path="/navbar/likeInfo"
             element={<ProtectedRoute element={<ProductLikePage />} />}
+          />
+          <Route 
+          path="/accountDetails" 
+          element= {<ProtectedRoute element={<AccountDetails />} />}
           />
           {/* SeparatePages */}
           <Route
