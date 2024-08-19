@@ -52,21 +52,21 @@ const ProductUser = ({ productInfo, productId }) => {
           </Avatar>
           <h2 className="font-bold text-md">{productInfo.userData.userName}</h2>
           <FaUserSecret size={25} onClick={handleHireDev} className="cursor-pointer" />
-            <NegotiatePrice
-              productInfo={productInfo}
-            />
+          <NegotiatePrice
+            productInfo={productInfo}
+          />
 
-            <RequestCodeSimple
-              productInfo={productInfo}
-            />
+          <RequestCodeSimple
+            productInfo={productInfo}
+          />
 
-            <SellSupport
-              productInfo={productInfo}
-            />
+          <SellSupport
+            productInfo={productInfo}
+          />
 
-            <HelpDesk
-              productInfo={productInfo}
-            />
+          <HelpDesk
+            productInfo={productInfo}
+          />
 
           <div className="flex flex-col items-center justify-center gap-1 mb-2">
             <h1 className="text-sm">Project Upload Date </h1>
