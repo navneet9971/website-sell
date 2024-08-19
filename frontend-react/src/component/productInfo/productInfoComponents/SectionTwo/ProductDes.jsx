@@ -56,22 +56,22 @@ const ProductDes = ({ description, appwork, features, tags, appUse, userName }) 
             </div>
 
             <div className='flex flex-col items-start justify-start mt-3 gap-2'>
-              <h1 className='text-xl font-bold'>Tags</h1>
-             
-              {Array.isArray(tags) && tags.length > 0 ? (
-  <p className="flex items-center justify-center">
-    {tags.map((tag, index) => (
-      <span key={index}>
-        {formatTag(tag)}
-        {index < tags.length - 1 && ', '}
-      </span>
-    ))}
-  </p>
-) : (
-  <p>No tags available</p>
-)}
+    <h1 className='text-xl font-bold'>Tags</h1>
 
-            </div>
+    {Array.isArray(tags) && tags.length > 0 ? (
+        <div className='flex flex-wrap items-center gap-2'>
+            {tags.map((tag, index) => (
+                <span key={index} className='bg-white text-xs font-semibold shadow-lg shadow-indigo-500/25 p-1 rounded'>
+                    {formatTag(tag)}
+                    {index < tags.length - 1 && ', '}
+                </span>
+            ))}
+        </div>
+    ) : (
+        <p>No tags available</p>
+    )}
+</div>
+
           </div>
         {/* ))} */}
       </div>

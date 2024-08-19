@@ -81,7 +81,7 @@ const SecondNavbar = () => {
                 Show more
               </div>
               {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-gray-700 border border-gray-500 rounded shadow-lg z-50">
+                <div className="absolute right-0 mt-2 w-48 h-96 overflow-x-hidden bg-gray-700 border border-gray-500 rounded shadow-lg z-50">
                   {uniqueProductData.slice(limit).map((product, index) => (
                     <div
                       key={index + limit}

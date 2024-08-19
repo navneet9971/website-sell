@@ -78,43 +78,46 @@ userId ={userId}
                     <h1 className='font-bold text-sm'>Programming Language</h1>
                 </div>
 
-                <div className='flex items-center gap-2 mt-2'>
-                    {languagesArray.length > 0 ? (
-                        languagesArray.map((lang, index) => (
-                            <div key={index} className='box-border font-semibold bg-white text-xs shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
-                                <h1 className=''>{lang}</h1>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No programming languages specified</p>
-                    )}
-                </div>
+                <div className='flex flex-wrap items-center gap-2 mt-2'>
+    {languagesArray.length > 0 ? (
+        languagesArray.map((lang, index) => (
+            <div key={index} className='box-border font-semibold bg-white text-xs shadow-lg shadow-indigo-500/25 p-1 rounded'>
+                <h1 className=''>{lang}</h1>
+            </div>
+        ))
+    ) : (
+        <p>No programming languages specified</p>
+    )}
+</div>
+
 
                 <div className='flex items-center justify-start gap-2 mt-6'>
                     <HiBuildingOffice2 size={20} />
                     <h1 className='font-bold text-sm'>Usability</h1>
                 </div>
 
-                <div className='flex items-center gap-2 mt-2'>
-                    {productInfo.industry.map((indu, index) => (
-                        <div key={index} className='box-border font-semibold text-xs bg-white shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
-                            <h1 className=''>{indu}</h1>
-                        </div>
-                    ))}
-                </div>
+                <div className='flex flex-wrap items-center gap-2 mt-2'>
+    {productInfo.industry.map((indu, index) => (
+        <div key={index} className='box-border font-semibold text-xs bg-white shadow-lg shadow-indigo-500/25 p-1 rounded'>
+            <h1 className=''>{indu}</h1>
+        </div>
+    ))}
+</div>
+
 
                 <div className='flex items-center justify-start gap-2 mt-6'>
                     <FcMultipleDevices size={20} />
                     <h1 className='font-bold text-sm'>Devices</h1>
                 </div>
 
-                <div className='flex items-center gap-2 mt-2'>
-                    {productInfo.devices.map((device, index) => (
-                        <div key={index} className='box-border font-semibold text-xs bg-white shadow-lg shadow-indigo-500/25 p-0.5 rounded'>
-                            <h1 className=''>{device}</h1>
-                        </div>
-                    ))}
-                </div>
+                <div className='flex flex-wrap items-center gap-2 mt-2'>
+    {productInfo.devices.map((device, index) => (
+        <div key={index} className='box-border font-semibold text-xs bg-white shadow-lg shadow-indigo-500/25 p-1 rounded'>
+            <h1 className=''>{device}</h1>
+        </div>
+    ))}
+</div>
+
 
 
                 <div className='flex flex-col items-start gap-2 mt-8 '>
