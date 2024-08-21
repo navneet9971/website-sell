@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../interceptor/axiosInstance';
 import { AccountDetailsPage } from './AccountDetailsPage';
+import BankDetails from './BankDetails';
+import IFSCHandle from './IFSCaccountHandle/IfscHandle';
 
 const RazorpayPayment = () => {
   const [amount, setAmount] = useState('');
@@ -98,6 +100,7 @@ const RazorpayPayment = () => {
       </form> */}
 
       <AccountDetailsPage />
+      <IFSCHandle />
     </div>
   );
 };

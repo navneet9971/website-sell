@@ -18,6 +18,8 @@ const userProfilePut = require('./middleware/userMiddlerWare/UserProfilePut');
 const userProfileGet = require('./middleware/userMiddlerWare/UserProfileGet');
 const programmingLanguge = require('./middleware/programmingLanguge/programmingLanguge')
 const payment = require('./middleware/paymentController/PaymentInstance');
+const accountDetails = require('./middleware/accountDetails/AccountDetails');
+const bankName = require('./middleware/accountDetails/BankNames');
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -70,6 +72,8 @@ app.use('/api', programmingLanguge)
 
 //Payment 
 app.use('/api', payment)
+app.use('/api', accountDetails)
+app.use('/api', bankName)
 
 // Error handling middleware
 app.use((err, req, res, next) => {
