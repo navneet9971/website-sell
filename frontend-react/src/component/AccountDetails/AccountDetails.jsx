@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axiosInstance from '../../interceptor/axiosInstance';
-import { AccountDetailsPage } from './AccountDetailsPage';
-import BankDetails from './BankDetails';
-import IFSCHandle from './IFSCaccountHandle/IfscHandle';
+import { useLocation } from 'react-router-dom';
 
 const RazorpayPayment = () => {
-  const [amount, setAmount] = useState('');
+  const location = useLocation();
+  const { userId, Data, productId, img, title } = location.state || {}; // Destructuring location.state
 
-  const key_id = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_PHGAUJrRKLsGa4"; // Put your actual Razorpay key ID or get it from env
+  const key_id = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_PHGAUJrRKLsGa4";
 
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -20,8 +19,8 @@ const RazorpayPayment = () => {
   };
 
   const payNow = async () => {
-    if (!amount) {
-      alert('Please enter an amount');
+    if (!Data) {
+      alert('Price not available');
       return;
     }
 
@@ -35,36 +34,40 @@ const RazorpayPayment = () => {
     try {
       // Create order by calling the server endpoint
       const { data: order } = await axiosInstance.post('/api/create-order', {
-        amount: amount, // Razorpay takes amount in rupey
+        amount: Data * 100, // Razorpay expects the amount in paise (INR = * 100)
         currency: 'INR',
-        receipt: `receipt#${Math.floor(Math.random() * 10000)}`, // Generate unique receipt
+        receipt: `receipt#${Math.floor(Math.random() * 10000)}`,
+        itemId: productId, // Attach the product ID for the order
       });
 
-    
       const options = {
-        key: key_id, // Razorpay key_id
-        amount: order.amount, // Amount is in paise
+        key: key_id,
+        amount: order.amount,
         currency: order.currency,
-        name: 'Your Company Name',
-        description: 'Test Transaction',
-        order_id: order.id, // This is the order_id created on the backend
+        name: title, // Product title
+        description: 'Payment for Code Purchase',
+        order_id: order.id, // Order ID from the backend
         handler: function (response) {
           // Verify payment after successful completion
           axiosInstance.post('/api/verify-payment', {
             razorpayPaymentId: response.razorpay_payment_id,
             razorpayOrderId: response.razorpay_order_id,
             razorpaySignature: response.razorpay_signature,
-            itemId: order.itemId, // Include itemId or product details if necessary
-          }).then(res => {
+            userId: userId, // Pass userId and other necessary data
+            productId: productId,
+            img: img,
+          })
+          .then(res => {
             alert('Payment Success!');
             // Redirect to success page or update the UI
-          }).catch(err => {
+          })
+          .catch(err => {
             console.error('Payment Verification Error', err);
             alert('Payment verification failed');
           });
         },
         prefill: {
-          name: 'John Doe', // Pre-fill customer details
+          name: 'John Doe', // Prefill can be dynamic too
           email: 'john.doe@example.com',
           contact: '9876543210'
         },
@@ -83,24 +86,12 @@ const RazorpayPayment = () => {
 
   return (
     <div>
-      {/* <h1>Razorpay Payment Gateway Integration</h1>
-      <form id="payment-form" onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor="amount">Amount:</label>
-        <input
-          type="number"
-          id="amount"
-          name="amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          required
-        />
-        <button type="button" onClick={payNow}>
-          Pay Now
-        </button>
-      </form> */}
-
-      <AccountDetailsPage />
-      <IFSCHandle />
+      <h1>{title}</h1>
+      <img src={img} alt={title} style={{ width: '200px', height: '200px' }} />
+      <p>Price: ₹{Data}</p>
+      <button onClick={payNow} style={{ padding: '10px 20px', backgroundColor: '#F37254', color: 'white', border: 'none', borderRadius: '5px' }}>
+        Buy Now
+      </button>
     </div>
   );
 };

@@ -11,7 +11,7 @@ const IFSCHandle = () => {
     district: '',
     city: '',
     address: '',
-    accountHolderName: '',
+    accountName: '',
     accountNumber: '',
     state: '',
   });
@@ -80,7 +80,8 @@ const IFSCHandle = () => {
     setSubmitSuccess('');
 
     try {
-      const response = await axiosInstance.post('/api/submit-account', form);
+      const response = await axiosInstance.post('/api/save-details', form);
+      console.log(response.data)
       setSubmitSuccess('Form submitted successfully!');
     } catch (err) {
       setSubmitError('Error submitting form.');

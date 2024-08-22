@@ -57,7 +57,11 @@ export const BentoGridItem = ({
     if (!userId) {
       navigate('/sign-up');
     } else {
-      navigate('/buy');
+      navigate('/buycode', {
+        state: {
+          Data:  price, userId, productId, img,title,
+        }
+      });
     }
   };
 

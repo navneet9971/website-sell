@@ -2,10 +2,7 @@ import React from 'react';
 
 const IFSCHandlePage = ({ handleIfscCodeChange, handleInputChange, form, loading, error, onSubmit }) => {
   return (
-    <div className="flex flex-col items-center justify-center mt-8 mb-8">
-      <div className="w-full max-w-3xl bg-white rounded shadow-lg">
-        <h1 className="text-center text-2xl font-bold mb-6">Account Details</h1>
-        <div className="bg-gray-200 p-6 flex flex-col gap-6">
+   <div>
           <form onSubmit={onSubmit}>
             <div className="space-y-4">
               <label htmlFor="ifscCode" className="block text-sm font-medium text-gray-700">
@@ -26,6 +23,7 @@ const IFSCHandlePage = ({ handleIfscCodeChange, handleInputChange, form, loading
             {error && <p className="text-red-500">{error}</p>}
 
             {form.bankName && (
+              <div>
               <div className="grid grid-cols-2 gap-6 mt-4">
                 <div className="space-y-2">
                   <label htmlFor="bankName" className="block text-sm font-medium text-gray-700">
@@ -69,7 +67,7 @@ const IFSCHandlePage = ({ handleIfscCodeChange, handleInputChange, form, loading
                   </label>
                   <input
                     type="text"
-                    name="accountHolderName"
+                    name="accountName"
                     value={form.accountHolderName}
                     onChange={handleInputChange}
                     className="block w-full border border-gray-300 rounded-md p-2"
@@ -88,20 +86,21 @@ const IFSCHandlePage = ({ handleIfscCodeChange, handleInputChange, form, loading
                   />
                 </div>
               </div>
+
+
+<div className="mt-6">
+<button
+  type="submit"
+  className="w-full py-2 px-4 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700"
+>
+  Submit
+</button>
+</div>
+</div>
             )}
 
-            <div className="mt-6">
-              <button
-                type="submit"
-                className="w-full py-2 px-4 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700"
-              >
-                Submit
-              </button>
-            </div>
           </form>
         </div>
-      </div>
-    </div>
   );
 };
 

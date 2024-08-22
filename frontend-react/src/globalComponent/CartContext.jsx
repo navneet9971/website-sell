@@ -2,7 +2,7 @@ import React, { createContext, useReducer, useEffect, useContext, useMemo, useCa
 import Cookies from 'js-cookie';
 import axiosInstance from '../interceptor/axiosInstance';
 import cartReducer from './countNumber/cartReducer';
-import throttle from 'lodash/throttle'; // Correct import for lodash throttle
+import throttle from 'lodash/throttle'; 
 
 const CartContext = createContext();
 
@@ -20,7 +20,7 @@ export const CartProvider = ({ children }) => {
                     console.error('Error fetching cart count:', error);
                 }
             }
-        }, 2000), // Throttle to avoid frequent API calls
+        }, 2000), 
         [userId]
     );
 

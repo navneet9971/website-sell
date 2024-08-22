@@ -22,16 +22,16 @@ export const LikeProvider = ({ children }) => {
                     console.error('Error fetching like count:', error);
                 }
             }
-        }, 1000), // Throttle interval of 1000ms
-    [userId]); // Include userId as a dependency
+        }, 1000),
+    [userId]); 
 
     useEffect(() => {
         throttledFetchLikeCount();
-        // Cleanup function to cancel throttling on component unmount
+     
         return () => {
             throttledFetchLikeCount.cancel();
         };
-    }, [throttledFetchLikeCount]); // Use throttledFetchLikeCount as a dependency
+    }, [throttledFetchLikeCount]);
 
     return (
         <LikeContext.Provider value={{ state, dispatch }}>

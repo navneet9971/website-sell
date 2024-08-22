@@ -14,8 +14,10 @@ router.post('/save-details', verifyToken, async( req, res ) => {
             bankName,
             branchName,
             ifscCode,
-            accountType,
-            userUpi_id,
+            city,
+            district,
+            state,
+            address,
         } = req.body;
 
 console.log(req.body)
@@ -35,8 +37,10 @@ console.log(req.body)
     bankName,
     branchName,
     ifscCode,
-    accountType,
-    userUpi_id,
+    city,
+    district,
+    state,
+    address,
     user: user._id,
     createdAt : new Date().toISOString(), 
  })

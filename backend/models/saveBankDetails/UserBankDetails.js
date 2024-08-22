@@ -5,15 +5,44 @@ const bankDetailsSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User', 
         required: true 
-      },
-    bankName: { type: String },
-    bankBranch: { type: String },
-    accountNumber: { type: String },
-    accountName: { type: String },
-    ifscCode: { type: String },
-    accountType: { type: String },
-    userUpi_id: { type: String},
-    createdAt: { type: Date, default: Date.now }
-})
+    },
+    bankName: { 
+        type: String, 
+        required: true 
+    },
+    branchName: { 
+        type: String, 
+        required: true 
+    },
+    accountNumber: { 
+      type: String, 
+      required: true, 
+      unique: true
+  },
+    accountName: { 
+        type: String, 
+        required: true 
+    },
+    ifscCode: { 
+        type: String, 
+        required: true 
+    },
+    city: { 
+        type: String 
+    },
+    district: { 
+        type: String 
+    },
+    state: { 
+        type: String 
+    },
+    address: { 
+        type: String 
+    },
+    createdAt: { 
+        type: Date, 
+        default: Date.now 
+    }
+});
 
 module.exports = mongoose.model('BankDetails', bankDetailsSchema);
