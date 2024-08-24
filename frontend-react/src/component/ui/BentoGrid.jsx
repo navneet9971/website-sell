@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { AddCartBento } from "../productInfo/productInfoComponents/SectionOne/AddCart&Like/ProductAddCart";
 import { AddLikeBento } from "../productInfo/productInfoComponents/SectionOne/AddCart&Like/ProductAddLike";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useState } from "react";
+import RazorpayPayment from "../AccountDetails/AccountDetails";
 
 
 export const BentoGrid = ({ className, children }) => {
@@ -37,10 +39,8 @@ export const BentoGridItem = ({
   productId,
   totalReview
 }) => {
-
+  const [showPaymentPopup, setShowPaymentPopup] = useState(false);
   const navigate = useNavigate()
-
-
   const priceNumber = parseFloat(price);
   const truncateNames = (names) => {
     if (names.length <= 3) {
@@ -57,12 +57,14 @@ export const BentoGridItem = ({
     if (!userId) {
       navigate('/sign-up');
     } else {
-      navigate('/buycode', {
-        state: {
-          Data: price, userId, productId, img, title,
-        }
-      });
+      setShowPaymentPopup(true);
     }
+  };
+
+  const handlePaymentSuccess = (response) => {
+    console.log('Payment successful:', response);
+    setShowPaymentPopup(false); 
+    navigate('/buyCode')
   };
 
   return (
@@ -83,7 +85,6 @@ export const BentoGridItem = ({
           className="h-40 object-cover"
         />
 
-
         <AddLikeBento
           productId={productId}
           productTitle={title}
@@ -99,7 +100,6 @@ export const BentoGridItem = ({
           projectImages={img}
           industry={industry}
         />
-
 
         <div className="group-hover/bento:translate-x-2 transition duration-200">
           <div className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200  mt-2 cursor-pointer hover:text-neutral-400 " onClick={onClick}>
@@ -151,9 +151,53 @@ export const BentoGridItem = ({
           </div>
         </div>
       </div>
+
+     {/* Popup to confirm payment */}
+     {showPaymentPopup && (
+        <Popup isOpen={showPaymentPopup} onClose={() => setShowPaymentPopup(false)} title="Confirm Payment">
+          <p>Are you sure you want to proceed with the payment?</p>
+          
+          {/* RazorpayPayment Component */}
+          <RazorpayPayment
+            price={price}
+            title={title}
+            description={description}
+            productId = {productId}
+            userId={userId}
+            img={img}
+            onSuccess={handlePaymentSuccess} 
+          />
+        </Popup>
+      )}
+
     </div>
   );
 };
+
+
+export const Popup = ({ isOpen, onClose, title, children }) => {
+  return (
+    <div
+      className={`fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex justify-center items-center transition-opacity duration-300 ${
+        isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      }`}
+    >
+      <div className="bg-white rounded-lg shadow-lg max-w-md w-full">
+        <div className="flex justify-between items-center px-4 py-2 border-b border-gray-300">
+          <h2 className="text-lg font-semibold">{title}</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600"
+          >
+            ✕
+          </button>
+        </div>
+        <div className="p-4">{children}</div>
+      </div>
+    </div>
+  );
+};
+
 
 
 

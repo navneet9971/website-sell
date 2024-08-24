@@ -66,7 +66,8 @@ const MainRoutes = () => {
           {/* Protected Routes */}
           <Route
             path="/buycode"
-            element={<ProtectedRoute element={<RazorpayPayment />} />}
+            element={<ProtectedRoute element={<BuyCodePage />} />}
+
           />
           <Route
             path="/sellcode"

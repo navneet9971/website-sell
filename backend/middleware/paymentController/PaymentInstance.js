@@ -3,7 +3,8 @@ const Razorpay = require('razorpay');
 const crypto = require('crypto');
 const router = express.Router();
 const verifyToken = require('../../models/verifyToken/verifyToken'); // Assuming you're verifying tokens
-const SellData = require('../../models/sellcodeModel/sellGetModel');
+const Purchase = require('../../models/purchaseItemData/PurchaseItem'); 
+
 
 // Setup Razorpay instance
 const razorpayInstance = new Razorpay({
@@ -50,7 +51,11 @@ router.post('/create-order', verifyToken, async (req, res) => {
 // Verify Payment Route
 router.post('/verify-payment', verifyToken, async (req, res) => {
   try {
-    const { razorpayPaymentId, razorpayOrderId, razorpaySignature } = req.body;
+    const { razorpayPaymentId, razorpayOrderId, razorpaySignature, userId, productId, img, price, title } = req.body;
+
+    if (!razorpayPaymentId || !razorpayOrderId || !razorpaySignature || !userId || !productId || !img) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
 
     // Validate Razorpay payment signature
     const generatedSignature = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
@@ -61,12 +66,27 @@ router.post('/verify-payment', verifyToken, async (req, res) => {
       return res.status(400).json({ error: 'Invalid payment signature' });
     }
 
-    // Payment verification successful
-    res.status(200).json({ message: 'Payment verified successfully', paymentId: razorpayPaymentId });
+    // Save purchase details to the database
+    const newPurchase = new Purchase({
+      userId,
+      productId,
+      img,
+      price,
+      title,
+      purchaseDate: new Date(),
+      razorpayPaymentId,
+      razorpayOrderId,
+      razorpaySignature
+    });
+
+    await newPurchase.save();
+
+    res.status(200).json({ message: 'Payment verified and purchase recorded successfully', paymentId: razorpayPaymentId });
   } catch (error) {
-    console.error('Error verifying payment:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Error verifying payment:', error); // Log detailed error
+    res.status(500).json({ error: 'Internal Server Error', message: error.message });
   }
 });
+
 
 module.exports = router;

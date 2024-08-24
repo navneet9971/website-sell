@@ -20,6 +20,8 @@ const programmingLanguge = require('./middleware/programmingLanguge/programmingL
 const payment = require('./middleware/paymentController/PaymentInstance');
 const accountDetails = require('./middleware/accountDetails/AccountDetails');
 const bankName = require('./middleware/accountDetails/BankNames');
+const buyItemData = require('./middleware/paymentController/GetPaymentData');
+
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -74,6 +76,7 @@ app.use('/api', programmingLanguge)
 app.use('/api', payment)
 app.use('/api', accountDetails)
 app.use('/api', bankName)
+app.use('/api', buyItemData)
 
 // Error handling middleware
 app.use((err, req, res, next) => {
