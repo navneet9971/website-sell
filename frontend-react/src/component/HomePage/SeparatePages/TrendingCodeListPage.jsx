@@ -1,13 +1,15 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import PagesGrid from '../../../globalComponent/PagesGrid';
+import Cookies from 'js-cookie';
 
 const TrendingCodesDetailPage = () => {
+  const userId = Cookies.get("userId")
   const location = useLocation();
   const {
     codesproductData = [],
     productData = [],
-    userId,
+    // userId = [],
     category = "Unknown",
     header = ""
   } = location.state || {};

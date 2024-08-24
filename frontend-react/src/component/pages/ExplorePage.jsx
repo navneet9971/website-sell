@@ -6,7 +6,6 @@ import { useProductData } from '../../globalComponent/SellDataContext';
 const ExplorePage = () => {
   const { productData, userId } = useProductData();
 
-  // Check if productData or userId is missing
   const hasData = productData && userId;
 
   return (

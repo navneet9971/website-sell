@@ -59,8 +59,8 @@ const RazorpayPayment = ({
               userId: userId,
               productId: productId,
               img: img,
-              price: price, // Ensure price is sent
-              title: title, // Ensure title is sent
+              price: price, 
+              title: title, 
             });
             toast.success('Payment is Done');
             if (onSuccess) {

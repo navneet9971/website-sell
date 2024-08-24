@@ -56,7 +56,7 @@ router.post('/verify-payment', verifyToken, async (req, res) => {
     if (!razorpayPaymentId || !razorpayOrderId || !razorpaySignature || !userId || !productId || !img) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
-
+  
     // Validate Razorpay payment signature
     const generatedSignature = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
       .update(razorpayOrderId + "|" + razorpayPaymentId)

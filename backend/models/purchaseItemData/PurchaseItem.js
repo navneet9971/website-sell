@@ -9,7 +9,7 @@ const purchaseSchema = new mongoose.Schema({
   razorpayOrderId: {type: String, required: true},
   razorpayPaymentId: { type: String, required: true },
   razorpaySignature: { type: String, required: true },
-  status: { type: String, enum: ['Pending', 'Success', 'Failed'], default: 'Pending' },
+//   status: { type: String, enum: ['Pending', 'Success', 'Failed'], default: 'Pending' },
   purchaseDate: { type: Date, default: Date.now }
 });
 

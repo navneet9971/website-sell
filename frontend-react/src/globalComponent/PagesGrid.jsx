@@ -8,7 +8,6 @@ const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
   const [reviews, setReviews] = useState({});
   const fetchedProductIds = useMemo(() => new Set(), []); 
   
-  
   const dataToDisplay = useMemo(() => {
     return showAll ? data : data.slice(0, 8);
   }, [data, showAll]);
