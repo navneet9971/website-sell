@@ -34,7 +34,7 @@ const UserAvater = () => {
   };
 
   const handleUserAccount = () => {
-  navigate('/accountDetails')
+  navigate('/useraccountdetails')
   }
 
   return (

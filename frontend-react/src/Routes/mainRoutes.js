@@ -6,6 +6,7 @@ import { AuthenticateWithRedirectCallback } from '@clerk/clerk-react';
 import LoadingScreen from '../component/ui/loading';
 import ErrorBoundary from './Errorboundary';
 import RazorpayPayment from '../component/AccountDetails/AccountDetails';
+import { UserAccountDetails } from '../component/AccountDetails/UserAccountDetails';
 
 
 // Lazy-loaded components
@@ -70,6 +71,10 @@ const MainRoutes = () => {
           <Route
             path="/sellcode"
             element={<ProtectedRoute element={<SellCode />} />}
+          />
+          <Route
+            path="/useraccountdetails"
+            element={<ProtectedRoute element={<UserAccountDetails />} />}
           />
         </Routes>
       </Suspense>

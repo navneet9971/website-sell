@@ -37,10 +37,10 @@ export const BentoGridItem = ({
   productId,
   totalReview
 }) => {
- 
+
   const navigate = useNavigate()
 
-  
+
   const priceNumber = parseFloat(price);
   const truncateNames = (names) => {
     if (names.length <= 3) {
@@ -59,7 +59,7 @@ export const BentoGridItem = ({
     } else {
       navigate('/buycode', {
         state: {
-          Data:  price, userId, productId, img,title,
+          Data: price, userId, productId, img, title,
         }
       });
     }
@@ -75,7 +75,7 @@ export const BentoGridItem = ({
     >
       <div className="relative">
         <LazyLoadImage
-        effect="blur"
+          effect="blur"
           src={img}
           width={257}
           height={155}
@@ -106,16 +106,16 @@ export const BentoGridItem = ({
             {title}
           </div>
           <div className='flex space-x-1 mb-3'>
-                        {[1, 2, 3, 4, 5].map((star) => (
-                            <span
-                                key={star}
-                                className={`text-sm ${star <= totalReview.overallRating ? 'text-yellow-500' : 'text-gray-400'}`}
-                            >
-                                ★
-                            </span>
-                        ))}
-                        <p className='flex items-start justify-start  mt-[.177rem] text-xs'>{totalReview.overallRating} out of 5</p>
-                    </div>
+            {[1, 2, 3, 4, 5].map((star) => (
+              <span
+                key={star}
+                className={`text-sm ${star <= totalReview.overallRating ? 'text-yellow-500' : 'text-gray-400'}`}
+              >
+                ★
+              </span>
+            ))}
+            <p className='flex items-start justify-start  mt-[.177rem] text-xs'>{totalReview.overallRating} out of 5</p>
+          </div>
           <div className="font-sans font-normal text-neutral-600 text-xs dark:text-neutral-300 mb-3 line-clamp-2 cursor-default">
             {description}
           </div>

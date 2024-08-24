@@ -8,7 +8,6 @@ const CategoriesListPage = () => {
   const { CategoriesToDisplay, userId } = location.state || {};
 
   if (!CategoriesToDisplay) {
-    // Handle the case where the data is not available, e.g., show an error or a fallback UI
     return <div>No categories available</div>;
   }
 

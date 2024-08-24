@@ -2,8 +2,7 @@ import React  from 'react';
 import IFSCHandle from './IFSCaccountHandle/IfscHandle';
 
 
-
-export const AccountDetailsPage = () => {
+export const UserAccountDetails = () => {
   return (
     <div className="flex flex-col items-center justify-center mt-2 mb-3">
       <div className="w-full max-w-3xl bg-white rounded shadow-lg">

@@ -44,22 +44,23 @@ const RazorpayPayment = () => {
         key: key_id,
         amount: order.amount,
         currency: order.currency,
-        name: title, // Product title
+        name: title,
         description: 'Payment for Code Purchase',
-        order_id: order.id, // Order ID from the backend
+        order_id: order.id, 
         handler: function (response) {
           // Verify payment after successful completion
           axiosInstance.post('/api/verify-payment', {
             razorpayPaymentId: response.razorpay_payment_id,
             razorpayOrderId: response.razorpay_order_id,
             razorpaySignature: response.razorpay_signature,
-            userId: userId, // Pass userId and other necessary data
+            userId: userId, 
             productId: productId,
             img: img,
           })
           .then(res => {
             alert('Payment Success!');
             // Redirect to success page or update the UI
+            console.log(res.data)
           })
           .catch(err => {
             console.error('Payment Verification Error', err);
@@ -67,9 +68,9 @@ const RazorpayPayment = () => {
           });
         },
         prefill: {
-          name: 'John Doe', // Prefill can be dynamic too
+          name: 'John Doe', 
           email: 'john.doe@example.com',
-          contact: '9876543210'
+          // contact: '9876543210'
         },
         theme: {
           color: '#F37254'
