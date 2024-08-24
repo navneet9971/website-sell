@@ -2,10 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { miniNavbar } from '../../data/data';
 import { useNavigate } from 'react-router-dom';
 import { useProductData } from '../../globalComponent/SellDataContext';
+import Cookies from 'js-cookie';
 
 const SecondNavbar = () => {
   const navigate = useNavigate();
   const { productData } = useProductData();
+  const userId = Cookies.get("userId")
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -20,7 +22,7 @@ const SecondNavbar = () => {
   const handleCodePage = (chooseUpload) => {
     const filteredData = productData.filter(product => product.chooseUpload === chooseUpload);
     navigate(`/homepagedata/trendingcodes`, {
-      state: { productData: filteredData, header: chooseUpload }
+      state: { productData: filteredData, header: chooseUpload, userId }
     });
   };
 

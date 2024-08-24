@@ -4,16 +4,18 @@ import PagesGrid from '../../../globalComponent/PagesGrid';
 import Cookies from 'js-cookie';
 
 const TrendingCodesDetailPage = () => {
-  const userId = Cookies.get("userId")
+  // const userId = Cookies.get("userId")
   const location = useLocation();
+
   const {
     codesproductData = [],
     productData = [],
-    // userId = [],
+    userId,
     category = "Unknown",
     header = ""
   } = location.state || {};
 
+  console.log(userId)
 
   // Combine the two arrays into one
   const combinedData = [...codesproductData, ...productData];

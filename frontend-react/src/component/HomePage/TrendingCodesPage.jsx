@@ -22,7 +22,6 @@ const TrendingCodesPage = ({ userId, codesproductData = [] }) => {
   const throttledNavigate = useMemo(() => 
     throttle((category) => {
       if (!groupedData[category]) return; 
-      console.log('Before navigation, userId:', userId);
       try {
         setShowAll(true);
         navigate('/homepagedata/trendingcodes', { 
@@ -40,6 +39,8 @@ const TrendingCodesPage = ({ userId, codesproductData = [] }) => {
   const handleShowCoding = (category) => {
     throttledNavigate(category);
   };
+
+  console.log(userId)
 
 
   return (
