@@ -52,9 +52,20 @@ router.post('/create-order', verifyToken, async (req, res) => {
 // Verify Payment Route
 router.post('/verify-payment', verifyToken, async (req, res) => {
   try {
-    const { razorpayPaymentId, razorpayOrderId, razorpaySignature, userId, productId, img, price, title } = req.body;
+    const {
+      razorpayPaymentId,
+      razorpayOrderId,
+      razorpaySignature,
+      userId,
+      productId,  // Single product ID (optional for multiple products)
+      productIds, // Array of product IDs (used when multiple products)
+      products,   // Array of detailed products
+      img,
+      price,
+      title,
+    } = req.body;
 
-    if (!razorpayPaymentId || !razorpayOrderId || !razorpaySignature || !userId || !productId || !img) {
+    if (!razorpayPaymentId || !razorpayOrderId || !razorpaySignature || !userId || (!productId && !productIds) || (!img && !products)) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
@@ -67,41 +78,79 @@ router.post('/verify-payment', verifyToken, async (req, res) => {
       return res.status(400).json({ error: 'Invalid payment signature' });
     }
 
-    // Fetch product data from SellData model
-    const product = await SellData.findById(productId);
-    if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
-    }
-
-    // Save purchase details to the database
-    const newPurchase = new Purchase({
+    let purchaseData = {
       userId,
-      productId,
+      razorpayPaymentId,
+      razorpayOrderId,
+      razorpaySignature,
       img,
       price,
       title,
       purchaseDate: new Date(),
-      razorpayPaymentId,
-      razorpayOrderId,
-      razorpaySignature,
-      productData: {
+      productId: null,
+      productIds: [],
+      products: [],
+    };
+
+    if (productId) {
+      // Handle single product purchase
+      const product = await SellData.findById(productId);
+      if (!product) {
+        return res.status(404).json({ error: 'Product not found' });
+      }
+
+      purchaseData.productId = productId;
+      purchaseData.products.push({
+        productId: product._id,
         projectCode: product.projectCode,
         livePreview: product.livePreview,
         installationGuide: product.installationGuide,
-      },
-    });
+        img: product.img,
+        price: product.price,
+        title: product.title,
+      });
+    }
 
+    if (productIds && productIds.length > 0) {
+      // Handle multiple product purchases
+      const products = await SellData.find({ _id: { $in: productIds } });
+      if (products.length === 0) {
+        return res.status(404).json({ error: 'No products found' });
+      }
+
+      purchaseData.productIds = productIds;
+      purchaseData.products = products.map(product => ({
+        productId: product._id,
+        projectCode: product.projectCode,
+        livePreview: product.livePreview,
+        installationGuide: product.installationGuide,
+        img: product.img,
+        price: product.price,
+        title: product.title,
+      }));
+    }
+
+    if (products && products.length > 0) {
+      // Handle detailed product information
+      purchaseData.products = products.map(product => ({
+        productId: product.productId,
+        projectCode: product.projectCode,
+        livePreview: product.livePreview,
+        installationGuide: product.installationGuide,
+        img: product.img,
+        price: product.price,
+        title: product.title,
+      }));
+    }
+
+    // Save purchase details to the database
+    const newPurchase = new Purchase(purchaseData);
     await newPurchase.save();
 
     res.status(200).json({
       message: 'Payment verified and purchase recorded successfully',
       paymentId: razorpayPaymentId,
-      product: {
-        title: product.title,
-        price: product.price,
-        livePreview: product.livePreview,
-        installationGuide: product.installationGuide,
-      }
+      products: purchaseData.products,
     });
   } catch (error) {
     console.error('Error verifying payment:', error);

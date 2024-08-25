@@ -96,21 +96,25 @@ export const BentoGridItem = ({
           className="h-40 object-cover"
         />
 
-        <AddLikeBento
-          productId={productId}
-          productTitle={title}
-          codedescription={description}
-          price={price}
-          projectImages={img}
-        />
+{!purchased && (
+  <>
+    <AddLikeBento
+      productId={productId}
+      productTitle={title}
+      codedescription={description}
+      price={price}
+      projectImages={img}
+    />
 
-        <AddCartBento
-          productId={productId}
-          productTitle={title}
-          price={price}
-          projectImages={img}
-          industry={industry}
-        />
+    <AddCartBento
+      productId={productId}
+      productTitle={title}
+      price={price}
+      projectImages={img}
+      industry={industry}
+    />
+  </>
+)}
 
         <div className="group-hover/bento:translate-x-2 transition duration-200">
           <div className="font-sans text-xl font-bold text-neutral-800 dark:text-neutral-200  mt-2 cursor-pointer hover:text-neutral-400 " onClick={onClick}>
@@ -157,9 +161,12 @@ export const BentoGridItem = ({
             >
              {buttonText}
             </Button>
-            <div className="text-neutral-800 font-bold text-2xl dark:text-neutral-300 cursor-default">
-              &#8377; {price}
-            </div>
+            {!purchased && (
+  <div className="text-neutral-800 font-bold text-2xl dark:text-neutral-300 cursor-default">
+    &#8377; {price}
+  </div>
+)}
+
           </div>
         </div>
       </div>

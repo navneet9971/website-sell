@@ -70,6 +70,7 @@ export const ProductAddLike = ({ productInfo, userId }) => {
             onClick={handleButtonClick}
             variant="destructive"
             className={`flex items-center gap-2 ${likedItems.includes(id) ? 'bg-pink-600' : 'bg-red-600'}`}
+            disabled={productInfo.purchased} 
         >
             {likedItems.includes(id) ? <FaGrinHearts /> : <FaHandHoldingHeart />}
             {likedItems.includes(id) ? "Loved" : "Favorites"}

@@ -37,7 +37,7 @@ export const ProductAddCart = ({ productInfo, userId }) => {
         };
 
         fetchCartItems();
-    }, [userId, dispatch]); // Added dependencies
+    }, [userId, dispatch]);
 
     const handleAddCart = async () => {
         if (!userId) {
@@ -65,8 +65,12 @@ export const ProductAddCart = ({ productInfo, userId }) => {
     };
 
     return (
-        <Button onClick={handleAddCart} variant="outline"
-            className={`flex items-center gap-2 ${cartItems.includes(id) ? 'bg-green-600' : 'bg-blue-600'} text-white`}>
+        <Button
+            onClick={handleAddCart}
+            variant="outline"
+            className={`flex items-center gap-2 ${cartItems.includes(id) ? 'bg-green-600' : 'bg-blue-600'} text-white`}
+            disabled={productInfo.purchased} 
+        >
             {cartItems.includes(id) ? <BsFillCartCheckFill /> : <FaCartPlus />}
             {cartItems.includes(id) ? 'Added' : 'Add to cart'}
         </Button>

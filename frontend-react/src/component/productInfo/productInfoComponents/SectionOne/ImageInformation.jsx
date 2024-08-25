@@ -1,52 +1,79 @@
 import { Button } from '../../../ui/button';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaComputer, FaCheck, FaFileCode, FaCircleUser, FaProductHunt  } from "react-icons/fa6";
 import { HiBuildingOffice2 } from "react-icons/hi2";
-
 
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { FcMultipleDevices } from "react-icons/fc";
-
 import ButtonLivePerview from './ButtonsSection/ButtonLivePerview';
 import ButtonVidePerview from './ButtonsSection/ButtonVidePerview';
 import ButtonUserGuide from './ButtonsSection/ButtonUserGUide';
 import {ProductAddCart} from './AddCart&Like/ProductAddCart';
 import {ProductAddLike} from './AddCart&Like/ProductAddLike';
+import RazorpayPayment from '../../../AccountDetails/AccountDetails';
+import { Popup } from '../../../ui/BentoGrid';
+import { GiCrownedSkull } from "react-icons/gi";
 
 
 const ImageInformation = ({ id, userId, productInfo }) => {
 
-   
-   
-    const navigation = useNavigate();
-
-   
-
-   
+    const navigate = useNavigate();
+    const [showPaymentPopup, setShowPaymentPopup] = useState(false);
 
 
     const handlePurchaseCode = () => {
         if (!userId) {
             toast.error('Please login first!');
-            navigation('/sign-up')
+            navigate('/sign-up');
             return;
+        } else if (productInfo.purchased) {
+            toast.success(`Download product Code`);
+            window.location.href = productInfo.projectCode;
         } else {
-            navigation(`/purchase-code/${id}`);
+            setShowPaymentPopup(true);
         }
-    }
+    };
+    
+
+    const handlePaymentSuccess = (response) => {
+        console.log('Payment successful:', response);
+        setShowPaymentPopup(false); 
+        navigate('/buyCode')
+      };
 
     // const isInCart = cartItems.includes(id);
     //languages colud be seprite her because backend they will not send with differnt index
     const languagesArray = (productInfo.programmingLanguage[0] || '').split(',').map(lang => lang.trim());
+    console.log(productInfo)
 
+    const buttonText = productInfo.purchased 
+    ? 'Code Download'
+    : 'Purchase Code'
+
+    const buttonClass = productInfo.purchased 
+    ? 'bg-green-500 text-black border-green-800 hover:bg-green-400'
+    : 'bg-blue-500 text-white border-blue-500 hover:bg-blue-600';
 
     return (
         <div className='w-full h-full border-black bg-slate-200'>
             <h1 className='bg-blue-400 text-white font-bold text-2xl px-4'>Product Information</h1>
 
             <div className='flex items-start justify-around py-3'>
-                <h1 className='text-3xl font-bold'><span>&#8377;</span>{productInfo.price}</h1>
+<h1 className={`text-3xl font-bold ${productInfo.purchased ? 'text-red-500' : ''}`}>
+    {productInfo.purchased ? (
+        <div className='flex items-center'>
+            Owned <GiCrownedSkull color="black" /> 
+        </div>
+    ) : (
+        <>
+            <span>&#8377;</span>{productInfo.price}
+        </>
+    )}
+</h1>
+
+
+
 
                 <div className='flex items-center justify-center gap-5'>
                   <ProductAddCart
@@ -156,11 +183,29 @@ userId ={userId}
                     <Button
                         variant="destructive"
                         onClick={handlePurchaseCode}
-                        className="flex items-center gap-2 w-2/3 text-white bg-blue-600 hover:bg-blue-400 hover:text-black" >
-                        <h1 className='font-bold text-2xl'> Purchase Code </h1>
+                        className={`flex items-center gap-2 w-2/3 ${buttonClass}`} >
+                        <h1 className='font-bold text-2xl'> {buttonText} </h1>
                     </Button>
                 </div>
             </div>
+
+            {showPaymentPopup && (
+        <Popup isOpen={showPaymentPopup} onClose={() => setShowPaymentPopup(false)} title="Confirm Payment">
+          <p>Are you sure you want to proceed with the payment?</p>
+          
+          {/* RazorpayPayment Component */}
+          <RazorpayPayment
+            price={productInfo.price}
+            title={productInfo.productTitle}
+            description={productInfo.description}
+            productId = {productInfo._id}
+            userId={userId}
+            img={productInfo.projectImages[0]}
+            onSuccess={handlePaymentSuccess} 
+          />
+        </Popup>
+      )}
+
         </div>
     )
 }

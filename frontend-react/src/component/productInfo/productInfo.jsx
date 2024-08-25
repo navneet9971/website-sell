@@ -11,26 +11,28 @@ import ReviewSection from './productInfoComponents/SectionFour/ReviewSection';
 import LoadingScreen from '../ui/loading';
 
 const ProductInfoPage = () => {
-  const { id } = useParams();
-  const userId = Cookies.get("userId");
+  const { id } = useParams();  
+  const userId = Cookies.get("userId"); 
   const [productInfoData, setProductInfoData] = useState(null);
 
+  // Fetch product data on component mount and when the id changes
   useEffect(() => {
-    axiosInstance.get(`/api/sell/?productId=${id}`)
+    axiosInstance.get(`/api/sell?productId=${id}&userId=${userId}`)  
       .then((response) => {
-        console.log("Response:", response.data[0]);
-        setProductInfoData(response.data[0]);
+        console.log("Response:", response.data);  
+        setProductInfoData(response.data);  
       })
       .catch((error) => {
-        console.error("Error fetching product info:", error);
+        console.error("Error fetching product info:", error);  // Log any errors
       });
-  }, [id]);
+  }, [id, userId]);  // Dependency array includes id and userId
 
-  // Scroll to top when the component mounts or when `id` changes
+  // Scroll to top when id changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
+  // If product data is not loaded yet, show loading screen
   if (!productInfoData) {
     return (
       <LoadingScreen />
@@ -44,7 +46,7 @@ const ProductInfoPage = () => {
           <ImageSection
             id={id}
             userId={userId}
-            productImages={productInfoData.projectImages || []}
+            productImages={productInfoData.projectImages || []}  // Pass images to ImageSection
           />
         </div>
 
@@ -52,7 +54,7 @@ const ProductInfoPage = () => {
           <ImageInformation
             id={id}
             userId={userId}
-            productInfo={productInfoData}
+            productInfo={productInfoData}  // Pass the entire product info to ImageInformation
           />
         </div>
       </div>
@@ -83,9 +85,7 @@ const ProductInfoPage = () => {
       </div>
 
       <div className='flex items-start justify-start mt-20 px-8'>
-        <ReviewSection id={id}
-          productId={id}
-        />
+        <ReviewSection id={id} productId={id} />
       </div>
     </div>
   );

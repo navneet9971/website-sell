@@ -8,7 +8,8 @@ import { useCart } from '../../../../../globalComponent/CartContext';
 import { useNavigate } from 'react-router-dom';
 import cart from "../../../../../assets/online.svg";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-
+import RazorpayPayment from '../../../../AccountDetails/AccountDetails';
+import { Popup } from '../../../../ui/BentoGrid';
 
 const CartPage = () => {
   const userId = Cookies.get("userId");
@@ -18,7 +19,8 @@ const CartPage = () => {
   const [tax, setTax] = useState(0);
   const [total, setTotal] = useState(0);
   const { state, dispatch } = useCart();
-  const [isLoading, setIsLoading] = useState(true); // Loading state
+  const [isLoading, setIsLoading] = useState(true);
+  const [showPaymentPopup, setShowPaymentPopup] = useState(false);
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -30,12 +32,12 @@ const CartPage = () => {
         } catch (error) {
           console.error('Error fetching cart items:', error);
         } finally {
-          setIsLoading(false); 
+          setIsLoading(false);
         }
       }
     };
 
-    setTimeout(fetchCartItems, 100); 
+    setTimeout(fetchCartItems, 100);
   }, [userId]);
 
   useEffect(() => {
@@ -63,9 +65,20 @@ const CartPage = () => {
     console.log(`Card with id ${item.product_id} clicked`);
   };
 
-  const makePayment = async() => {
-    alert("working on")
-  }
+  const makePayment = async () => {
+    setShowPaymentPopup(true);
+  };
+
+  const handlePaymentSuccess = (response) => {
+    console.log('Payment successful:', response);
+    setShowPaymentPopup(false);
+    navigate('/buyCode');
+  };
+
+  // Aggregate data for payment
+  const productIds = cartItems.map(item => item.product_id);
+  const titles = cartItems.map(item => item.productTitle);
+  const images = cartItems.map(item => item.projectImages);
 
   return (
     <div className='flex items-start justify-around px-6 py-8'>
@@ -73,7 +86,6 @@ const CartPage = () => {
         <h1 className='font-bold text-3xl mb-6'>Shopping Cart</h1>
 
         {isLoading ? (
-          // Loading view - temporary display before actual data
           <div className="text-center">
             <h2 className="text-lg text-gray-600">Loading your cart...</h2>
           </div>
@@ -144,14 +156,30 @@ const CartPage = () => {
           </div>
 
           <Button 
-          variant='outline' 
-          className='w-full font-bold text-lg'
-          onClick={makePayment}
+            variant='outline' 
+            className='w-full font-bold text-lg'
+            onClick={makePayment}
           >
             Checkout
           </Button>
         </div>
       </div>
+
+      {showPaymentPopup && (
+        <Popup isOpen={showPaymentPopup} onClose={() => setShowPaymentPopup(false)} title="Confirm Payment">
+          <p>Are you sure you want to proceed with the payment?</p>
+          
+          {/* RazorpayPayment Component */}
+          <RazorpayPayment
+            price={total.toFixed(2)}
+            title={titles}         // Array of titles
+            productIds={productIds} // Array of product IDs
+            userId={userId}
+            img={images}         // Array of images
+            onSuccess={handlePaymentSuccess} 
+          />
+        </Popup>
+      )}
     </div>
   );
 };

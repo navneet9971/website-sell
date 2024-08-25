@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const RazorpayPayment = ({
- price, title, description, img, onSuccess, productId, userId
+ price, title, description, productIds, img, onSuccess, productId, userId
 }) => {
   // const location = useLocation();
   // const {} = location.state || {}; // Destructuring location.state
@@ -58,6 +58,7 @@ const RazorpayPayment = ({
               razorpaySignature: response.razorpay_signature,
               userId: userId,
               productId: productId,
+              productIds: productIds,
               img: img,
               price: price, 
               title: title, // Ensure title is sent
