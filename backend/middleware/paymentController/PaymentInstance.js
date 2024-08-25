@@ -2,11 +2,9 @@ const express = require('express');
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
 const router = express.Router();
-const verifyToken = require('../../models/verifyToken/verifyToken'); // Assuming you're verifying tokens
+const verifyToken = require('../../models/verifyToken/verifyToken'); // Token verification middleware
 const Purchase = require('../../models/purchaseItemData/PurchaseItem'); 
 const SellData = require('../../models/sellcodeModel/sellGetModel');
-
-router.use(express.json());
 
 // Setup Razorpay instance
 const razorpayInstance = new Razorpay({
@@ -14,21 +12,22 @@ const razorpayInstance = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-console.log('Razorpay Key ID:', process.env.RAZORPAY_KEY_ID);
-console.log('Razorpay Key Secret:', process.env.RAZORPAY_KEY_SECRET);
-
-
 // Create Order Route
 router.post('/create-order', verifyToken, async (req, res) => {
   try {
-    const { amount, currency } = req.body;
-    
+    const { amount, currency, itemId } = req.body;
+
+    // Validate request
+    if (!amount || !currency) {
+      return res.status(400).json({ error: 'Amount and currency are required.' });
+    }
+
     // Generate unique order receipt
     const options = {
-      amount: amount,
+      amount: amount, // Razorpay expects amount in paise (1 INR = 100 paise)
       currency: currency,
-      receipt: `receipt_${Math.floor(Math.random() * 10000)}`, 
-      payment_capture: 1, 
+      receipt: `receipt_${Math.floor(Math.random() * 10000)}`,
+      payment_capture: 1, // Auto capture payment
     };
 
     // Create an order with Razorpay
@@ -42,7 +41,7 @@ router.post('/create-order', verifyToken, async (req, res) => {
       id: order.id,
       amount: order.amount,
       currency: order.currency,
-      itemId: req.body.itemId, 
+      itemId: itemId, // Return itemId to frontend
     });
   } catch (error) {
     console.error('Error creating order:', error);
@@ -58,7 +57,7 @@ router.post('/verify-payment', verifyToken, async (req, res) => {
     if (!razorpayPaymentId || !razorpayOrderId || !razorpaySignature || !userId || !productId || !img) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
-  
+
     // Validate Razorpay payment signature
     const generatedSignature = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
       .update(razorpayOrderId + "|" + razorpayPaymentId)
@@ -68,10 +67,11 @@ router.post('/verify-payment', verifyToken, async (req, res) => {
       return res.status(400).json({ error: 'Invalid payment signature' });
     }
 
+    // Fetch product data from SellData model
     const product = await SellData.findById(productId);
-        if (!product) {
-            return res.status(404).json({ error: 'Product not found' });
-        }
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
 
     // Save purchase details to the database
     const newPurchase = new Purchase({
@@ -85,20 +85,28 @@ router.post('/verify-payment', verifyToken, async (req, res) => {
       razorpayOrderId,
       razorpaySignature,
       productData: {
-        projectCode : product.projectCode,
-        livePreview : product.livePreview,
-        installationGuide : product.installationGuide,
+        projectCode: product.projectCode,
+        livePreview: product.livePreview,
+        installationGuide: product.installationGuide,
       },
     });
 
     await newPurchase.save();
 
-    res.status(200).json({ message: 'Payment verified and purchase recorded successfully', paymentId: razorpayPaymentId });
+    res.status(200).json({
+      message: 'Payment verified and purchase recorded successfully',
+      paymentId: razorpayPaymentId,
+      product: {
+        title: product.title,
+        price: product.price,
+        livePreview: product.livePreview,
+        installationGuide: product.installationGuide,
+      }
+    });
   } catch (error) {
-    console.error('Error verifying payment:', error); // Log detailed error
+    console.error('Error verifying payment:', error);
     res.status(500).json({ error: 'Internal Server Error', message: error.message });
   }
 });
-
 
 module.exports = router;

@@ -12,13 +12,16 @@ const BuyCodePage = () => {
 
   const [purchases, setPurchases] = useState([]);
 
+  const purchasesString = JSON.stringify(purchases);
+  Cookies.set('purchases', purchasesString);
+  
+
   useEffect(() => {
     console.log("Fetching data for userId:", userId); // Debugging line
 
     if (userId) {
       axiosInstance(`/api/user-purchases/${userId}`)
         .then((res) => {
-          console.log('Purchases data:', res.data); // Debugging line
           setPurchases(res.data);
         })
         .catch((err) => {

@@ -6,7 +6,8 @@ import { useProductData } from '../../globalComponent/SellDataContext';
 const ExplorePage = () => {
   const { productData, userId } = useProductData();
 
-  const hasData = productData && userId;
+  
+  const hasData = productData && productData.length > 0;
 
   return (
     <div className='flex flex-col items-center justify-center'>

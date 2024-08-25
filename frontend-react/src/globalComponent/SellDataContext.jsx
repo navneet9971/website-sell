@@ -15,7 +15,7 @@ export const ProductDataProvider = ({ children }) => {
   const fetchProductData = async () => {
     console.log('Fetch function called');
     try {
-      const response = await axiosInstance.get(`/api/sell`);
+      const response = await axiosInstance.get(`/api/sell`, { params: { userId } });
       console.log('Response:', response.data);
       setProductData(response.data);
     } catch (error) {
@@ -31,7 +31,7 @@ export const ProductDataProvider = ({ children }) => {
 
   useEffect(() => {
     throttledFetchProductData();
-  }, [throttledFetchProductData]); 
+  }, [throttledFetchProductData]);
 
   return (
     <ProductDataContext.Provider value={{ productData, fetchProductData: throttledFetchProductData, userId }}>

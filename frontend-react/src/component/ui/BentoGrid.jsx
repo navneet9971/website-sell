@@ -9,7 +9,7 @@ import { AddLikeBento } from "../productInfo/productInfoComponents/SectionOne/Ad
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useState } from "react";
 import RazorpayPayment from "../AccountDetails/AccountDetails";
-
+import Cookies from 'js-cookie';
 
 export const BentoGrid = ({ className, children }) => {
   return (
@@ -37,10 +37,12 @@ export const BentoGridItem = ({
   price,
   userId,
   productId,
-  totalReview
+  totalReview,
+  purchased
 }) => {
+
   const [showPaymentPopup, setShowPaymentPopup] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const priceNumber = parseFloat(price);
   const truncateNames = (names) => {
     if (names.length <= 3) {
@@ -48,7 +50,6 @@ export const BentoGridItem = ({
     }
     return `${names.slice(0, 3).join(', ')}...`;
   };
-
   const languageNames = language ? language.split(',').map(name => name.trim()) : [];
   const industryNames = industry ? industry.split(',').map(name => name.trim()) : [];
   const deviceNames = devices ? devices.split(',').map(name => name.trim()) : [];
@@ -66,6 +67,16 @@ export const BentoGridItem = ({
     setShowPaymentPopup(false); 
     navigate('/buyCode')
   };
+
+  const buttonText = purchased 
+    ? 'Owned' 
+    : (priceNumber === 0 ? 'Free' : 'Buy');
+
+    const buttonClass = purchased
+    ? 'bg-green-200 text-black border-green-800 cursor-not-allowed'
+    : 'bg-blue-500 text-white border-blue-500 hover:bg-blue-600';
+  // Disable the button if the item is purchased
+  const isDisabled = purchased;
 
   return (
     <div
@@ -140,10 +151,11 @@ export const BentoGridItem = ({
           <div className="flex justify-between items-center mt-7">
             <Button
               variant="outline"
-              className="w-24 h-10 bg-blue-500 text-white font-bold text-xl px-2 py-1 rounded-md hover:bg-blue-600 transition duration-200"
-              onClick={handleBuyItem}
+              className={`w-24 h-10 ${buttonClass} font-bold text-xl px-2 py-1 rounded-md transition duration-200`}
+              onClick={!isDisabled ? handleBuyItem : null} 
+              disabled={isDisabled} 
             >
-              {priceNumber === 0 ? 'Free' : 'Buy'}
+             {buttonText}
             </Button>
             <div className="text-neutral-800 font-bold text-2xl dark:text-neutral-300 cursor-default">
               &#8377; {price}

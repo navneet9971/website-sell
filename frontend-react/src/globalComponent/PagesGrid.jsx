@@ -73,6 +73,7 @@ const PagesGrid = ({ data, heading, userId, showAll = true, onClick }) => {
             price={item.price}
             userId={userId}
             productId={item._id}
+            purchased={item.purchased}
             totalReview={reviews[item._id] || []}
             onClick={() => handleCardClick(item)}
           />

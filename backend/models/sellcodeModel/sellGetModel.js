@@ -31,7 +31,7 @@ const sellDataSchema = new mongoose.Schema({
     userName: { type: String }, 
     email: { type: String },
     image: { type: String }
-  }
+  },
 });
 
 module.exports = mongoose.model('SellData', sellDataSchema);

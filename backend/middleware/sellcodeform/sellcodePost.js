@@ -6,6 +6,7 @@ const router = express.Router();
 const SellData = require('../../models/sellcodeModel/sellGetModel');
 const verifyToken = require('../../models/verifyToken/verifyToken');
 const Auth = require('../../models/authModel/Auths');
+const Purchase = require('../../models/purchaseItemData/PurchaseItem')
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
@@ -45,7 +46,6 @@ router.post('/sell', verifyToken, upload.fields([
       console.error('User not found:', id);
       return res.status(401).json({ error: 'Unauthorized' });
     }
-
     const { images = [], installationGuide = [], projectCode = [] } = req.files || {};
 
     // Upload files to Firebase Storage
@@ -101,7 +101,7 @@ router.post('/sell', verifyToken, upload.fields([
         userName: user.userName,
         email: user.email,
         image: user.profilePic,
-      }
+      },
     });
 
     await newSellData.save();
