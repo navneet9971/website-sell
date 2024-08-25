@@ -4,7 +4,9 @@ const crypto = require('crypto');
 const router = express.Router();
 const verifyToken = require('../../models/verifyToken/verifyToken'); // Assuming you're verifying tokens
 const Purchase = require('../../models/purchaseItemData/PurchaseItem'); 
+const SellData = require('../../models/sellcodeModel/sellGetModel');
 
+router.use(express.json());
 
 // Setup Razorpay instance
 const razorpayInstance = new Razorpay({
@@ -40,7 +42,7 @@ router.post('/create-order', verifyToken, async (req, res) => {
       id: order.id,
       amount: order.amount,
       currency: order.currency,
-      itemId: req.body.itemId, // Pass itemId if necessary
+      itemId: req.body.itemId, 
     });
   } catch (error) {
     console.error('Error creating order:', error);
@@ -66,6 +68,11 @@ router.post('/verify-payment', verifyToken, async (req, res) => {
       return res.status(400).json({ error: 'Invalid payment signature' });
     }
 
+    const product = await SellData.findById(productId);
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
     // Save purchase details to the database
     const newPurchase = new Purchase({
       userId,
@@ -76,7 +83,12 @@ router.post('/verify-payment', verifyToken, async (req, res) => {
       purchaseDate: new Date(),
       razorpayPaymentId,
       razorpayOrderId,
-      razorpaySignature
+      razorpaySignature,
+      productData: {
+        projectCode : product.projectCode,
+        livePreview : product.livePreview,
+        installationGuide : product.installationGuide,
+      },
     });
 
     await newPurchase.save();

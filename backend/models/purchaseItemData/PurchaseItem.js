@@ -3,6 +3,11 @@ const mongoose = require('mongoose');
 const purchaseSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
   productId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'SellData' },
+  productData: {
+    projectCode: {type: String},
+    livePreview: {type: String},
+    installationGuide: {type: String},
+  },
   img: { type: String, required: true },
   price: { type: Number, required: true },
   title: { type: String, required: true },

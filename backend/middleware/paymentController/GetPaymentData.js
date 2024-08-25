@@ -8,7 +8,7 @@ const Auth = require('../../models/authModel/Auths');
 // Route to fetch all purchases for a specific user
 router.get('/user-purchases/:userId', verifyToken, async (req, res) => {
   try {
-    const userId = req.params.userId; // Get userId from route params
+    const userId = req.params.userId; 
 
     // Check if userId is available
    // Validate user authentication
@@ -21,7 +21,7 @@ router.get('/user-purchases/:userId', verifyToken, async (req, res) => {
    }
 
     // Fetch all purchases for the user
-    const purchases = await Purchase.find({ userId }).populate('_id'); // Ensure `productId` is populated
+    const purchases = await Purchase.find({ userId }).populate('_id'); 
 
     if (!purchases.length) {
       return res.status(404).json({ message: 'No purchases found for this user' });
