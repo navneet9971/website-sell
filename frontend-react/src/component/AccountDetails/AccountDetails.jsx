@@ -35,6 +35,11 @@ const RazorpayPayment = ({
     }
   
     try {
+
+      const formattedImg = Array.isArray(img) ? img : [img];
+      const formattedTitle = Array.isArray(title) ? title : [title];
+
+
       // Create order by calling the server endpoint
       const { data: order } = await axiosInstance.post('/api/create-order', {
         amount: price * 100, // Razorpay expects the amount in paise (INR = * 100)
@@ -59,9 +64,9 @@ const RazorpayPayment = ({
               userId: userId,
               productId: productId,
               productIds: productIds,
-              img: img,
+              img: formattedImg,
               price: price, 
-              title: title, // Ensure title is sent
+              title: formattedTitle
             });
             toast.success('Payment is Done');
             if (onSuccess) {

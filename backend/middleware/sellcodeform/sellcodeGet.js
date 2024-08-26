@@ -5,14 +5,22 @@ const Purchase = require('../../models/purchaseItemData/PurchaseItem');
 
 router.get('/sell', async (req, res) => {
     try {
-        let { userId, productId } = req.query;
+        let { userId, productId, productIds } = req.query;
 
         // Convert "undefined" or "null" strings to actual null values
         if (userId === 'undefined' || userId === 'null') userId = null;
         if (productId === 'undefined' || productId === 'null') productId = null;
+        if (productIds === 'undefined' || productIds === 'null') productIds = null;
+
+        // Convert comma-separated string into an array if necessary
+        const productIdsArray = productIds ? productIds.split(',') : [];
 
         const query = {};
-        if (productId) query._id = productId;
+        if (productId) {
+            query._id = productId;
+        } else if (productIdsArray.length > 0) {
+            query._id = { $in: productIdsArray };
+        }
 
         // Fetch products based on query
         const sellData = await SellData.find(query);
@@ -40,10 +48,10 @@ router.get('/sell', async (req, res) => {
         }
 
         // If userId is provided, check for purchases
-        const productIds = sellData.map(item => item._id.toString());
+        const productIdsList = sellData.map(item => item._id.toString());
         const purchases = await Purchase.find({
             userId,
-            productId: { $in: productIds },
+            productId: { $in: productIdsList },
         });
 
         // Map purchase data by productId

@@ -6,11 +6,11 @@ const purchaseSchema = new mongoose.Schema({
     required: true, 
     ref: 'User' 
   },
-  productId: { // Single product ID field
+  productId: { 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'SellData' 
   },
-  productIds: [{ // Array of product IDs field
+  productIds: [{ 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'SellData' 
   }],
@@ -26,8 +26,10 @@ const purchaseSchema = new mongoose.Schema({
       type: Number, 
       required: true 
     },
+    img: [{ type: String }], // Ensure this is an array of strings
+    title: [{ type: String }] // Ensure this is an array of strings
   }],
-  img: [{ // Main images field as an array of strings
+  img: [{ 
     type: String
   }],
   price: { 
@@ -60,9 +62,8 @@ const purchaseSchema = new mongoose.Schema({
   }
 });
 
-// Adding indexes for performance
 purchaseSchema.index({ userId: 1 });
 purchaseSchema.index({ productId: 1 });
-purchaseSchema.index({ productIds: 1 }); // Index for array field
+purchaseSchema.index({ productIds: 1 });
 
 module.exports = mongoose.model('Purchase', purchaseSchema);

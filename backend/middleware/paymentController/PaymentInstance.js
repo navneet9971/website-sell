@@ -57,15 +57,15 @@ router.post('/verify-payment', verifyToken, async (req, res) => {
       razorpayOrderId,
       razorpaySignature,
       userId,
-      productId,  // Single product ID (optional for multiple products)
-      productIds, // Array of product IDs (used when multiple products)
-      products,   // Array of detailed products
+      productId,
+      productIds,
+      products,
       img,
       price,
       title,
     } = req.body;
 
-    if (!razorpayPaymentId || !razorpayOrderId || !razorpaySignature || !userId || (!productId && !productIds) || (!img && !products)) {
+    if (!razorpayPaymentId || !razorpayOrderId || !razorpaySignature || !userId || (!productId && !productIds && !products)) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
@@ -83,66 +83,68 @@ router.post('/verify-payment', verifyToken, async (req, res) => {
       razorpayPaymentId,
       razorpayOrderId,
       razorpaySignature,
-      img,
+      img: Array.isArray(img) ? img : [],
       price,
-      title,
+      title: Array.isArray(title) ? title : [],
       purchaseDate: new Date(),
       productId: null,
-      productIds: [],
+      productIds: Array.isArray(productIds) ? productIds : [],
       products: [],
     };
 
+    // Handle single product purchase
     if (productId) {
-      // Handle single product purchase
       const product = await SellData.findById(productId);
       if (!product) {
         return res.status(404).json({ error: 'Product not found' });
       }
-
+    
       purchaseData.productId = productId;
       purchaseData.products.push({
         productId: product._id,
         projectCode: product.projectCode,
         livePreview: product.livePreview,
         installationGuide: product.installationGuide,
-        img: product.img,
+        img: Array.isArray(product.projectImages) ? product.projectImages : [],
         price: product.price,
-        title: product.title,
+        title: Array.isArray(product.productTitle) ? product.productTitle : [],
       });
     }
+    
 
+    // Handle multiple product purchases
     if (productIds && productIds.length > 0) {
-      // Handle multiple product purchases
       const products = await SellData.find({ _id: { $in: productIds } });
       if (products.length === 0) {
         return res.status(404).json({ error: 'No products found' });
       }
-
+    
       purchaseData.productIds = productIds;
       purchaseData.products = products.map(product => ({
         productId: product._id,
         projectCode: product.projectCode,
         livePreview: product.livePreview,
         installationGuide: product.installationGuide,
-        img: product.img,
+        img: Array.isArray(product.projectImages) ? product.projectImages : [],
         price: product.price,
-        title: product.title,
+        title: Array.isArray(product.productTitle) ? product.productTitle : [],
       }));
     }
+    
 
+    // Handle detailed product information
     if (products && products.length > 0) {
-      // Handle detailed product information
       purchaseData.products = products.map(product => ({
         productId: product.productId,
         projectCode: product.projectCode,
         livePreview: product.livePreview,
         installationGuide: product.installationGuide,
-        img: product.img,
+        img: Array.isArray(product.img) ? product.img : [],
         price: product.price,
-        title: product.title,
+        title: Array.isArray(product.title) ? product.title : [],
       }));
     }
-
+    
     // Save purchase details to the database
     const newPurchase = new Purchase(purchaseData);
     await newPurchase.save();
