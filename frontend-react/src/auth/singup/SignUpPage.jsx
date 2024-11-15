@@ -83,7 +83,7 @@ export function SignupPage({
                             onChange={handleChange}
                         />
                         <Label htmlFor="remember">
-                            You are a 18+
+                            Remember me
                         </Label>
                     </div>
                     <Button type="submit">Sign Up</Button>
