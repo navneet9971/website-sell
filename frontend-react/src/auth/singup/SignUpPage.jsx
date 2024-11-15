@@ -76,7 +76,7 @@ export function SignupPage({
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="flex items-center gap-2">
+                    {/* <div className="flex items-center gap-2">
                         <Checkbox
                             id="remember"
                             checked={formData.remember}
@@ -85,7 +85,7 @@ export function SignupPage({
                         <Label htmlFor="remember">
                             Remember me
                         </Label>
-                    </div>
+                    </div> */}
                     <Button type="submit">Sign Up</Button>
                 </form>
 

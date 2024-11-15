@@ -51,7 +51,7 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center justify-center gap-6">
-            <ModeToggle />
+            {/* <ModeToggle /> */}
             {userId ? (
               <>
                 <AddLike />
